@@ -9,8 +9,13 @@
     <color name="weird_green">#50e570</color>
     <color name="white">#ffffff</color>
     <color name="white_two">#e2e2e2</color>
+    <color name="white_three">#fafafa</color>
     <color name="cool_green">#31ca52</color>
     <color name="bright_light_blue">#26fdff</color>
     <color name="tealish">#33d2d5</color>
     <color name="duck_egg_blue">#d2fbfb</color>
+    <color name="almost_black">#112121</color>
+    <color name="warm_grey">#979797</color>
+    <color name="black_87_two">#de322e2e</color>
+    <color name="greyish_brown">#4b4848</color>
 </resources>
