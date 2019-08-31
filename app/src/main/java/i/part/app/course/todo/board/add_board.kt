@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.ImageButton
 import androidx.fragment.app.DialogFragment
 import i.part.app.course.todo.R
 
@@ -16,7 +17,6 @@ private const val ARG_PARAM2 = "param2"
 
 
 class add_board : DialogFragment() {
-
 
     @SuppressLint("ResourceAsColor")
     override fun onCreateView(
@@ -30,7 +30,13 @@ class add_board : DialogFragment() {
         //dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         //dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_edge)
         dialog?.setCanceledOnTouchOutside(false)
-        return inflater.inflate(R.layout.fragment_add_board, container, false)
+        val view = inflater.inflate(R.layout.fragment_add_board, container, false)
+        val closeButton = view.findViewById<ImageButton>(R.id.addBoardCloseButton)
+        closeButton.setOnClickListener {
+            this.dismiss()
+        }
+
+        return view
     }
 
     companion object {

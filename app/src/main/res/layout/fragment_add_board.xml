@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white_three"
     tools:context=".board.add_board">
 
     <RelativeLayout
@@ -12,7 +13,7 @@
 
 
         <LinearLayout
-            android:id="@+id/lini2"
+            android:id="@+id/outlinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -21,32 +22,33 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
+                android:id="@+id/addBoardTitle"
                 android:background="@color/white_two">
 
                 <TextView
-                    android:id="@+id/title"
+                    android:id="@+id/addBoard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
                     android:paddingTop="4dp"
-                    android:text="Add board"
+                    android:text="@string/addBoardTitle"
                     android:textColor="@color/primaryText"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:typeface="sans"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                    app:layout_constraintEnd_toStartOf="@+id/addBoardCloseButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/addBoardCloseButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="24dp"
                     android:background="@color/white_two"
                     android:src="@drawable/ic_close_black_24dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/title"
+                    app:layout_constraintBottom_toBottomOf="@+id/addBoard"
                     app:layout_constraintEnd_toEndOf="parent" />
 
 
@@ -61,7 +63,7 @@
                 >
 
                 <EditText
-                    android:id="@+id/boardName"
+                    android:id="@+id/boardNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -70,8 +72,8 @@
                     android:fontFamily="sans-serif-medium"
                     android:inputType="textPersonName"
                     android:letterSpacing="0.01"
-                    android:text="Board name"
-                    android:textColor="#deb0afaf"
+                    android:hint="@string/AddBoardBoardName"
+                    android:textColor="@color/greyish_87"
                     android:textSize="16sp"
                     android:textStyle="normal" />
 
@@ -89,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
                         android:letterSpacing="0.01"
-                        android:text="Owner : "
+                        android:text="@string/addBoardOwner"
                         android:textColor="@color/black_87_two"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -106,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
                         android:letterSpacing="0.01"
-                        android:text="Ali Mohammadi"
+                        android:text="@string/AddBoardOwnerName"
                         android:textColor="@color/black_87_two"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -134,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:letterSpacing="0.01"
-                        android:text="Assign to : "
+                        android:text="@string/addBoardAssignTo"
                         android:textColor="@color/black_87_two"
                         android:textSize="16sp"
                         android:textStyle="normal"
@@ -152,18 +154,19 @@
                         android:layout_marginRight="7dp"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/imageButton3"
+                        app:layout_constraintEnd_toStartOf="@id/addBoardPlusButton"
                         app:layout_constraintStart_toEndOf="@+id/assignTo"
                         tools:ignore="MissingConstraints">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/avatarsRecyclerView"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"></androidx.recyclerview.widget.RecyclerView>
                     </LinearLayout>
 
                     <ImageButton
-                        android:id="@+id/imageButton3"
+                        android:id="@+id/addBoardPlusButton"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_outline_indeterminate_check_box_24"
@@ -172,6 +175,7 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/lini3"
                         app:layout_constraintTop_toTopOf="@+id/assignTo"
+                        android:background="@color/white_three"
                         tools:ignore="MissingConstraints" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -182,7 +186,6 @@
                 <!--            />-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constrain3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -196,12 +199,12 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:letterSpacing="0.01"
-                        android:text="Background picture:"
+                        android:text="@string/addBoardBackground_picture_text"
                         android:textColor="#4b4848"
                         android:textSize="16sp"
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/browseBackground"
+                        app:layout_constraintEnd_toStartOf="@+id/addBoardBrowseButton"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintHorizontal_weight="2"
@@ -210,13 +213,13 @@
                         tools:ignore="MissingConstraints" />
 
                     <Button
-                        android:id="@+id/browseBackground"
+                        android:id="@+id/addBoardBrowseButton"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="27dp"
                         android:background="@drawable/custom_button"
                         android:fontFamily="sans-serif-medium"
                         android:letterSpacing="0.01"
-                        android:text="Browse"
+                        android:text="@string/addBoardBrowseButton"
                         android:textAllCaps="false"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp"
@@ -240,43 +243,43 @@
 
 
                     <ImageButton
-                        android:id="@+id/imageButton"
+                        android:id="@+id/addBoardMinusButton"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_minus_check_box"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                        android:background="@color/white_three"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/textView9"
-                        app:layout_constraintTop_toTopOf="@+id/textView9"
+                        app:layout_constraintBottom_toBottomOf="@+id/addBoardBackgroundPicture"
+                        app:layout_constraintStart_toEndOf="@+id/addBoardBackgroundPicture"
                         app:layout_constraintVertical_bias="0.333"
+                        app:layout_constraintTop_toTopOf="@+id/addBoardBackgroundPicture"
                         tools:ignore="MissingConstraints" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/addBoardBackgroundPicture"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="19dp"
                         android:layout_marginRight="19dp"
                         android:fontFamily="sans-serif-medium"
                         android:letterSpacing="0.01"
-                        android:text="right"
                         android:textColor="@color/greyish_brown"
                         android:textSize="16sp"
                         android:textStyle="normal"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                        android:text="@string/addBoardBGName"
+                        app:layout_constraintBottom_toBottomOf="@+id/addBoardBGImage"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/imageView"
-                        app:layout_constraintTop_toTopOf="@+id/imageView"
+                        app:layout_constraintEnd_toStartOf="@+id/addBoardMinusButton"
+                        app:layout_constraintStart_toEndOf="@+id/addBoardBGImage"
                         tools:ignore="MissingConstraints"
-                        tools:text="Background1.jpg" />
+                        app:layout_constraintTop_toTopOf="@+id/addBoardBGImage" />
 
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/addBoardBGImage"
                         android:layout_width="59dp"
                         android:layout_height="59dp"
-                        app:layout_constraintEnd_toStartOf="@+id/textView9"
+                        app:layout_constraintEnd_toStartOf="@+id/addBoardBackgroundPicture"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:srcCompat="@drawable/round_green_button"
@@ -298,7 +301,7 @@
                 android:gravity="center"
                 android:letterSpacing="0.01"
                 android:padding="10dp"
-                android:text="Confrim"
+                android:text="@string/addBoardConfrimButton"
                 android:textAllCaps="false"
                 android:textColor="@color/almost_black"
                 android:textSize="20sp"
