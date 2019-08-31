@@ -6,7 +6,7 @@
     <string name="addBoardBGName">Background1.jpg</string>
     <string name="addBoardBrowseButton">Browse</string>
     <string name="addBoardBackground_picture_text">Background picture:</string>
-    <string name="addBoardAssignTo">Assign to :</string>
+    <string name="addBoardAssignTo">Assign to : </string>
     <string name="AddBoardOwnerName">Ali Mohammadi</string>
     <string name="addBoardOwner">Owner :</string>
     <string name="AddBoardBoardName">Board name</string>
