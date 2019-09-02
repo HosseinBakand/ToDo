@@ -1,4 +1,4 @@
-package i.part.app.course.todo.board
+package i.part.app.course.todo.core.util.ui
 
 import android.graphics.*
 import com.squareup.picasso.Transformation
