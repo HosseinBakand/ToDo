@@ -10,4 +10,11 @@
         <item name="titleTextColor">@color/primaryText</item>
     </style>
 
+    <style name="popupmenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:foregroundGravity">center</item>
+    </style>
 </resources>
