@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "i.part.app.course.todo2"
+        applicationId "i.part.app.course.todo"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
