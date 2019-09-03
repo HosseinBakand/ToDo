@@ -14,4 +14,6 @@
     <string name="profile_change_password">Change password</string>
     <string name="profile_confirm_button">Confirm</string>
     <string name="register_register_button">Register</string>
+    <string name="login_register_button">Login</string>
+    <string name="register_new_account">Register new Account</string>
 </resources>
