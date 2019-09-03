@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/addMember2_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:fontFamily="sans-serif"
+
+            android:letterSpacing="0.01"
+            android:textColor="@color/primaryText"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:theme="@style/Widget.AppCompat.ActionBar"
+            app:layout_constraintBottom_toTopOf="@id/addMember2_nowMember"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:title="@string/add_member_title_text" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/addMember2_nowMember"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/b_add_member"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addMember2_toolbar">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/b_add_member"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/duck_egg_blue"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:insetBottom="0dp"
+            android:letterSpacing="0.01"
+            android:padding="10dp"
+            android:text="@string/add_member_2_bottom_button"
+            android:textAllCaps="false"
+            android:textColor="@color/almost_black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addMember2_nowMember" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
