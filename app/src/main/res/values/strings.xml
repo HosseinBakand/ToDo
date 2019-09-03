@@ -11,4 +11,7 @@
     <string name="profile_information">Information</string>
     <string name="profile_change_password">Change password</string>
     <string name="profile_confirm_button">Confirm</string>
+    <string name="task_item_todo_list_name">list name</string>
+    <string name="task_item_add_task_button_text">Add task</string>
+    <string name="board_menu_add_member">Add member</string>
 </resources>
