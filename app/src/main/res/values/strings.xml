@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Todo</string>
+    <string name="add_member_title_text">Add Member</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profile_toolbar_title">Profile</string>
     <string name="profile_hint_email">Email</string>
@@ -13,6 +15,9 @@
     <string name="profile_information">Information</string>
     <string name="profile_change_password">Change password</string>
     <string name="profile_confirm_button">Confirm</string>
+    <string name="add_member_2_bottom_button">Add Member</string>
+    <string name="add_member_3_title">Add member</string>
+    <string name="add_member_3_searcch">Search for more member</string>
     <string name="register_register_button">Register</string>
     <string name="login_register_button">Login</string>
     <string name="register_new_account">Register new Account</string>
