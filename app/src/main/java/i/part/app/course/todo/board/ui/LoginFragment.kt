@@ -13,7 +13,7 @@ import i.part.app.course.todo.R
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class RegisterFragment : Fragment() {
+class LoginFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
@@ -31,8 +31,11 @@ class RegisterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val myView = inflater.inflate(R.layout.fragment_register, container, false)
+        val myView = inflater.inflate(R.layout.fragment_login, container, false)
+
         return myView
+
+
     }
 
     fun onButtonPressed(uri: Uri) {
