@@ -96,7 +96,7 @@ class DashBoardFragment : Fragment() {
         myTasks.add(Task("board4", 81, 118, 498, "done"))
         myTasks.add(Task("board5", 12, 118, 34, "done"))
         myTasks.add(Task("board6", 55, 118, 23, "todo"))
-        mAdapter = BoardRecyclerAdapter(context!!, myTasks, Picasso.get())
+        context?.let { mAdapter = BoardRecyclerAdapter(it, myTasks, Picasso.get()) }
         recyclerView.let { it.adapter = mAdapter }
         return myView
 
