@@ -86,15 +86,17 @@ class AddMember2 : Fragment() {
         list.add(AddMember2Item("Robert Phillips", "Android Developer"))
         list.add(AddMember2Item("Albert Stewart", "Web Developer"))
         list.add(AddMember2Item("Wayne Diaz", "Junior Developer"))
-
-        mAdapter = AddMember2Adapter(context!!, list)
-
+        context?.let {
+            mAdapter = AddMember2Adapter(it, list)
+        }
         recyclerView.adapter = mAdapter
         val button = view.findViewById<Button>(R.id.b_add_member)
         button.setOnClickListener {
             val fm = fragmentManager
             val editNameDialogFragment = AddMember3Fragment.newInstance()
-            editNameDialogFragment.show(fm!!, "fragment_edit_name")
+            fm?.let {
+                editNameDialogFragment.show(it, "fragment_edit_name")
+            }
         }
         val toolbar = view.findViewById<MaterialToolbar>(R.id.addMember2_toolbar)
 
