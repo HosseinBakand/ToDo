@@ -6,11 +6,11 @@ import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.task_list.data.TodoList
-import kotlinx.android.synthetic.main.board_fragmnet.*
 
 class Board : Fragment() {
 
@@ -26,10 +26,9 @@ class Board : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val inflatedView = inflater.inflate(R.layout.board_fragmnet, container, false)
+        val inflatedView = inflater.inflate(R.layout.board_fragment, container, false)
         recyclerView = inflatedView.findViewById<RecyclerView>(R.id.board_fragment_recycler_view)
         recyclerView.let {
-            it.setHasFixedSize(true)
             it.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             todoLists.apply {
                 add(TodoList("todoList1", true))
@@ -61,6 +60,11 @@ class Board : Fragment() {
                 popup.show()
             }
         }
+        val recycler = inflatedView.findViewById<RecyclerView>(R.id.board_fragment_recycler_view)
+        val snapHelper = LinearSnapHelper()
+        recycler.clipToPadding =false
+        recycler.setPadding(108,recycler.paddingTop,108,recycler.paddingBottom)
+        snapHelper.attachToRecyclerView(recyclerView)
         return inflatedView
     }
 

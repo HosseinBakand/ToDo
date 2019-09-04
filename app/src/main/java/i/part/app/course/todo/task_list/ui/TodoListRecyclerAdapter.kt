@@ -54,10 +54,13 @@ class TodoListRecyclerAdapter(private val context: Context, private val todoList
         holder.subTaskRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
 
         subtasks.apply {
-            add(SubTask("GREAT",true))
+
             add(SubTask("Awesome",true))
             add(SubTask("Marvelous",true))
             add(SubTask("Spectacular",true))
+            add(SubTask("Awesome",true))
+            add(SubTask("Marvelous",true))
+            add(SubTask("Awesome",true))
         }
 
         var allCompleted = true
@@ -67,6 +70,8 @@ class TodoListRecyclerAdapter(private val context: Context, private val todoList
                 break
             }
         }
+        if(subtasks.size == 0)
+            allCompleted = false
 
         holder.allTasksDoneTextView.visibility =
             if (allCompleted) View.VISIBLE else View.GONE
