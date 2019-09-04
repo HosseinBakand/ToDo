@@ -116,8 +116,9 @@ class AddMember3Fragment : DialogFragment() {
 //        list.add(AddMember3Item("", "26",false))
 //        list.add(AddMember3Item("", "27",false))
 //        list.add(AddMember3Item("", "28",false))
-
-        mAdapter = AddMember3Adapter(context!!, list)
+        context?.let {
+            mAdapter = AddMember3Adapter(it, list)
+        }
 
         recyclerView.adapter = mAdapter
 //        val button = view.findViewById<Button>(R.id.b_add_member)

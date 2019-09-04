@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
@@ -25,6 +26,7 @@ class DashBoardFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
     lateinit var recyclerView: RecyclerView
     lateinit var customMenuButton: ImageView
+    lateinit var ll_empty_stat: LinearLayout
     lateinit var anchorForMenu: ImageView
     var mAdapter: RecyclerView.Adapter<*>? = null
     var layoutManager: RecyclerView.LayoutManager? = null
@@ -66,6 +68,7 @@ class DashBoardFragment : Fragment() {
         recyclerView = myView.findViewById(R.id.tasksRecyclerView) as RecyclerView
         customMenuButton = myView.findViewById(R.id.customMenuButton)
         anchorForMenu = myView.findViewById(R.id.anchorForMenu)
+        ll_empty_stat = myView.findViewById(R.id.ll_empty_stat)
         customMenuButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
                 val wrapper = ContextThemeWrapper(context, R.style.popupmenu)
@@ -85,11 +88,9 @@ class DashBoardFragment : Fragment() {
             }
         })
 
-
         recyclerView.let { it.setHasFixedSize(true) }
         layoutManager = LinearLayoutManager(context)
         recyclerView.let { it.layoutManager = layoutManager }
-
         myTasks.add(Task("board1", 8, 118, 43, "done"))
         myTasks.add(Task("board2", 6, 118, 54, "todo"))
         myTasks.add(Task("board3", 7, 118, 12, "todo"))
@@ -97,6 +98,9 @@ class DashBoardFragment : Fragment() {
         myTasks.add(Task("board5", 12, 118, 34, "done"))
         myTasks.add(Task("board6", 55, 118, 23, "todo"))
         context?.let { mAdapter = BoardRecyclerAdapter(it, myTasks, Picasso.get()) }
+        if (mAdapter?.itemCount == 0) {
+            ll_empty_stat.visibility = View.VISIBLE
+        }
         recyclerView.let { it.adapter = mAdapter }
         return myView
 

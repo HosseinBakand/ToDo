@@ -70,7 +70,8 @@ class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, pica
                 setBackgroundResource(R.drawable.round_green_label)
             }
         }
-        picasso.load(t.imageUrl).transform(transformation).fit().into(holder.iv_task)
+        picasso.load(t.imageUrl).transform(transformation).error(R.drawable.no_task_image).fit()
+            .into(holder.iv_task)
         holder.rv_avatar.let { it.setHasFixedSize(true) }
         val overlap: OverlapDecoration = OverlapDecoration()
         holder.rv_avatar.addItemDecoration(overlap)
