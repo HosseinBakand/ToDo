@@ -16,4 +16,5 @@
     <color name="profile_page_background">#fcfcfc</color>
     <color name="warm_grey">#979797</color>
     <color name="white_three">#d8d8d8</color>
+    <color name="todo_list_grey">#f1f1f1</color>
 </resources>

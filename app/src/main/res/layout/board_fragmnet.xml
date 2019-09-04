@@ -6,7 +6,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/board_parent_layout">
+    android:id="@+id/board_parent_layout"
+    android:background="@drawable/tower">
 
     <RelativeLayout
         android:id="@+id/board_toolbar_layout"
@@ -23,7 +24,7 @@
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/colorPrimary"
             android:theme="@style/Widget.AppCompat.ActionBar"
-            app:title="Boards(dashboards)"/>
+            app:title="Board 1"/>
 
         <ImageView
             android:id="@+id/board_custom_menu_button"
@@ -50,21 +51,17 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/board_toolbar_layout">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="32dp"
-            android:orientation="horizontal"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintTop_toBottomOf="@id/board_toolbar_layout"
             android:id="@+id/board_fragment_recycler_view"/>
 
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

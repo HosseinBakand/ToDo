@@ -3,8 +3,8 @@
     <item>
         <shape android:shape="rectangle">
             <size
-                android:height="21dp"
-                android:width="21dp" />
+                android:height="20dp"
+                android:width="20dp" />
             <solid android:color="@color/warm_grey" />
             <corners android:radius="4dp"/>
         </shape>
@@ -16,8 +16,8 @@
         android:top="1dp">
         <shape android:shape="rectangle">
             <size
-                android:width="20dp"
-                android:height="20dp" />
+                android:width="19dp"
+                android:height="19dp" />
             <solid android:color="@color/colorAccent" />
             <corners android:radius="4dp"/>
         </shape>
@@ -28,7 +28,7 @@
         android:right="1dp"
         android:top="1dp"
         android:drawable="@drawable/ic_check_black_24dp"
-        android:width="19dp"
-        android:height="19dp" />
+        android:width="18dp"
+        android:height="18dp" />
 
 </layer-list>

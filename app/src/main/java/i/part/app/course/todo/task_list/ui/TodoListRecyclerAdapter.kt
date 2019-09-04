@@ -54,7 +54,6 @@ class TodoListRecyclerAdapter(private val context: Context, private val todoList
         holder.subTaskRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
 
         subtasks.apply {
-            add(SubTask("GOOD",true))
             add(SubTask("GREAT",true))
             add(SubTask("Awesome",true))
             add(SubTask("Marvelous",true))
