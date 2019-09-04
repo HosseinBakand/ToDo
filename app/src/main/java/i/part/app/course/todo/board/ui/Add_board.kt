@@ -43,7 +43,7 @@ class Add_board : DialogFragment() {
         dialog?.setTitle("Add BoardDetailFragment")
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        //dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_edge)
+        //dialog?.window?.setBackgroundDrawabl  eResource(R.drawable.dialog_edge)
         dialog?.setCanceledOnTouchOutside(false)
         val view = inflater.inflate(R.layout.fragment_add_board, container, false)
         val closeButton = view.findViewById<ImageButton>(R.id.addBoardCloseButton)
@@ -89,11 +89,8 @@ class Add_board : DialogFragment() {
         val radius = 8
         val margin = 0
         val transformation = RoundedCornersTransformation(radius, margin)
-        picasso.load(url).transform(transformation).error(R.drawable.person_empty)
-            .fit().into(image)
+        picasso.load(url).transform(transformation).error(R.drawable.person_empty).fit().into(image)
         rv_avatar.let { it.adapter = avatarAdapter }
-
-
         return view
     }
 
