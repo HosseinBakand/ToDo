@@ -86,7 +86,7 @@ class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, pica
         myAvatars.add(Avatar())
         myAvatars.add(Avatar())
         //end
-        avatarAdapter = AvatarRecyclerAdapter(context, myAvatars, picasso)
+        avatarAdapter = AvatarRecyclerAdapter(context, myAvatars, picasso, false)
         holder.rv_avatar.let { it.adapter = avatarAdapter }
 
 
