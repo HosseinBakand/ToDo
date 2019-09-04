@@ -1,7 +1,16 @@
 <resources>
     <string name="app_name">Todo</string>
     <string name="add_member_title_text">Add Member</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="addBoardConfrimButton">Confrim</string>
+    <string name="addBoardBGName">Background1.jpg</string>
+    <string name="addBoardBrowseButton">Browse</string>
+    <string name="addBoardBackground_picture_text">Background picture:</string>
+    <string name="addBoardAssignTo">Assign to : </string>
+    <string name="AddBoardOwnerName">Ali Mohammadi</string>
+    <string name="addBoardOwner">Owner :</string>
+    <string name="AddBoardBoardName">Board name</string>
+    <string name="addBoardTitle">Add board</string>
+
     <string name="profile_toolbar_title">Profile</string>
     <string name="profile_hint_email">Email</string>
     <string name="profile_hint_phone_number">Phone number</string>
@@ -20,4 +29,7 @@
     <string name="login_register_button">Login</string>
     <string name="register_new_account">Register new Account</string>
     <string name="page_empty_message">You can add boards here \n to manage your Tasks.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

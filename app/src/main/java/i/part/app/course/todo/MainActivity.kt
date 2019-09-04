@@ -1,7 +1,11 @@
 package i.part.app.course.todo
 
+
+//import i.part.app.course.todo.board.ui.Add_board
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import i.part.app.course.todo.board.ui.Add_board
 import i.part.app.course.todo.board.ui.DashBoardFragment
 
 class MainActivity : AppCompatActivity() {
@@ -15,5 +19,31 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.add(R.id.fragment_container, register)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
+        showEditDialog()
+        //frag()
+
+//        val manager = supportFragmentManager
+//        val transaction = manager.beginTransaction()
+//        transaction.add(R.id.main, AddMember2(), "first")
+//        transaction.addToBackStack(null)
+//        transaction.commit()
+
+
     }
+
+    //
+    private fun showEditDialog() {
+        val fm = supportFragmentManager
+        val editNameDialogFragment = Add_board.newInstance("Some Title")
+        editNameDialogFragment.show(fm, "fragment_edit_name")
+    }
+
+    @SuppressLint("ResourceType")
+    private fun frag() {
+
+        //editNameDialogFragment.show(fm, "fragment_edit_name")
+    }
+
+
+
 }
