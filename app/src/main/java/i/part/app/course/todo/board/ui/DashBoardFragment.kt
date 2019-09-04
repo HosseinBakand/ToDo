@@ -91,12 +91,12 @@ class DashBoardFragment : Fragment() {
         recyclerView.let { it.setHasFixedSize(true) }
         layoutManager = LinearLayoutManager(context)
         recyclerView.let { it.layoutManager = layoutManager }
-//        myTasks.add(Task("board1", 8, 118, 43, "done"))
-//        myTasks.add(Task("board2", 6, 118, 54, "todo"))
-//        myTasks.add(Task("board3", 7, 118, 12, "todo"))
-//        myTasks.add(Task("board4", 81, 118, 498, "done"))
-//        myTasks.add(Task("board5", 12, 118, 34, "done"))
-//        myTasks.add(Task("board6", 55, 118, 23, "todo"))
+        myTasks.add(Task("board1", 8, 118, 43, "done"))
+        myTasks.add(Task("board2", 6, 118, 54, "todo"))
+        myTasks.add(Task("board3", 7, 118, 12, "todo"))
+        myTasks.add(Task("board4", 81, 118, 498, "done"))
+        myTasks.add(Task("board5", 12, 118, 34, "done"))
+        myTasks.add(Task("board6", 55, 118, 23, "todo"))
         context?.let { mAdapter = BoardRecyclerAdapter(it, myTasks, Picasso.get()) }
         if (mAdapter?.itemCount == 0) {
             ll_empty_stat.visibility = View.VISIBLE
