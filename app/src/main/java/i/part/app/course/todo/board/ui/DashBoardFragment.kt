@@ -98,7 +98,6 @@ class DashBoardFragment : Fragment() {
                 popup.show()
             }
         })
-
         recyclerView.let { it.setHasFixedSize(true) }
         layoutManager = LinearLayoutManager(context)
         recyclerView.let { it.layoutManager = layoutManager }

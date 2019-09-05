@@ -43,7 +43,7 @@
 
             <ImageView
                 android:id="@+id/anchorForMenu"
-                android:layout_width="4dp"
+                android:layoutzz_width="4dp"
                 android:layout_height="0dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"

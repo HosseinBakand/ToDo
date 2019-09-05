@@ -36,6 +36,9 @@
     <string name="login_register_button">Login</string>
     <string name="register_new_account">Register new Account</string>
     <string name="page_empty_message">You can add boards here \n to manage your Tasks.</string>
+    <string name="page_empty_content_describtion">vew for no board.</string>
+    <string name="anchor_menu">fake view for menu</string>
+    <string name="custom_menu">3 dots for menu</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="delete_board">Delete Board</string>
