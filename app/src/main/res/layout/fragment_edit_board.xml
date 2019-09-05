@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_round_edge"
+    tools:context=".board.ui.Edit_board">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/outlinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/addBoardTitle"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:background="@drawable/dialog_title_round_up">
+
+                <TextView
+                    android:id="@+id/editBoard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:paddingTop="4dp"
+                    android:text="@string/edit_board_title_String"
+                    android:textColor="@color/primaryText"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/editBoardCloseButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/editBoardCloseButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="24dp"
+                    android:background="@color/white_gray"
+                    android:src="@drawable/ic_close_black_24dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/editBoard"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:orientation="vertical"
+
+                >
+
+                <EditText
+                    android:id="@+id/boardNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/warm_grey"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-medium"
+                    android:inputType="textPersonName"
+                    android:letterSpacing="0.01"
+                    android:text="text"
+                    android:textColor="@color/greyish_87"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constrain1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:id="@+id/owner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:letterSpacing="0.01"
+                        android:text="@string/edit_member_owner"
+                        android:textColor="@color/black_87_two"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ownerName"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/ownerName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:letterSpacing="0.01"
+                        android:text="@string/editBoardOwnerName"
+                        android:textColor="@color/black_87_two"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="2"
+                        app:layout_constraintStart_toEndOf="@+id/owner"
+                        tools:ignore="MissingConstraints" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="32dp"
+                    tools:layout_editor_absoluteX="111dp"
+                    tools:layout_editor_absoluteY="45dp">
+
+
+                    <TextView
+                        android:id="@+id/assignTo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.01"
+                        android:text="@string/edit_board_assign_to"
+                        android:textColor="@color/black_87_two"
+                        android:textSize="16sp"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.555"
+                        tools:ignore="MissingConstraints" />
+
+                    <LinearLayout
+                        android:id="@+id/lini3"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="7dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/editBoardPlusButton"
+                        app:layout_constraintStart_toEndOf="@+id/assignTo"
+                        tools:ignore="MissingConstraints">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/avatarsRecyclerView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/editBoardPlusButton"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@color/white_three"
+                        android:src="@drawable/ic_outline_indeterminate_check_box_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/assignTo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/lini3"
+                        app:layout_constraintTop_toTopOf="@+id/assignTo"
+                        tools:ignore="MissingConstraints" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--        <Space-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="30dp"-->
+                <!--            />-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+
+                    >
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.01"
+                        android:text="@string/editBoardBackground_picture_text"
+                        android:textColor="#4b4848"
+                        android:textSize="16sp"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintHorizontal_weight="2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constrain4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+
+
+                    <ImageButton
+                        android:id="@+id/editBoardMinusButton"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@color/white_three"
+                        android:src="@drawable/ic_minus_check_box"
+                        app:layout_constraintBottom_toBottomOf="@+id/editBoardBackgroundPicture"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/editBoardBackgroundPicture"
+                        app:layout_constraintTop_toTopOf="@+id/editBoardBackgroundPicture"
+                        app:layout_constraintVertical_bias="0.333"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/editBoardBackgroundPicture"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="19dp"
+                        android:layout_marginRight="19dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.01"
+                        android:text="@string/addBoardBGName"
+                        android:textColor="@color/greyish_brown"
+                        android:textSize="16sp"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="@+id/editBoardBGImage"
+                        app:layout_constraintEnd_toStartOf="@+id/editBoardMinusButton"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/editBoardBGImage"
+                        app:layout_constraintTop_toTopOf="@+id/editBoardBGImage"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/editBoardBGImage"
+                        android:layout_width="59dp"
+                        android:layout_height="59dp"
+                        app:layout_constraintEnd_toStartOf="@+id/editBoardBackgroundPicture"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteY="2dp" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dialog_button_round_down"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                android:letterSpacing="0.01"
+                android:padding="10dp"
+                android:text="@string/addBoardConfrimButton"
+                android:textAllCaps="false"
+                android:textColor="@color/almost_black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>
