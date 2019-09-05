@@ -31,12 +31,13 @@ class Board : Fragment() {
         recyclerView.let {
             it.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             todoLists.apply {
-                add(TodoList("todoList1", true))
-                add(TodoList("todoList2", true))
-                add(TodoList("thy", false))
-                add(TodoList("poker", true))
-                add(TodoList("joker", false))
-                add(TodoList("foster", true))
+                add(TodoList(TodoList.TODOLIST,"todoList1", true))
+                add(TodoList(TodoList.TODOLIST,"todoList2", true))
+                add(TodoList(TodoList.TODOLIST,"thy", false))
+                add(TodoList(TodoList.TODOLIST,"poker", true))
+                add(TodoList(TodoList.TODOLIST,"joker", false))
+                add(TodoList(TodoList.TODOLIST,"foster", true))
+                add(TodoList(TodoList.ADD_TODOLIST_BUTTON,"button",false))
             }
             context?.let { con -> it.adapter = TodoListRecyclerAdapter(con, todoLists, Picasso.get()) }
             recyclerView.adapter = it.adapter

@@ -18,10 +18,10 @@ import i.part.app.course.todo.task_list.data.SubTask
 import i.part.app.course.todo.task_list.data.TodoList
 
 class TodoListRecyclerAdapter(private val context: Context, private val todoLists: List<TodoList>, private val picasso: Picasso) :
-    RecyclerView.Adapter<TodoListRecyclerAdapter.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var view:View
 
-    inner class ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
+    inner class TodoListViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
         internal var todoNameTextView = itemView.findViewById<MaterialTextView>(R.id.todo_list_item_name_text_view)
         internal val editImageView = itemView.findViewById<ImageView>(R.id.todo_list_item_edit_image_view)
         internal var allTasksDoneTextView = itemView.findViewById<MaterialTextView>(R.id.todo_list_item_all_tasks_done_text_view)
@@ -37,50 +37,79 @@ class TodoListRecyclerAdapter(private val context: Context, private val todoList
         }
     }
 
+    inner class AddToDoListButtonViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
+
+        internal val button = itemView.findViewById<MaterialButton>(R.id.btn_add_todolist)
+        init {
+            itemView.setOnClickListener {
+                Toast.makeText(it.context,"add todo list",Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder {
-        view = LayoutInflater.from(parent.context).inflate(R.layout.todo_list_item,parent,false)
-        return ViewHolder(view)
-    }
+    ): RecyclerView.ViewHolder {
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val subtasks:ArrayList<SubTask> = ArrayList()
-        holder.itemView.tag = todoLists[position]
-        val currentItem = todoLists[position]
-        holder.todoNameTextView.text = currentItem.todoListName
-        holder.subTaskRecyclerView.setHasFixedSize(true)
-        holder.subTaskRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
-
-        subtasks.apply {
-
-            add(SubTask("Awesome",true))
-            add(SubTask("Marvelous",true))
-            add(SubTask("Spectacular",true))
-            add(SubTask("Awesome",true))
-            add(SubTask("Marvelous",true))
-            add(SubTask("Awesome",true))
-        }
-
-        var allCompleted = true
-        for (st in subtasks){
-            if (!st.isCompleted){
-                allCompleted = false
-                break
+        when(viewType){
+            TodoList.ADD_TODOLIST_BUTTON -> {
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.add_todo_list,parent,false)
+                return AddToDoListButtonViewHolder(view)
+            }
+            else -> {
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.todo_list_item,parent,false)
+                return TodoListViewHolder(view)
             }
         }
-        if(subtasks.size == 0)
-            allCompleted = false
+    }
 
-        holder.allTasksDoneTextView.visibility =
-            if (allCompleted) View.VISIBLE else View.GONE
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is TodoListViewHolder) {
+            val subtasks: ArrayList<SubTask> = ArrayList()
+            holder.itemView.tag = todoLists[position]
+            val currentItem = todoLists[position]
+            holder.todoNameTextView.text = currentItem.todoListName
+            holder.subTaskRecyclerView.setHasFixedSize(true)
+            holder.subTaskRecyclerView.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
 
-        val subTaskRecyclerAdapter = SubTaskRecyclerAdapter(context,subtasks,picasso)
-        holder.subTaskRecyclerView.adapter = subTaskRecyclerAdapter
+            subtasks.apply {
 
+                add(SubTask("Awesome", true))
+                add(SubTask("Marvelous", true))
+                add(SubTask("Spectacular", true))
+                add(SubTask("Awesome", true))
+                add(SubTask("Marvelous", true))
+                add(SubTask("Awesome", true))
+            }
 
+            var allCompleted = true
+            for (st in subtasks) {
+                if (!st.isCompleted) {
+                    allCompleted = false
+                    break
+                }
+            }
+            if (subtasks.size == 0)
+                allCompleted = false
+
+            holder.allTasksDoneTextView.visibility =
+                if (allCompleted) View.VISIBLE else View.GONE
+
+            val subTaskRecyclerAdapter = SubTaskRecyclerAdapter(context, subtasks, picasso)
+            holder.subTaskRecyclerView.adapter = subTaskRecyclerAdapter
+
+        }
     }
 
     override fun getItemCount() = todoLists.size
+
+    override fun getItemViewType(position: Int): Int {
+        return todoLists.get(position).viewType
+    }
+
 }

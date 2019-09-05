@@ -6,7 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="9dp"
-    android:layout_marginEnd="9dp">
+    android:layout_marginEnd="9dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    app:cardElevation="4dp"
+    android:padding="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +19,7 @@
         android:background="@color/todo_list_grey"
         android:orientation="vertical"
         android:foregroundGravity="bottom"
-        android:layout_marginBottom="49dp">
+        android:layout_marginBottom="41dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/todo_list_item_bar"
@@ -67,7 +71,8 @@
             android:id="@+id/todo_list_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/todo_list_grey"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/todo_list_item_bar"
@@ -83,8 +88,10 @@
                 android:backgroundTint="@color/cool_green"
                 android:fontFamily="sans-serif"
                 android:letterSpacing="0.01"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 android:minHeight="25dp"
-                android:text="All tasks done"
+                android:text="@string/all_tasks_done"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="14sp"
@@ -95,8 +102,8 @@
                 android:id="@+id/todo_list_item_sub_task_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="4dp"
                 app:layout_constraintTop_toBottomOf="@id/todo_list_item_all_tasks_done_text_view"
                 app:layout_constraintBottom_toBottomOf="parent">
 
@@ -115,6 +122,9 @@
         android:insetBottom="0dp"
         android:text="@string/task_item_add_task_button_text"
         android:textAllCaps="false"
+        app:cornerRadius="0dp"
+        android:background="@drawable/bottom_corner_radius"
+        android:backgroundTint="@color/duck_egg_blue"
         android:textColor="@color/primaryText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

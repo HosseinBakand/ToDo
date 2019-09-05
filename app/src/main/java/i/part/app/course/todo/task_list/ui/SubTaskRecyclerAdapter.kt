@@ -18,6 +18,7 @@ RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {
     lateinit var view:View
 
     inner class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
+
         internal val checkBox = itemView.findViewById<CheckBox>(R.id.subtask_item_check_box)
         internal var asigneeProfilePhoto = itemView.findViewById<ImageView>(R.id.task_description_item_image_view)
 
@@ -32,10 +33,10 @@ RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.subtask_item,parent,false)
-        return ViewHolder(view)
-    }
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.subtask_item,parent,false)
+            return ViewHolder(view)
+        }
 
     override fun getItemCount() = subtasks.size
 
