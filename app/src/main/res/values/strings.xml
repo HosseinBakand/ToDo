@@ -35,4 +35,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delete_board">Delete Board</string>
+     <string name="edit_board_title_String">Edit Board</string>
+    <string name="edit_board_assign_to">Assign to : </string>
+    <string name="edit_member_owner">Owner : </string>
+    <string name="editBoardOwnerName">Ali Mohammadi</string>
+    <string name="editBoardBackground_picture_text">Background picture:</string>
+    <string name="editBoardBGName">Background1.jpg</string>
 </resources>
