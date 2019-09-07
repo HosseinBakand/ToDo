@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.google.android.material.textview.MaterialTextView
 import i.part.app.course.todo.R
 
 
@@ -32,7 +34,10 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val myView = inflater.inflate(R.layout.fragment_login, container, false)
-
+        val registerButton = myView.findViewById<MaterialTextView>(R.id.tv_registerButton)
+        registerButton.setOnClickListener {
+            myView.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
         return myView
 
 

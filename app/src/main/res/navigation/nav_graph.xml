@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="i.part.app.course.todo.board.ui.LoginFragment"
+        android:label="LoginFragment">
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="i.part.app.course.todo.board.ui.RegisterFragment"
+        android:label="RegisterFragment">
+        <action
+            android:id="@+id/action_registerFragment_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashBoardFragment"
+        android:name="i.part.app.course.todo.board.ui.DashBoardFragment"
+        android:label="fragment_dash_board"
+        tools:layout="@layout/fragment_dash_board">
+        <action
+            android:id="@+id/action_dashBoardFragment_to_board"
+            app:destination="@id/board" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_profile"
+            app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_add_board"
+            app:destination="@id/add_board" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profile"
+        android:name="i.part.app.course.todo.Profile"
+        android:label="Profile" />
+    <fragment
+        android:id="@+id/board"
+        android:name="i.part.app.course.todo.task_list.ui.Board"
+        android:label="Board">
+        <action
+            android:id="@+id/action_board_to_edit_board"
+            app:destination="@id/edit_board" />
+        <action
+            android:id="@+id/action_board_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMember2"
+        android:name="i.part.app.course.todo.board.ui.AddMember2"
+        android:label="AddMember2">
+        <action
+            android:id="@+id/action_addMember2_to_addMember3Fragment"
+            app:destination="@id/addMember3Fragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addMember3Fragment"
+        android:name="i.part.app.course.todo.board.ui.AddMember3Fragment"
+        android:label="fragment_add_member_3"
+        tools:layout="@layout/fragment_add_member_3" />
+    <dialog
+        android:id="@+id/addTaskFragment"
+        android:name="i.part.app.course.todo.board.ui.AddTaskFragment"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task">
+        <action
+            android:id="@+id/action_addTaskFragment_to_addMember2"
+            app:destination="@id/addMember2" />
+        <action
+            android:id="@+id/action_addTaskFragment_to_board"
+            app:destination="@id/board" />
+    </dialog>
+    <dialog
+        android:id="@+id/edit_board"
+        android:name="i.part.app.course.todo.board.ui.Edit_board"
+        android:label="fragment_edit_board"
+        tools:layout="@layout/fragment_edit_board">
+        <action
+            android:id="@+id/action_edit_board_to_addMember2"
+            app:destination="@id/addMember2" />
+        <action
+            android:id="@+id/action_edit_board_to_board"
+            app:destination="@id/board" />
+    </dialog>
+    <dialog
+        android:id="@+id/add_board"
+        android:name="i.part.app.course.todo.board.ui.Add_board"
+        android:label="delete_page"
+        tools:layout="@layout/delete_page">
+        <action
+            android:id="@+id/action_add_board_to_addMember2"
+            app:destination="@id/addMember2" />
+        <action
+            android:id="@+id/action_add_board_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment" />
+    </dialog>
+</navigation>

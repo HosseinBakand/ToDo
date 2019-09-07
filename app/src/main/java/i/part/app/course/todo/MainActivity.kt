@@ -3,6 +3,7 @@ package i.part.app.course.todo
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import i.part.app.course.todo.board.ui.LoginFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportFragmentManager.beginTransaction().replace(
-            R.id.fragment_container, Profile()
+            R.id.nav_host_fragment, LoginFragment()
         ).commit()
     }
 
