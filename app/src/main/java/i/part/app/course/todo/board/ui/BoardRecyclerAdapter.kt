@@ -1,10 +1,14 @@
 package i.part.app.course.todo.board.ui
 
+import android.app.Dialog
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -63,7 +67,6 @@ class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, pica
                 text = "Todo"
                 setBackgroundResource(R.drawable.round_red_label)
             }
-
         } else {
             holder.tv_status_label.apply {
                 text = "Done"
@@ -73,11 +76,28 @@ class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, pica
         picasso.load(t.imageUrl).transform(transformation).error(R.drawable.no_task_image).fit()
             .into(holder.iv_task)
         holder.rv_avatar.let { it.setHasFixedSize(true) }
+        holder.iV_delete.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View) {
+                val dialog = Dialog(context)
+                dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.setContentView(R.layout.delete_page)
+                dialog.setCanceledOnTouchOutside(false)
+                val okButton = dialog.findViewById<TextView>(R.id.tv_okButton)
+                okButton.setOnClickListener {
+                    //
+                }
+                val closeButton = dialog.findViewById<TextView>(R.id.tv_cancelButton)
+                closeButton.setOnClickListener {
+                    dialog.dismiss()
+                }
+                dialog.show()
+            }
+        })
         val overlap: OverlapDecoration = OverlapDecoration()
         holder.rv_avatar.addItemDecoration(overlap)
         avatarManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
         holder.rv_avatar.let { it.layoutManager = avatarManager }
-
         //start generating fake data
         myAvatars.add(Avatar())
         myAvatars.add(Avatar())
@@ -103,6 +123,7 @@ class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, pica
         internal var remaningTasks: TextView
         internal var rv_avatar: RecyclerView
         internal var iv_task: ImageView
+        internal var iV_delete: ImageView
         internal var tv_status_label: TextView
 
         init {
@@ -112,6 +133,8 @@ class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, pica
                 itemView.findViewById<View>(i.part.app.course.todo.R.id.statusLabel) as TextView
             iv_task =
                 itemView.findViewById<View>(i.part.app.course.todo.R.id.iv_task) as ImageView
+            iV_delete =
+                itemView.findViewById<View>(i.part.app.course.todo.R.id.iv_delete_board_item) as ImageView
 
             rv_avatar =
                 itemView.findViewById<View>(i.part.app.course.todo.R.id.avatarsRecyclerView) as RecyclerView
