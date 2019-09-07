@@ -5,8 +5,8 @@ package i.part.app.course.todo
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import i.part.app.course.todo.board.ui.AddTaskFragment
 import i.part.app.course.todo.board.ui.DashBoardFragment
-import i.part.app.course.todo.board.ui.Edit_board
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     //
     private fun showEditDialog() {
         val fm = supportFragmentManager
-        val editNameDialogFragment = Edit_board.newInstance("Some Title")
+        val editNameDialogFragment = AddTaskFragment.newInstance("Some Title")
         editNameDialogFragment.show(fm, "fragment_edit_name")
     }
 

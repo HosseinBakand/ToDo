@@ -41,4 +41,10 @@
     <string name="editBoardOwnerName">Ali Mohammadi</string>
     <string name="editBoardBackground_picture_text">Background picture:</string>
     <string name="editBoardBGName">Background1.jpg</string>
+
+    <string name="addTaskAssignTo">Assign to : </string>
+    <string name="AddTaskOwnerName">Ali Mohammadi</string>
+    <string name="addTaskOwner">Owner : </string>
+    <string name="AddTaskTaskName">Task name</string>
+    <string name="addTaskTitle">Add Task</string>
 </resources>
