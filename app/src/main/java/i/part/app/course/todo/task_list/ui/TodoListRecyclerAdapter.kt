@@ -20,18 +20,22 @@ import i.part.app.course.todo.task_list.data.TodoList
 class TodoListRecyclerAdapter(private val context: Context, private val todoLists: List<TodoList>, private val picasso: Picasso) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var view:View
-
+    lateinit var todoListRecyclerView:RecyclerView
     inner class TodoListViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
         internal var todoNameTextView = itemView.findViewById<MaterialTextView>(R.id.todo_list_item_name_text_view)
         internal val editImageView = itemView.findViewById<ImageView>(R.id.todo_list_item_edit_image_view)
         internal var allTasksDoneTextView = itemView.findViewById<MaterialTextView>(R.id.todo_list_item_all_tasks_done_text_view)
         internal val subTaskRecyclerView = itemView.findViewById<RecyclerView>(R.id.todo_list_item_sub_task_recycler_view)
         internal val addTaskButton = itemView.findViewById<MaterialButton>(R.id.todo_list_item_add_task_button)
-
         init {
             itemView.setOnClickListener{ view ->
                 val taskTag = view.tag as TodoList
                 Toast.makeText(view.context,"${taskTag.todoListName} is ${taskTag.isCompleted}",Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+            addTaskButton.setOnClickListener{
+                Toast.makeText(context,"add task",Toast.LENGTH_LONG)
                     .show()
             }
         }

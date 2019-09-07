@@ -2,6 +2,7 @@ package i.part.app.course.todo.task_list.ui
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
@@ -39,7 +40,7 @@ class Board : Fragment() {
                 add(TodoList(TodoList.TODOLIST,"foster", true))
                 add(TodoList(TodoList.ADD_TODOLIST_BUTTON,"button",false))
             }
-            context?.let { con -> it.adapter = TodoListRecyclerAdapter(con, todoLists, Picasso.get()) }
+            context?.let { context -> it.adapter = TodoListRecyclerAdapter(context, todoLists, Picasso.get()) }
             recyclerView.adapter = it.adapter
         }
 
@@ -61,21 +62,28 @@ class Board : Fragment() {
                 popup.show()
             }
         }
+
+        inflatedView.findViewById<View>(R.id.btn_edit_board)?.let {
+            it.setOnClickListener {
+                Toast.makeText(context,"Edit board",Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
+
         val recycler = inflatedView.findViewById<RecyclerView>(R.id.board_fragment_recycler_view)
         val snapHelper = LinearSnapHelper()
         recycler.clipToPadding =false
-        recycler.setPadding(108,recycler.paddingTop,108,recycler.paddingBottom)
+        recycler.setPadding(70,recycler.paddingTop,70,recycler.paddingBottom)
         snapHelper.attachToRecyclerView(recyclerView)
         return inflatedView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
 
-
-
-
-
+    override fun onResume() {
+        super.onResume()
 
     }
 }
