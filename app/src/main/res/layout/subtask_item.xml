@@ -36,7 +36,7 @@
             android:textAlignment="center"
             android:layout_toStartOf="@id/task_description_item_image_view"
             android:layout_alignParentStart="true"
-            android:button="@drawable/custom_checkbox"/>
+            android:button="@drawable/subtask_custom_checkbox"/>
 
         <ImageView
                 android:id="@+id/task_description_item_image_view"
