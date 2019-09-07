@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Todo</string>
     <string name="add_member_title_text">Add Member</string>
-    <string name="addBoardConfrimButton">Confrim</string>
+    <string name="addBoardConfirmButton">Confirm</string>
     <string name="addBoardBGName">Background1.jpg</string>
     <string name="addBoardBrowseButton">Browse</string>
     <string name="addBoardBackground_picture_text">Background picture:</string>

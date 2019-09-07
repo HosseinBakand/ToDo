@@ -12,7 +12,7 @@ import android.view.Window
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -143,9 +143,11 @@ class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, pica
             remaningTasks =
                 itemView.findViewById<View>(i.part.app.course.todo.R.id.remainingTasksTextView) as TextView
             itemView.setOnClickListener { view ->
-                val myTask = view.tag as Task
-                Toast.makeText(view.context, myTask.name + " is " + myTask.todo, Toast.LENGTH_SHORT)
-                    .show()
+                view.findNavController().navigate(R.id.action_dashBoardFragment_to_board)
+
+//                val myTask = view.tag as Task
+//                Toast.makeText(view.context, myTask.name + " is " + myTask.todo, Toast.LENGTH_SHORT)
+//                    .show()
             }
         }
     }

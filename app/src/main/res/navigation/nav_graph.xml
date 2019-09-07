@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_board_to_addTaskFragment"
             app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_board_to_addMember2"
+            app:destination="@id/addMember2" />
     </fragment>
     <fragment
         android:id="@+id/addMember2"

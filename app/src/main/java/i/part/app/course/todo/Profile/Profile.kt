@@ -26,14 +26,8 @@ class Profile : Fragment() {
             .get()
             .load("https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png")
             .transform(transformer)
-            .error(R.color.design_default_color_error)
             .into(profilePhoto)
-//        Picasso
-//            .get()
-//            .load("https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png")
-//            .transform(transformer)
-//            .error(R.color.design_default_color_error)
-//            .into(plusSign)
+
 
         return view
     }

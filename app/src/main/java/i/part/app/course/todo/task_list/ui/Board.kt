@@ -2,10 +2,9 @@ package i.part.app.course.todo.task_list.ui
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -19,9 +18,6 @@ class Board : Fragment() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     val todoLists:ArrayList<TodoList> = ArrayList()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,11 +48,13 @@ class Board : Fragment() {
                 val popup = PopupMenu(wrapper, anchorForMenu, Gravity.END)
                 popup.menuInflater.inflate(R.menu.board_menu, popup.menu)
                 popup.setOnMenuItemClickListener { item ->
-                    Toast.makeText(
-                        context,
-                        "Some Text" + item.title,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    //                    Toast.makeText(
+//                        context,
+//                        "Some Text" + item.title,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    inflatedView.findNavController().navigate(R.id.action_board_to_addMember2)
+
                     true
                 }
                 popup.show()
@@ -65,8 +63,10 @@ class Board : Fragment() {
 
         inflatedView.findViewById<View>(R.id.btn_edit_board)?.let {
             it.setOnClickListener {
-                Toast.makeText(context,"Edit board",Toast.LENGTH_LONG)
-                    .show()
+                //                Toast.makeText(context,"Edit board",Toast.LENGTH_LONG)
+//                    .show()
+                inflatedView.findNavController().navigate(R.id.action_board_to_edit_board)
+
             }
         }
 
@@ -78,12 +78,4 @@ class Board : Fragment() {
         return inflatedView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-    }
 }

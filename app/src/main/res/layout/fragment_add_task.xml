@@ -197,7 +197,7 @@
                 android:insetBottom="0dp"
                 android:letterSpacing="0.01"
                 android:padding="10dp"
-                android:text="@string/addBoardConfrimButton"
+                android:text="@string/addBoardConfirmButton"
                 android:textAllCaps="false"
                 android:textColor="@color/almost_black"
                 android:textSize="20sp"

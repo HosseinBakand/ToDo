@@ -9,8 +9,10 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.board.data.Task
@@ -76,11 +78,20 @@ class DashBoardFragment : Fragment() {
                 popup.menuInflater.inflate(R.menu.dashboard_fragment_menu, popup.menu)
                 popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
                     override fun onMenuItemClick(item: MenuItem): Boolean {
-                        Toast.makeText(
-                            context,
-                            " لمس شد" + item.title,
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        if (item.title == "Profile") {
+                            myView.findNavController()
+                                .navigate(R.id.action_dashBoardFragment_to_profile)
+
+                        } else if (item.title == "Log out") {
+                            myView.findNavController()
+                                .navigate(R.id.action_dashBoardFragment_to_loginFragment)
+
+                        }
+//                        Toast.makeText(
+//                            context,
+//                            " لمس شد" + item.title,
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                         return true
                     }
                 })
@@ -102,6 +113,16 @@ class DashBoardFragment : Fragment() {
             ll_empty_stat.visibility = View.VISIBLE
         }
         recyclerView.let { it.adapter = mAdapter }
+        val floatingActionButton =
+            myView.findViewById<FloatingActionButton>(R.id.fb_dash_board_fragment)
+        floatingActionButton.setOnClickListener {
+            myView.findNavController().navigate(R.id.action_dashBoardFragment_to_add_board)
+//            val add_b = Add_board.newInstance("vahid")
+//            val fm = fragmentManager
+//            fm?.let {
+//                add_b.show(it, "fragment_edit_name")
+//            }
+        }
         return myView
 
 
@@ -128,6 +149,7 @@ class DashBoardFragment : Fragment() {
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(uri: Uri)
     }
+
 
     companion object {
         @JvmStatic

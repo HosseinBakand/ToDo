@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.board.ui.BoardRecyclerAdapter
-import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.task_list.data.SubTask
 import i.part.app.course.todo.task_list.data.TodoList
 
@@ -35,8 +34,10 @@ class TodoListRecyclerAdapter(private val context: Context, private val todoList
             }
 
             addTaskButton.setOnClickListener{
-                Toast.makeText(context,"add task",Toast.LENGTH_LONG)
-                    .show()
+                itemView.findNavController().navigate(R.id.action_board_to_addTaskFragment)
+
+//                Toast.makeText(context,"add task",Toast.LENGTH_LONG)
+//                    .show()
             }
         }
     }
