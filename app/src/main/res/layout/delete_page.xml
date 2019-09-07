@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_round_edge"
+    tools:context=".board.ui.Add_board">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/outlinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/addBoardTitle"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:background="@drawable/dialog_title_round_up">
+
+                <TextView
+                    android:id="@+id/addBoard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:paddingTop="4dp"
+                    android:text="@string/delete_board"
+                    android:textColor="@color/primaryText"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/addBoardCloseButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constrain1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:id="@+id/owner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:letterSpacing="0.01"
+                        android:text="@string/are_you_sure"
+                        android:textColor="@color/black_87_two"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ownerName"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+                    <!--                    <TextView-->
+                    <!--                        android:id="@+id/tv_boardNameOnDeleteDialog"-->
+                    <!--                        android:layout_width="0dp"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:fontFamily="sans-serif"-->
+                    <!--                        android:letterSpacing="0.01"-->
+                    <!--                        android:text="@string/fake_board_name"-->
+                    <!--                        android:textColor="@color/black_87_two"-->
+                    <!--                        android:textSize="16sp"-->
+                    <!--                        android:textStyle="bold"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintHorizontal_bias="0.5"-->
+                    <!--                        app:layout_constraintHorizontal_weight="2"-->
+                    <!--                        app:layout_constraintStart_toEndOf="@+id/owner"-->
+                    <!--                        tools:ignore="MissingConstraints" />-->
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_okButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="26dp"
+                    android:layout_marginBottom="22dp"
+                    android:text="OK"
+                    android:textColor="@color/seafoam_blue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"></TextView>
+
+
+                <TextView
+                    android:id="@+id/tv_cancelButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginBottom="22dp"
+                    android:text="Cancel"
+                    android:textColor="@color/seafoam_blue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"></TextView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>
+
+
+    <!--
+            dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog?.setCanceledOnTouchOutside(false)
+
+            val closeButton = dialog.findViewById<ImageButton>(R.id.addBoardCloseButton)
+            closeButton.setOnClickListener {
+                dialog.dismiss()
+            }
+    -->

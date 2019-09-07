@@ -99,7 +99,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/iv_delete_board_item"
             android:layout_width="24dp"
             android:layout_height="24dp"
             app:layout_constraintEnd_toEndOf="parent"

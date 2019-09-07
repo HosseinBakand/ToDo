@@ -13,4 +13,13 @@ class MainActivity : AppCompatActivity() {
             R.id.fragment_container, Profile()
         ).commit()
     }
+
+    @SuppressLint("ResourceType")
+    private fun frag() {
+
+        //editNameDialogFragment.show(fm, "fragment_edit_name")
+    }
+
+
+
 }

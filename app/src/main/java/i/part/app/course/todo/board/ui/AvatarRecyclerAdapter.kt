@@ -13,8 +13,13 @@ import i.part.app.course.todo.R
 import i.part.app.course.todo.board.data.Avatar
 import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
 
-
-class AvatarRecyclerAdapter(private val context: Context, avatars: List<Avatar>, picasso: Picasso) :
+//input size is for choose item // true for big and false for small
+class AvatarRecyclerAdapter(
+    private val context: Context,
+    avatars: List<Avatar>,
+    picasso: Picasso,
+    val inputSize: Boolean
+) :
     RecyclerView.Adapter<AvatarRecyclerAdapter.ViewHolder>() {
     private val avatars: List<Avatar>
     lateinit var v: View
@@ -26,8 +31,13 @@ class AvatarRecyclerAdapter(private val context: Context, avatars: List<Avatar>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        v = LayoutInflater.from(parent.context)
-            .inflate(i.part.app.course.todo.R.layout.avatar_item, parent, false)
+        if (inputSize) {
+            v = LayoutInflater.from(parent.context)
+                .inflate(i.part.app.course.todo.R.layout.avatar_item_add_board, parent, false)
+        } else {
+            v = LayoutInflater.from(parent.context)
+                .inflate(i.part.app.course.todo.R.layout.avatar_item, parent, false)
+        }
         return ViewHolder(v)
     }
 
@@ -40,7 +50,7 @@ class AvatarRecyclerAdapter(private val context: Context, avatars: List<Avatar>,
         holder.itemView.tag = avatars[position]
         val t = avatars[position]
         val trsfrm = PicassoCircleTransformation()
-        picasso.load(t.image_url).transform(trsfrm).error(R.drawable.ic_dots)
+        picasso.load(t.image_url).transform(trsfrm).error(R.drawable.person_empty)
             .into(holder.avatarImageView)
 
         //holder.avatarImageView.setBackgroundResource(R.drawable.ic_avatar)
