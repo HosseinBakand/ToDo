@@ -24,16 +24,26 @@
     <string name="profile_information">Information</string>
     <string name="profile_change_password">Change password</string>
     <string name="profile_confirm_button">Confirm</string>
+    <string name="task_item_todo_list_name">list name</string>
+    <string name="task_item_add_task_button_text">Add task</string>
+    <string name="board_menu_add_member">Add member</string>
+    <string name="add_todolist">Add Todolist</string>
+    <string name="all_tasks_done">All tasks done</string>
+    
+        <string name="task_item_todo_list_name">list name</string>
     <string name="add_member_2_bottom_button">Add Member</string>
+    <string name="task_item_add_task_button_text">Add task</string>
     <string name="add_member_3_title">Add member</string>
+    <string name="board_menu_add_member">Add member</string>
     <string name="add_member_3_searcch">Search for more member</string>
+    <string name="add_todolist">Add Todolist</string>
     <string name="register_register_button">Register</string>
+    <string name="all_tasks_done">All tasks done</string>
     <string name="login_register_button">Login</string>
     <string name="register_new_account">Register new Account</string>
     <string name="page_empty_message">You can add boards here \n to manage your Tasks.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delete_board">Delete Board</string>
      <string name="edit_board_title_String">Edit Board</string>
     <string name="edit_board_assign_to">Assign to : </string>
@@ -41,10 +51,11 @@
     <string name="editBoardOwnerName">Ali Mohammadi</string>
     <string name="editBoardBackground_picture_text">Background picture:</string>
     <string name="editBoardBGName">Background1.jpg</string>
-
     <string name="addTaskAssignTo">Assign to : </string>
     <string name="AddTaskOwnerName">Ali Mohammadi</string>
     <string name="addTaskOwner">Owner : </string>
     <string name="AddTaskTaskName">Task name</string>
     <string name="addTaskTitle">Add Task</string>
+
+    
 </resources>

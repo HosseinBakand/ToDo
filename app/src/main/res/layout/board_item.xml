@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="5dp"
-            android:text="Board1"
+            tools:text="Board1"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/iv_task"
@@ -52,9 +52,9 @@
             android:background="@drawable/round_green_label"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:text="Done"
-            android:textColor="#ffffff"
-            android:textSize="10sp"
+            tools:text="Done"
+            android:textColor="@color/white"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/iv_task"
             app:layout_constraintTop_toBottomOf="@+id/boardNameTextView" />
 
@@ -94,7 +94,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/avatarsRecyclerView"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="match_parent">
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
 
         <ImageView
