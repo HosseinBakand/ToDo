@@ -5,15 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ScrollView
-import android.widget.Toolbar
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginTop
-import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
-import kotlinx.android.synthetic.main.fragment_profile.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"

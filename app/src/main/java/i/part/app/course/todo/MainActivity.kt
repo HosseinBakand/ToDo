@@ -1,8 +1,8 @@
 package i.part.app.course.todo
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
-import i.part.app.course.todo.task_list.ui.Board
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
