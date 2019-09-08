@@ -1,4 +1,4 @@
-package i.part.app.course.todo.task_list.data
+package i.part.app.course.todo.board.data
 
 data class SubTask(
     var subTaskDescription: String,

@@ -11,14 +11,17 @@ import android.view.Window
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.board.data.Avatar
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.core.util.ui.RoundedCornersTransformation
 import java.util.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,7 +40,7 @@ class Add_board : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        dialog?.setTitle("Add Board")
+        dialog?.setTitle("Add BoardDetailFragment")
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         //dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_edge)
@@ -45,6 +48,16 @@ class Add_board : DialogFragment() {
         val view = inflater.inflate(R.layout.fragment_add_board, container, false)
         val closeButton = view.findViewById<ImageButton>(R.id.addBoardCloseButton)
         closeButton.setOnClickListener {
+            this.dismiss()
+        }
+        val plusButton = view.findViewById<ImageButton>(R.id.addBoardPlusButton)
+        plusButton.setOnClickListener {
+            this.findNavController().navigate(R.id.action_add_board_to_addMember2)
+        }
+
+        val confirmButton = view.findViewById<MaterialButton>(R.id.btn_add_board_confirm)
+        confirmButton.setOnClickListener {
+            this.findNavController().navigate(R.id.action_add_board_to_dashBoardFragment)
             this.dismiss()
         }
 
@@ -90,7 +103,7 @@ class Add_board : DialogFragment() {
             val frag = Add_board()
             val args = Bundle()
 
-            args.putString("Add Board", title)
+            args.putString("Add BoardDetailFragment", title)
             frag.arguments = args
             return frag
         }

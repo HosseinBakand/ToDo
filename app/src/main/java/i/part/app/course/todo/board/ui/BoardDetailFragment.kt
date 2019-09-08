@@ -1,27 +1,24 @@
 package i.part.app.course.todo.task_list.ui
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.*
-import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.task_list.data.TodoList
+import i.part.app.course.todo.board.data.TodoList
 
-class Board : Fragment() {
+class BoardDetailFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     val todoLists:ArrayList<TodoList> = ArrayList()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,11 +49,13 @@ class Board : Fragment() {
                 val popup = PopupMenu(wrapper, anchorForMenu, Gravity.END)
                 popup.menuInflater.inflate(R.menu.board_menu, popup.menu)
                 popup.setOnMenuItemClickListener { item ->
-                    Toast.makeText(
-                        context,
-                        "Some Text" + item.title,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    //                    Toast.makeText(
+//                        context,
+//                        "Some Text" + item.title,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    inflatedView.findNavController().navigate(R.id.action_board_to_addMember2)
+
                     true
                 }
                 popup.show()
@@ -65,25 +64,21 @@ class Board : Fragment() {
 
         inflatedView.findViewById<View>(R.id.btn_edit_board)?.let {
             it.setOnClickListener {
-                Toast.makeText(context,"Edit board",Toast.LENGTH_LONG)
-                    .show()
+                //                Toast.makeText(context,"Edit board",Toast.LENGTH_LONG)
+//                    .show()
+                inflatedView.findNavController().navigate(R.id.action_board_to_edit_board)
+
             }
         }
 
         val recycler = inflatedView.findViewById<RecyclerView>(R.id.board_fragment_recycler_view)
         val snapHelper = LinearSnapHelper()
         recycler.clipToPadding =false
-        recycler.setPadding(70,recycler.paddingTop,70,recycler.paddingBottom)
+        val display = DisplayMetrics()
+        activity?.windowManager?.defaultDisplay?.getMetrics(display)
+        recycler.setPadding(50*display.widthPixels/1080,recycler.paddingTop,70*display.widthPixels/1080,recycler.paddingBottom)
         snapHelper.attachToRecyclerView(recyclerView)
         return inflatedView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-    }
 }

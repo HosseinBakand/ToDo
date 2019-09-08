@@ -1,4 +1,4 @@
-package i.part.app.course.todo.task_list.ui
+package i.part.app.course.todo.board.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
-import i.part.app.course.todo.task_list.data.SubTask
+import i.part.app.course.todo.board.data.SubTask
 
 class SubTaskRecyclerAdapter(private val context: Context, private val subtasks: List<SubTask>, private val picasso: Picasso):
 RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {

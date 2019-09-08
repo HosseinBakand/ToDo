@@ -12,13 +12,16 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.board.data.Avatar
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.core.util.ui.RoundedCornersTransformation
+import kotlinx.android.synthetic.main.fragment_edit_board.*
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -48,6 +51,17 @@ class Edit_board : DialogFragment() {
             this.dismiss()
         }
 
+
+        view?.let {
+            it.findViewById<ImageButton>(R.id.editBoardPlusButton)?.setOnClickListener {
+                this.findNavController().navigate(R.id.action_edit_board_to_addMember2)
+            }
+        }
+        view?.let {
+            it.findViewById<MaterialButton>(R.id.btn_add_task_confirm)?.setOnClickListener {
+                this.findNavController().navigate(R.id.action_edit_board_to_board)
+            }
+        }
         //recycle
         val rv_avatar = view.findViewById<RecyclerView>(R.id.avatarsRecyclerView2)
         val myAvatars: ArrayList<Avatar> = ArrayList()
@@ -91,7 +105,7 @@ class Edit_board : DialogFragment() {
             val frag = Edit_board()
             val args = Bundle()
 
-            args.putString("Add Board", title)
+            args.putString("Add BoardDetailFragment", title)
             frag.arguments = args
             return frag
         }

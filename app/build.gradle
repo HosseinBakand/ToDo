@@ -38,6 +38,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
+
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
     /*
@@ -57,5 +58,13 @@ dependencies {
 
     //recyclerView
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+
+
+    def nav_version = "2.1.0"
+
+
+    // Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
 }
