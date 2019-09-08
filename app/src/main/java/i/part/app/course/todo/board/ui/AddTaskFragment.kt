@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageButton
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.board.data.Avatar
@@ -35,15 +37,26 @@ class AddTaskFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        dialog?.setTitle("Add Board")
+        dialog?.setTitle("Add BoardDetailFragment")
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         //dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_edge)
         dialog?.setCanceledOnTouchOutside(false)
         val view = inflater.inflate(R.layout.fragment_add_task, container, false)
         val closeButton = view.findViewById<ImageButton>(R.id.addTaskCloseButton)
-        closeButton.setOnClickListener {
-            this.dismiss()
+        closeButton.setOnClickListener { this.dismiss() }
+
+        view.findViewById<MaterialButton>(R.id.btn_add_task_confirm)?.let {
+            it.setOnClickListener {
+                this.findNavController().navigate(R.id.action_addTaskFragment_to_board)
+                this.dismiss()
+            }
+        }
+
+        view.findViewById<ImageButton>(R.id.addTaskPlusButton)?.let {
+            it.setOnClickListener {
+                this.findNavController().navigate(R.id.action_addTaskFragment_to_addMember2)
+            }
         }
 
         //recycle

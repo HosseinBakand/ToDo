@@ -47,7 +47,7 @@
         android:label="Profile" />
     <fragment
         android:id="@+id/board"
-        android:name="i.part.app.course.todo.task_list.ui.Board"
+        android:name="i.part.app.course.todo.task_list.ui.BoardDetailFragment"
         android:label="Board">
         <action
             android:id="@+id/action_board_to_edit_board"
@@ -66,12 +66,22 @@
         <action
             android:id="@+id/action_addMember2_to_addMember3Fragment"
             app:destination="@id/addMember3Fragment" />
+        <action
+            android:id="@+id/action_addMember2_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_addMember2_to_edit_board"
+            app:destination="@id/edit_board" />
     </fragment>
     <dialog
         android:id="@+id/addMember3Fragment"
         android:name="i.part.app.course.todo.board.ui.AddMember3Fragment"
         android:label="fragment_add_member_3"
-        tools:layout="@layout/fragment_add_member_3" />
+        tools:layout="@layout/fragment_add_member_3" >
+        <action
+            android:id="@+id/action_addMember3Fragment_to_addMember2"
+            app:destination="@id/addMember2" />
+    </dialog>
     <dialog
         android:id="@+id/addTaskFragment"
         android:name="i.part.app.course.todo.board.ui.AddTaskFragment"

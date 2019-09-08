@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.board.data.TodoList
 
-class Board : Fragment() {
+class BoardDetailFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>

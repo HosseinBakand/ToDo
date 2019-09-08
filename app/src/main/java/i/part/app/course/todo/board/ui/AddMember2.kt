@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
@@ -92,24 +94,25 @@ class AddMember2 : Fragment() {
         recyclerView.adapter = mAdapter
         val button = view.findViewById<Button>(R.id.b_add_member)
         button.setOnClickListener {
-            val fm = fragmentManager
-            val editNameDialogFragment = AddMember3Fragment.newInstance()
-            fm?.let {
-                editNameDialogFragment.show(it, "fragment_edit_name")
-            }
+//            val fm = fragmentManager
+//            val editNameDialogFragment = AddMember3Fragment.newInstance()
+//            fm?.let {
+//                editNameDialogFragment.show(it, "fragment_edit_name")
+//            }
+            this.findNavController().navigate(R.id.action_addMember2_to_addMember3Fragment)
         }
         val toolbar = view.findViewById<MaterialToolbar>(R.id.addMember2_toolbar)
 
+        toolbar.setNavigationOnClickListener {
+            //            Toast.makeText(
+//                view.context,
+//                "---back---",
+//                Toast.LENGTH_SHORT
+//            ).show()
 
-        toolbar.setNavigationOnClickListener(View.OnClickListener {
-            Toast.makeText(
-                view.context,
-                "---back---",
-                Toast.LENGTH_SHORT
-            ).show()
 
-        })
-
+            this.findNavController().navigate(R.id.action_addMember2_to_addTaskFragment)
+        }
         return view
     }
 

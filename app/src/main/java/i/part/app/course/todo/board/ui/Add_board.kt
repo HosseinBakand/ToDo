@@ -40,7 +40,7 @@ class Add_board : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        dialog?.setTitle("Add Board")
+        dialog?.setTitle("Add BoardDetailFragment")
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         //dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_edge)
@@ -54,9 +54,10 @@ class Add_board : DialogFragment() {
         plusButton.setOnClickListener {
             this.findNavController().navigate(R.id.action_add_board_to_addMember2)
         }
-        val confirmButton = view.findViewById<MaterialButton>(R.id.button)
+
+        val confirmButton = view.findViewById<MaterialButton>(R.id.btn_add_board_confirm)
         confirmButton.setOnClickListener {
-            //this.findNavController().navigate(R.id.action_add_board_to_dashBoardFragment)
+            this.findNavController().navigate(R.id.action_add_board_to_dashBoardFragment)
             this.dismiss()
         }
 
@@ -102,7 +103,7 @@ class Add_board : DialogFragment() {
             val frag = Add_board()
             val args = Bundle()
 
-            args.putString("Add Board", title)
+            args.putString("Add BoardDetailFragment", title)
             frag.arguments = args
             return frag
         }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageButton
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import i.part.app.course.todo.R
@@ -132,7 +133,7 @@ class AddMember3Fragment : DialogFragment() {
 
         val closeButton = view.findViewById<ImageButton>(R.id.add_member_3_close)
         closeButton.setOnClickListener {
-            this.dismiss()
+            this.findNavController().navigate(R.id.action_addMember3Fragment_to_addMember2)
         }
         return view
     }
