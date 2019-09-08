@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,7 +44,7 @@ class Add_board : DialogFragment() {
         dialog?.setTitle("Add BoardDetailFragment")
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        //dialog?.window?.setBackgroundDrawabl  eResource(R.drawable.dialog_edge)
+        //dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_edge)
         dialog?.setCanceledOnTouchOutside(false)
         val view = inflater.inflate(R.layout.fragment_add_board, container, false)
         val closeButton = view.findViewById<ImageButton>(R.id.addBoardCloseButton)
@@ -52,7 +53,9 @@ class Add_board : DialogFragment() {
         }
         val plusButton = view.findViewById<ImageButton>(R.id.addBoardPlusButton)
         plusButton.setOnClickListener {
-            this.findNavController().navigate(R.id.action_add_board_to_addMember2)
+            val fragmentType: String? = "add_board"
+            val myBundle = bundleOf("fragmentType" to fragmentType)
+            this.findNavController().navigate(R.id.action_add_board_to_addMember2, myBundle)
         }
 
         val confirmButton = view.findViewById<MaterialButton>(R.id.btn_add_board_confirm)
@@ -89,8 +92,12 @@ class Add_board : DialogFragment() {
         val radius = 8
         val margin = 0
         val transformation = RoundedCornersTransformation(radius, margin)
-        picasso.load(url).transform(transformation).error(R.drawable.person_empty).fit().into(image)
+        picasso.load(url).transform(transformation)
+            .error(i.part.app.course.todo.R.drawable.person_empty)
+            .fit().into(image)
         rv_avatar.let { it.adapter = avatarAdapter }
+
+
         return view
     }
 

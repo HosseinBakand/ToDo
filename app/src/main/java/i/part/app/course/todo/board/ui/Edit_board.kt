@@ -11,6 +11,7 @@ import android.view.Window
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +22,6 @@ import i.part.app.course.todo.R
 import i.part.app.course.todo.board.data.Avatar
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.core.util.ui.RoundedCornersTransformation
-import kotlinx.android.synthetic.main.fragment_edit_board.*
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -54,7 +54,9 @@ class Edit_board : DialogFragment() {
 
         view?.let {
             it.findViewById<ImageButton>(R.id.editBoardPlusButton)?.setOnClickListener {
-                this.findNavController().navigate(R.id.action_edit_board_to_addMember2)
+                val fragmentType: String? = "edit_board"
+                val myBundle = bundleOf("fragmentType" to fragmentType)
+                this.findNavController().navigate(R.id.action_edit_board_to_addMember2, myBundle)
             }
         }
         view?.let {

@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -94,7 +92,7 @@ class AddMember2 : Fragment() {
         recyclerView.adapter = mAdapter
         val button = view.findViewById<Button>(R.id.b_add_member)
         button.setOnClickListener {
-//            val fm = fragmentManager
+            //            val fm = fragmentManager
 //            val editNameDialogFragment = AddMember3Fragment.newInstance()
 //            fm?.let {
 //                editNameDialogFragment.show(it, "fragment_edit_name")
@@ -104,14 +102,23 @@ class AddMember2 : Fragment() {
         val toolbar = view.findViewById<MaterialToolbar>(R.id.addMember2_toolbar)
 
         toolbar.setNavigationOnClickListener {
-            //            Toast.makeText(
-//                view.context,
-//                "---back---",
-//                Toast.LENGTH_SHORT
-//            ).show()
+            //            //            Toast.makeText(
+////                view.context,
+////                "---back---",
+////                Toast.LENGTH_SHORT
+////            ).show()
+//
+//
+//           // activity?.supportFragmentManager?.popBackStack()
+//            this.findNavController().navigate(R.id.action_addMember2_to_add_board)
+            when (arguments?.getString("fragmentType")) {
+                "add_board" -> this.findNavController().navigate(R.id.action_addMember2_to_add_board)
+                "edit_board" -> this.findNavController().navigate(R.id.action_addMember2_to_edit_board)
+                "add_task" -> this.findNavController().navigate(R.id.action_addMember2_to_addTaskFragment)
+                "board_detail" -> this.findNavController().navigate(R.id.action_addMember2_to_board_detail)
+            }
 
 
-            this.findNavController().navigate(R.id.action_addMember2_to_addTaskFragment)
         }
         return view
     }

@@ -13,7 +13,9 @@
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_loginFragment_to_dashBoardFragment"
-            app:destination="@id/dashBoardFragment" />
+            app:destination="@id/dashBoardFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -63,21 +65,35 @@
         android:id="@+id/addMember2"
         android:name="i.part.app.course.todo.board.ui.AddMember2"
         android:label="AddMember2">
+
         <action
             android:id="@+id/action_addMember2_to_addMember3Fragment"
             app:destination="@id/addMember3Fragment" />
         <action
             android:id="@+id/action_addMember2_to_addTaskFragment"
-            app:destination="@id/addTaskFragment" />
+            app:destination="@id/addTaskFragment"
+            app:popUpTo="@id/addMember2"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_addMember2_to_edit_board"
-            app:destination="@id/edit_board" />
+            app:destination="@id/edit_board"
+            app:popUpTo="@id/addMember2"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_addMember2_to_add_board"
+            app:destination="@id/add_board"
+            app:popUpTo="@id/addMember2"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_addMember2_to_board_detail"
+            app:popUpTo="@id/addMember2"
+            app:popUpToInclusive="true" />
     </fragment>
     <dialog
         android:id="@+id/addMember3Fragment"
         android:name="i.part.app.course.todo.board.ui.AddMember3Fragment"
         android:label="fragment_add_member_3"
-        tools:layout="@layout/fragment_add_member_3" >
+        tools:layout="@layout/fragment_add_member_3">
         <action
             android:id="@+id/action_addMember3Fragment_to_addMember2"
             app:destination="@id/addMember2" />
@@ -87,6 +103,9 @@
         android:name="i.part.app.course.todo.board.ui.AddTaskFragment"
         android:label="fragment_add_task"
         tools:layout="@layout/fragment_add_task">
+        <argument
+            android:name="fragmentType"
+            app:argType="string" />
         <action
             android:id="@+id/action_addTaskFragment_to_addMember2"
             app:destination="@id/addMember2" />
@@ -99,6 +118,9 @@
         android:name="i.part.app.course.todo.board.ui.Edit_board"
         android:label="fragment_edit_board"
         tools:layout="@layout/fragment_edit_board">
+        <argument
+            android:name="fragmentType"
+            app:argType="string" />
         <action
             android:id="@+id/action_edit_board_to_addMember2"
             app:destination="@id/addMember2" />
@@ -111,6 +133,9 @@
         android:name="i.part.app.course.todo.board.ui.Add_board"
         android:label="delete_page"
         tools:layout="@layout/delete_page">
+        <argument
+            android:name="fragmentType"
+            app:argType="string" />
         <action
             android:id="@+id/action_add_board_to_addMember2"
             app:destination="@id/addMember2" />
