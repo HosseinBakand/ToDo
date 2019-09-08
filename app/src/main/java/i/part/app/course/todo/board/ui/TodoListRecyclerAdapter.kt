@@ -17,38 +17,56 @@ import i.part.app.course.todo.board.data.SubTask
 import i.part.app.course.todo.board.data.TodoList
 import i.part.app.course.todo.board.ui.SubTaskRecyclerAdapter
 
-class TodoListRecyclerAdapter(private val context: Context, private val todoLists: List<TodoList>, private val picasso: Picasso) :
+class TodoListRecyclerAdapter(
+    private val context: Context,
+    private val todoLists: List<TodoList>,
+    private val picasso: Picasso
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    lateinit var view:View
-    lateinit var todoListRecyclerView:RecyclerView
-    inner class TodoListViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
-        internal var todoNameTextView = itemView.findViewById<MaterialTextView>(R.id.todo_list_item_name_text_view)
-        internal val editImageView = itemView.findViewById<ImageView>(R.id.todo_list_item_edit_image_view)
-        internal var allTasksDoneTextView = itemView.findViewById<MaterialTextView>(R.id.todo_list_item_all_tasks_done_text_view)
-        internal val subTaskRecyclerView = itemView.findViewById<RecyclerView>(R.id.todo_list_item_sub_task_recycler_view)
-        internal val addTaskButton = itemView.findViewById<MaterialButton>(R.id.todo_list_item_add_task_button)
+    lateinit var view: View
+    lateinit var todoListRecyclerView: RecyclerView
+
+    inner class TodoListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        internal var todoNameTextView =
+            itemView.findViewById<MaterialTextView>(R.id.todo_list_item_name_text_view)
+        internal val editImageView =
+            itemView.findViewById<ImageView>(R.id.todo_list_item_edit_image_view)
+        internal var allTasksDoneTextView =
+            itemView.findViewById<MaterialTextView>(R.id.todo_list_item_all_tasks_done_text_view)
+        internal val subTaskRecyclerView =
+            itemView.findViewById<RecyclerView>(R.id.todo_list_item_sub_task_recycler_view)
+        internal val addTaskButton =
+            itemView.findViewById<MaterialButton>(R.id.todo_list_item_add_task_button)
+
         init {
-            itemView.setOnClickListener{ view ->
+            itemView.setOnClickListener { view ->
                 val taskTag = view.tag as TodoList
-                Toast.makeText(view.context,"${taskTag.todoListName} is ${taskTag.isCompleted}",Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    view.context,
+                    "${taskTag.todoListName} is ${taskTag.isCompleted}",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
+            editImageView.setOnClickListener { view ->
+                //navigate to EdiTodoListName
+            }
 
-            addTaskButton.setOnClickListener{
+            addTaskButton.setOnClickListener {
                 itemView.findNavController().navigate(R.id.action_board_to_addTaskFragment)
-
 //                Toast.makeText(context,"add task",Toast.LENGTH_LONG)
 //                    .show()
             }
         }
     }
 
-    inner class AddToDoListButtonViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
+    inner class AddToDoListButtonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         internal val button = itemView.findViewById<MaterialButton>(R.id.btn_add_todolist)
+
         init {
             itemView.setOnClickListener {
-                Toast.makeText(it.context,"add todo list",Toast.LENGTH_LONG)
+                Toast.makeText(it.context, "add todo list", Toast.LENGTH_LONG)
                     .show()
             }
         }
@@ -59,15 +77,15 @@ class TodoListRecyclerAdapter(private val context: Context, private val todoList
         viewType: Int
     ): RecyclerView.ViewHolder {
 
-        when(viewType){
+        when (viewType) {
             TodoList.ADD_TODOLIST_BUTTON -> {
                 view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.add_todo_list,parent,false)
+                    .inflate(R.layout.add_todo_list, parent, false)
                 return AddToDoListButtonViewHolder(view)
             }
             else -> {
                 view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.todo_list_item,parent,false)
+                    .inflate(R.layout.todo_list_item, parent, false)
                 return TodoListViewHolder(view)
             }
         }
@@ -119,3 +137,14 @@ class TodoListRecyclerAdapter(private val context: Context, private val todoList
     }
 
 }
+
+
+//
+//dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+//dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//dialog?.setCanceledOnTouchOutside(false)
+//
+//val closeButton = dialog.findViewById<ImageButton>(R.id.addBoardCloseButton)
+//closeButton.setOnClickListener {
+//    dialog.dismiss()
+//}
