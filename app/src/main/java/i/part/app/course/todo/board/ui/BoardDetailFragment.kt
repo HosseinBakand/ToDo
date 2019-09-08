@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.*
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,7 +55,10 @@ class BoardDetailFragment : Fragment() {
 //                        "Some Text" + item.title,
 //                        Toast.LENGTH_SHORT
 //                    ).show()
-                    inflatedView.findNavController().navigate(R.id.action_board_to_addMember2)
+                    val fragmentType: String? = "board_detail"
+                    val myBundle = bundleOf("fragmentType" to fragmentType)
+                    inflatedView.findNavController()
+                        .navigate(R.id.action_board_to_addMember2, myBundle)
 
                     true
                 }

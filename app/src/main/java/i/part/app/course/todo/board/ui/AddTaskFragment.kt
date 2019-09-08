@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageButton
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,7 +56,10 @@ class AddTaskFragment : DialogFragment() {
 
         view.findViewById<ImageButton>(R.id.addTaskPlusButton)?.let {
             it.setOnClickListener {
-                this.findNavController().navigate(R.id.action_addTaskFragment_to_addMember2)
+                val fragmentType: String? = "add_task"
+                val myBundle = bundleOf("fragmentType" to fragmentType)
+                this.findNavController()
+                    .navigate(R.id.action_addTaskFragment_to_addMember2, myBundle)
             }
         }
 
