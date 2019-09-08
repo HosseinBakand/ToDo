@@ -46,7 +46,6 @@ class LoginFragment : Fragment() {
         }
         return myView
 
-
     }
 
     fun onButtonPressed(uri: Uri) {
