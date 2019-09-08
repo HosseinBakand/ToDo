@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(
             R.id.nav_host_fragment, LoginFragment()
         ).commit()
+
     }
 
     @SuppressLint("ResourceType")

@@ -14,7 +14,7 @@
             android:id="@+id/add_member_3_items_image"
             android:layout_width="29dp"
             android:layout_height="29dp"
-            android:src="@drawable/person_empty"
+            android:src="@drawable/ic_person_gray_24dp"
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

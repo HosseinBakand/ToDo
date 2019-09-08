@@ -62,7 +62,7 @@ class AddMember3Adapter(
 
             checkbox.setOnCheckedChangeListener { _, isChecked -> item.ischeck = !isChecked }
 
-            itemView.setOnClickListener { view ->
+            itemView.setOnClickListener {
                 checkbox.isChecked = !checkbox.isChecked
                 item.ischeck = !checkbox.isChecked
             }

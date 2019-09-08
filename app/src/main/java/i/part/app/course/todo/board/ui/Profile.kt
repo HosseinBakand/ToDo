@@ -22,11 +22,11 @@ class Profile : Fragment() {
         val transformer = PicassoCircleTransformation()
         val profilePhoto = view.findViewById<ImageView>(R.id.profile_photo)
         val plusSign = view.findViewById<ImageView>(R.id.profilePhotoPlusSign)
-        Picasso
-            .get()
-            .load("https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png")
-            .transform(transformer)
-            .into(profilePhoto)
+//        Picasso
+//            .get()
+//            .load("https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png")
+//            .transform(transformer)
+//            .into(profilePhoto)
 
 
         return view

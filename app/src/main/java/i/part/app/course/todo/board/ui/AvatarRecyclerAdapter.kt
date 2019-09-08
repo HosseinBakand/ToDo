@@ -50,8 +50,7 @@ class AvatarRecyclerAdapter(
         holder.itemView.tag = avatars[position]
         val t = avatars[position]
         val trsfrm = PicassoCircleTransformation()
-        picasso.load(t.image_url).transform(trsfrm).error(R.drawable.person_empty)
-            .into(holder.avatarImageView)
+        picasso.load(t.image_url).transform(trsfrm).error(R.drawable.ic_person_gray_24dp)
 
         //holder.avatarImageView.setBackgroundResource(R.drawable.ic_avatar)
     }

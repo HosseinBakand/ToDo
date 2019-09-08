@@ -13,8 +13,9 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.task_list.data.SubTask
-import i.part.app.course.todo.task_list.data.TodoList
+import i.part.app.course.todo.board.data.SubTask
+import i.part.app.course.todo.board.data.TodoList
+import i.part.app.course.todo.board.ui.SubTaskRecyclerAdapter
 
 class TodoListRecyclerAdapter(private val context: Context, private val todoLists: List<TodoList>, private val picasso: Picasso) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

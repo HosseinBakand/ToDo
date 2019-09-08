@@ -53,7 +53,6 @@
         android:padding="2dp"
         android:elevation="4dp"
         android:src="@drawable/profile_photo"
-        android:background="@drawable/person_empty"
         app:layout_anchor="@id/appBarLayout"
         app:layout_anchorGravity="center|bottom"
         android:outlineProvider="none"/>

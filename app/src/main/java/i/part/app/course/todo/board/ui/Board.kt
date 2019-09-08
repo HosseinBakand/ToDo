@@ -1,6 +1,7 @@
 package i.part.app.course.todo.task_list.ui
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.*
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.task_list.data.TodoList
+import i.part.app.course.todo.board.data.TodoList
 
 class Board : Fragment() {
 
@@ -73,7 +74,9 @@ class Board : Fragment() {
         val recycler = inflatedView.findViewById<RecyclerView>(R.id.board_fragment_recycler_view)
         val snapHelper = LinearSnapHelper()
         recycler.clipToPadding =false
-        recycler.setPadding(70,recycler.paddingTop,70,recycler.paddingBottom)
+        val display = DisplayMetrics()
+        activity?.windowManager?.defaultDisplay?.getMetrics(display)
+        recycler.setPadding(50*display.widthPixels/1080,recycler.paddingTop,70*display.widthPixels/1080,recycler.paddingBottom)
         snapHelper.attachToRecyclerView(recyclerView)
         return inflatedView
     }
