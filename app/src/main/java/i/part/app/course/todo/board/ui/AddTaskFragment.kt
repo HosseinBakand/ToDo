@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.board.data.Avatar
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import java.util.*
 
@@ -65,7 +64,7 @@ class AddTaskFragment : DialogFragment() {
 
         //recycle
         val rv_avatar = view.findViewById<RecyclerView>(R.id.rv_add_task_avatars)
-        val myAvatars: ArrayList<Avatar> = ArrayList()
+        val myAvatarViews: ArrayList<AvatarView> = ArrayList()
 
         rv_avatar.let { it.setHasFixedSize(true) }
         val overlap: OverlapDecoration = OverlapDecoration()
@@ -74,15 +73,15 @@ class AddTaskFragment : DialogFragment() {
         rv_avatar.let { it.layoutManager = avatarManager }
 
         //start generating fake data
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
         //end
         val picasso = Picasso.get()
-        context?.let { avatarAdapter = AvatarRecyclerAdapter(it, myAvatars, picasso, true) }
+        context?.let { avatarAdapter = AvatarRecyclerAdapter(it, myAvatarViews, picasso, true) }
 
         rv_avatar.let { it.adapter = avatarAdapter }
 
@@ -96,7 +95,7 @@ class AddTaskFragment : DialogFragment() {
             val frag = AddTaskFragment()
             val args = Bundle()
 
-            args.putString("Add Task", title)
+            args.putString("Add TaskView", title)
             frag.arguments = args
             return frag
         }

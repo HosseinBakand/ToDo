@@ -12,14 +12,13 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.board.data.TodoList
 
 class BoardDetailFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    val todoLists:ArrayList<TodoList> = ArrayList()
+    val todoListViews: ArrayList<TodoListView> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,16 +28,60 @@ class BoardDetailFragment : Fragment() {
         recyclerView = inflatedView.findViewById<RecyclerView>(R.id.rv_board_fragment)
         recyclerView.let {
             it.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-            todoLists.apply {
-                add(TodoList(TodoList.TODOLIST,"todoList1", true))
-                add(TodoList(TodoList.TODOLIST,"todoList2", true))
-                add(TodoList(TodoList.TODOLIST,"thy", false))
-                add(TodoList(TodoList.TODOLIST,"poker", true))
-                add(TodoList(TodoList.TODOLIST,"joker", false))
-                add(TodoList(TodoList.TODOLIST,"foster", true))
-                add(TodoList(TodoList.ADD_TODOLIST_BUTTON,"button",false))
+            todoListViews.apply {
+                add(
+                    TodoListView(
+                        TodoListView.TODOLIST,
+                        "todoList1",
+                        true
+                    )
+                )
+                add(
+                    TodoListView(
+                        TodoListView.TODOLIST,
+                        "todoList2",
+                        true
+                    )
+                )
+                add(
+                    TodoListView(
+                        TodoListView.TODOLIST,
+                        "thy",
+                        false
+                    )
+                )
+                add(
+                    TodoListView(
+                        TodoListView.TODOLIST,
+                        "poker",
+                        true
+                    )
+                )
+                add(
+                    TodoListView(
+                        TodoListView.TODOLIST,
+                        "joker",
+                        false
+                    )
+                )
+                add(
+                    TodoListView(
+                        TodoListView.TODOLIST,
+                        "foster",
+                        true
+                    )
+                )
+                add(
+                    TodoListView(
+                        TodoListView.ADD_TODOLIST_BUTTON,
+                        "button",
+                        false
+                    )
+                )
             }
-            context?.let { context -> it.adapter = TodoListRecyclerAdapter(context, todoLists, Picasso.get()) }
+            context?.let { context ->
+                it.adapter = TodoListRecyclerAdapter(context, todoListViews, Picasso.get())
+            }
             recyclerView.adapter = it.adapter
         }
 

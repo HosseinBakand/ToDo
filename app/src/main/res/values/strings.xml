@@ -32,7 +32,7 @@
     <string name="add_member_3_searcch">Search for more member</string>
     <string name="add_todolist">Add Todolist</string>
     <string name="register_register_button">Register</string>
-    <string name="all_tasks_done">All tasks done</string>
+    <string name="all_tasks_done">All taskViews done</string>
     <string name="login_register_button">Login</string>
     <string name="register_new_account">Register new Account</string>
     <string name="page_empty_message">You can add boards here \n to manage your Tasks.</string>
@@ -57,7 +57,7 @@
     <string name="edit">Edit</string>
     <string name="edit_todolist_name">Edit Todolist Name</string>
     <string name="todo_remaining_items_task">8 to do (118 task)</string>
-    <string name="todo_remaining_tasks">54 remaining tasks</string>
+    <string name="todo_remaining_tasks">54 remaining taskViews</string>
     <string name="ok_button">OK</string>
     <string name="cancel_button">Cancel</string>
     <string name="login_page_main_title">TodoList App</string>

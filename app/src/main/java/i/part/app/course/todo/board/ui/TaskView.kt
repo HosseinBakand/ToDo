@@ -1,6 +1,6 @@
-package i.part.app.course.todo.board.data
+package i.part.app.course.todo.board.ui
 
-data class Task(
+data class TaskView(
     var name: String,
     var todo: Int,
     var totalTasks: Int,

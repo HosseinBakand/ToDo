@@ -18,12 +18,10 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.board.data.SubTask
-import i.part.app.course.todo.board.data.TodoList
 
 class TodoListRecyclerAdapter(
     private val context: Context,
-    private val todoLists: List<TodoList>,
+    private val todoListViews: List<TodoListView>,
     private val picasso: Picasso
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -44,7 +42,7 @@ class TodoListRecyclerAdapter(
 
         init {
             itemView.setOnClickListener { view ->
-                val taskTag = view.tag as TodoList
+                val taskTag = view.tag as TodoListView
                 Toast.makeText(
                     view.context,
                     "${taskTag.todoListName} is ${taskTag.isCompleted}",
@@ -95,7 +93,7 @@ class TodoListRecyclerAdapter(
     ): RecyclerView.ViewHolder {
 
         return when (viewType) {
-            TodoList.ADD_TODOLIST_BUTTON -> {
+            TodoListView.ADD_TODOLIST_BUTTON -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.add_todo_list, parent, false)
                 AddToDoListButtonViewHolder(view)
@@ -110,9 +108,9 @@ class TodoListRecyclerAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is TodoListViewHolder) {
-            val subtasks: ArrayList<SubTask> = ArrayList()
-            holder.itemView.tag = todoLists[position]
-            val currentItem = todoLists[position]
+            val subtasks: ArrayList<SubTaskView> = ArrayList()
+            holder.itemView.tag = todoListViews[position]
+            val currentItem = todoListViews[position]
             holder.todoNameTextView.text = currentItem.todoListName
             holder.subTaskRecyclerView.setHasFixedSize(true)
             holder.subTaskRecyclerView.layoutManager =
@@ -120,12 +118,12 @@ class TodoListRecyclerAdapter(
 
             subtasks.apply {
 
-                add(SubTask("Awesome", true))
-                add(SubTask("Marvelous", true))
-                add(SubTask("Spectacular", true))
-                add(SubTask("Awesome", true))
-                add(SubTask("Marvelous", true))
-                add(SubTask("Awesome", true))
+                add(SubTaskView("Awesome", true))
+                add(SubTaskView("Marvelous", true))
+                add(SubTaskView("Spectacular", true))
+                add(SubTaskView("Awesome", true))
+                add(SubTaskView("Marvelous", true))
+                add(SubTaskView("Awesome", true))
             }
 
             var allCompleted = true
@@ -147,10 +145,10 @@ class TodoListRecyclerAdapter(
         }
     }
 
-    override fun getItemCount() = todoLists.size
+    override fun getItemCount() = todoListViews.size
 
     override fun getItemViewType(position: Int): Int {
-        return todoLists[position].viewType
+        return todoListViews[position].viewType
     }
 
 }

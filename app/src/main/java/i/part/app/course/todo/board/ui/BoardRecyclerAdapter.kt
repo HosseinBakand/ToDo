@@ -17,23 +17,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.board.data.Avatar
-import i.part.app.course.todo.board.data.Task
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.core.util.ui.RoundedCornersTransformation
 import java.util.*
 
 
-class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, picasso: Picasso) :
+class BoardRecyclerAdapter(
+    private val context: Context,
+    taskViews: List<TaskView>,
+    picasso: Picasso
+) :
     RecyclerView.Adapter<BoardRecyclerAdapter.ViewHolder>() {
     var avatarAdapter: RecyclerView.Adapter<*>? = null
     var avatarManager: RecyclerView.LayoutManager? = null
     val picasso: Picasso
-    private val tasks: List<Task>
+    private val taskViews: List<TaskView>
     lateinit var v: View
 
     init {
-        this.tasks = tasks
+        this.taskViews = taskViews
         this.picasso = picasso
     }
 
@@ -48,17 +50,17 @@ class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, pica
         get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val myAvatars: ArrayList<Avatar> = ArrayList()
+        val myAvatarViews: ArrayList<AvatarView> = ArrayList()
         if (position == 0) {
             val params = RelativeLayout.LayoutParams(v.layoutParams)
             params.setMargins(8.dp, 25.dp, 8.dp, 10.dp)
             v.layoutParams = params
         }
-        holder.itemView.tag = tasks[position]
-        val t = tasks[position]
+        holder.itemView.tag = taskViews[position]
+        val t = taskViews[position]
         holder.name.text = t.name
         holder.todo.text = "${t.todo} to do (${t.totalTasks} task)"
-        holder.remaningTasks.text = "${t.remaningTasks} remaining tasks"
+        holder.remaningTasks.text = "${t.remaningTasks} remaining taskViews"
         val radius = 8
         val margin = 0
         val transformation = RoundedCornersTransformation(radius, margin)
@@ -99,21 +101,21 @@ class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, pica
         avatarManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
         holder.rv_avatar.let { it.layoutManager = avatarManager }
         //start generating fake data
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
         //end
-        avatarAdapter = AvatarRecyclerAdapter(context, myAvatars, picasso, false)
+        avatarAdapter = AvatarRecyclerAdapter(context, myAvatarViews, picasso, false)
         holder.rv_avatar.let { it.adapter = avatarAdapter }
 
 
     }
 
     override fun getItemCount(): Int {
-        return tasks.size
+        return taskViews.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -145,7 +147,7 @@ class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, pica
             itemView.setOnClickListener { view ->
                 view.findNavController().navigate(R.id.action_dashBoardFragment_to_board)
 
-//                val myTask = view.tag as Task
+//                val myTask = view.tag as TaskView
 //                Toast.makeText(view.context, myTask.name + " is " + myTask.todo, Toast.LENGTH_SHORT)
 //                    .show()
             }

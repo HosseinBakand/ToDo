@@ -10,23 +10,22 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.board.data.Avatar
 import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
 
 //input size is for choose item // true for big and false for small
 class AvatarRecyclerAdapter(
     private val context: Context,
-    avatars: List<Avatar>,
+    avatarViews: List<AvatarView>,
     picasso: Picasso,
     val inputSize: Boolean
 ) :
     RecyclerView.Adapter<AvatarRecyclerAdapter.ViewHolder>() {
-    private val avatars: List<Avatar>
+    private val avatarViews: List<AvatarView>
     lateinit var v: View
     private val picasso: Picasso
 
     init {
-        this.avatars = avatars
+        this.avatarViews = avatarViews
         this.picasso = picasso
     }
 
@@ -47,8 +46,8 @@ class AvatarRecyclerAdapter(
         get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.tag = avatars[position]
-        val t = avatars[position]
+        holder.itemView.tag = avatarViews[position]
+        val t = avatarViews[position]
         val trsfrm = PicassoCircleTransformation()
         picasso.load(t.image_url).transform(trsfrm).error(R.drawable.ic_person_gray_24dp)
 
@@ -56,7 +55,7 @@ class AvatarRecyclerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return avatars.size
+        return avatarViews.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -65,7 +64,7 @@ class AvatarRecyclerAdapter(
         init {
             avatarImageView = itemView.findViewById<View>(R.id.im_avatar) as ImageView
             itemView.setOnClickListener { view ->
-                val myAvatar = view.tag as Avatar
+                val myAvatar = view.tag as AvatarView
                 Toast.makeText(view.context, myAvatar.image_url, Toast.LENGTH_SHORT)
                     .show()
             }
