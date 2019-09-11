@@ -1,9 +1,14 @@
 package i.part.app.course.todo.board.ui
 
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.navigation.findNavController
@@ -47,8 +52,21 @@ class TodoListRecyclerAdapter(
                 )
                     .show()
             }
-            editImageView.setOnClickListener { view ->
-                //navigate to EdiTodoListName
+            editImageView.setOnClickListener {
+                val dialog = Dialog(context)
+                dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.setContentView(R.layout.edit_todolist_name)
+                dialog.setCanceledOnTouchOutside(false)
+                val okButton = dialog.findViewById<MaterialButton>(R.id.btn_edit_todolist_confirm)
+                okButton?.setOnClickListener {
+                    dialog.dismiss()
+                }
+                val closeButton = dialog.findViewById<ImageButton>(R.id.ib_edit_todolist_close)
+                closeButton?.setOnClickListener {
+                    dialog.dismiss()
+                }
+                dialog.show()
             }
 
             addTaskButton.setOnClickListener {
