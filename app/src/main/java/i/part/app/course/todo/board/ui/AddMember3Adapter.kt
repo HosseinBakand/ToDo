@@ -66,12 +66,8 @@ class AddMember3Adapter(
                 checkbox.isChecked = !checkbox.isChecked
                 item.ischeck = !checkbox.isChecked
             }
-
         }
-
         init {
-
-
         }
     }
 }
