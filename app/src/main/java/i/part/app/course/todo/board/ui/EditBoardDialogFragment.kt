@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.board.data.Avatar
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.core.util.ui.RoundedCornersTransformation
 import java.util.*
@@ -66,7 +65,7 @@ class Edit_board : DialogFragment() {
         }
         //recycle
         val rv_avatar = view.findViewById<RecyclerView>(R.id.rv_edit_board_avatars)
-        val myAvatars: ArrayList<Avatar> = ArrayList()
+        val myAvatarViews: ArrayList<AvatarView> = ArrayList()
 
         rv_avatar.let { it.setHasFixedSize(true) }
         val overlap: OverlapDecoration = OverlapDecoration()
@@ -75,15 +74,15 @@ class Edit_board : DialogFragment() {
         rv_avatar.let { it.layoutManager = avatarManager }
 
         //start generating fake data
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
-        myAvatars.add(Avatar())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
+        myAvatarViews.add(AvatarView())
         //end
         val picasso = Picasso.get()
-        context?.let { avatarAdapter = AvatarRecyclerAdapter(it, myAvatars, picasso, true) }
+        context?.let { avatarAdapter = AvatarRecyclerAdapter(it, myAvatarViews, picasso, true) }
 
 
         val image = view.findViewById<ImageView>(R.id.iv_edit_board_preview)

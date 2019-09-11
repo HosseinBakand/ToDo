@@ -3,7 +3,7 @@ package i.part.app.course.todo
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import i.part.app.course.todo.board.ui.LoginFragment
+import i.part.app.course.todo.user.ui.LoginFragment
 
 class MainActivity : AppCompatActivity() {
 

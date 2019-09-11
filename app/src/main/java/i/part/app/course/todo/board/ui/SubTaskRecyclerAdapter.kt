@@ -11,9 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
-import i.part.app.course.todo.board.data.SubTask
 
-class SubTaskRecyclerAdapter(private val context: Context, private val subtasks: List<SubTask>, private val picasso: Picasso):
+class SubTaskRecyclerAdapter(
+    private val context: Context,
+    private val subtasks: List<SubTaskView>,
+    private val picasso: Picasso
+) :
 RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {
     lateinit var view:View
 
@@ -24,7 +27,7 @@ RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {
 
         init {
             itemView.setOnClickListener {
-                val subtask = it.tag as SubTask
+                val subtask = it.tag as SubTaskView
                 Toast.makeText(it.context,subtask.imageUri,Toast.LENGTH_LONG)
                     .show()
             }

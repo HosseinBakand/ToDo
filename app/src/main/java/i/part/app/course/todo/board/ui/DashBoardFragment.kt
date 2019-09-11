@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.board.data.Task
 import java.util.*
 
 
@@ -32,7 +31,7 @@ class DashBoardFragment : Fragment() {
     lateinit var anchorForMenu: ImageView
     var mAdapter: RecyclerView.Adapter<*>? = null
     var layoutManager: RecyclerView.LayoutManager? = null
-    val myTasks: ArrayList<Task> = ArrayList()
+    val myTaskViews: ArrayList<TaskView> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -101,13 +100,13 @@ class DashBoardFragment : Fragment() {
         recyclerView.let { it.setHasFixedSize(true) }
         layoutManager = LinearLayoutManager(context)
         recyclerView.let { it.layoutManager = layoutManager }
-        myTasks.add(Task("board1", 8, 118, 43, "done"))
-        myTasks.add(Task("board2", 6, 118, 54, "todo"))
-        myTasks.add(Task("board3", 7, 118, 12, "todo"))
-        myTasks.add(Task("board4", 81, 118, 498, "done"))
-        myTasks.add(Task("board5", 12, 118, 34, "done"))
-        myTasks.add(Task("board6", 55, 118, 23, "todo"))
-        context?.let { mAdapter = BoardRecyclerAdapter(it, myTasks, Picasso.get()) }
+        myTaskViews.add(TaskView("board1", 8, 118, 43, "done"))
+        myTaskViews.add(TaskView("board2", 6, 118, 54, "todo"))
+        myTaskViews.add(TaskView("board3", 7, 118, 12, "todo"))
+        myTaskViews.add(TaskView("board4", 81, 118, 498, "done"))
+        myTaskViews.add(TaskView("board5", 12, 118, 34, "done"))
+        myTaskViews.add(TaskView("board6", 55, 118, 23, "todo"))
+        context?.let { mAdapter = BoardRecyclerAdapter(it, myTaskViews, Picasso.get()) }
         if (mAdapter?.itemCount == 0) {
             ll_empty_stat.visibility = View.VISIBLE
         }

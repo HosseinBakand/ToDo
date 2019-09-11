@@ -1,4 +1,4 @@
-package i.part.app.course.todo.board.ui
+package i.part.app.course.todo.user.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
