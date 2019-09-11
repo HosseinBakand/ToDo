@@ -75,6 +75,7 @@ class RoundedCornersTransformation @JvmOverloads constructor(
                 canvas,
                 paint,
                 right,
+
                 bottom
             )
             RoundedCornersTransformation.CornerType.TOP -> drawTopRoundRect(
