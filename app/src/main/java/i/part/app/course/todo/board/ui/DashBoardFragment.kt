@@ -67,10 +67,10 @@ class DashBoardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val myView = inflater.inflate(R.layout.fragment_dash_board, container, false)
-        recyclerView = myView.findViewById(R.id.tasksRecyclerView) as RecyclerView
-        customMenuButton = myView.findViewById(R.id.customMenuButton)
-        anchorForMenu = myView.findViewById(R.id.anchorForMenu)
-        ll_empty_stat = myView.findViewById(R.id.ll_empty_stat)
+        recyclerView = myView.findViewById(R.id.rv_boards) as RecyclerView
+        customMenuButton = myView.findViewById(R.id.iv_dash_board_custom_menu_button)
+        anchorForMenu = myView.findViewById(R.id.iv_dash_board_anchor_for_menu)
+        ll_empty_stat = myView.findViewById(R.id.ll_dash_board_empty_state)
         customMenuButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
                 val wrapper = ContextThemeWrapper(context, R.style.popupmenu)
@@ -113,7 +113,7 @@ class DashBoardFragment : Fragment() {
         }
         recyclerView.let { it.adapter = mAdapter }
         val floatingActionButton =
-            myView.findViewById<FloatingActionButton>(R.id.fb_dash_board_fragment)
+            myView.findViewById<FloatingActionButton>(R.id.fab_dash_board_fragment)
         floatingActionButton.setOnClickListener {
             myView.findNavController().navigate(R.id.action_dashBoardFragment_to_add_board)
 //            val add_b = Add_board.newInstance("vahid")

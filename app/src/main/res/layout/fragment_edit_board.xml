@@ -13,23 +13,23 @@
 
 
         <LinearLayout
-            android:id="@+id/outlinear"
+            android:id="@+id/ll_edit_board"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/addBoardTitle"
+                android:id="@+id/cl_edit_board_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
                 android:background="@drawable/dialog_title_round_up">
 
                 <TextView
-                    android:id="@+id/editBoard"
+                    android:id="@+id/tv_edit_board_toolbar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
+                    android:layout_marginStart="24dp"
                     android:paddingTop="4dp"
                     android:text="@string/edit_board_title_String"
                     android:textColor="@color/primaryText"
@@ -37,18 +37,18 @@
                     android:textStyle="bold"
                     android:typeface="sans"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/editBoardCloseButton"
+                    app:layout_constraintEnd_toStartOf="@id/ib_edit_board_close"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
-                    android:id="@+id/editBoardCloseButton"
+                    android:id="@+id/ib_edit_board_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="24dp"
+                    android:layout_marginEnd="24dp"
                     android:background="@color/white_gray"
                     android:src="@drawable/ic_close_black_24dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/editBoard"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_edit_board_toolbar"
                     app:layout_constraintEnd_toEndOf="parent" />
 
 
@@ -63,7 +63,7 @@
                 >
 
                 <EditText
-                    android:id="@+id/boardNameEditText"
+                    android:id="@+id/et_edit_board_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -79,14 +79,14 @@
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constrain1"
+                    android:id="@+id/cl_edit_board_owner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp">
 
                     <TextView
-                        android:id="@+id/owner"
+                        android:id="@+id/tv_edit_board_owner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
@@ -96,14 +96,14 @@
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/ownerName"
+                        app:layout_constraintEnd_toStartOf="@id/tv_edit_board_owner_name"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
                         tools:ignore="MissingConstraints" />
 
                     <TextView
-                        android:id="@+id/ownerName"
+                        android:id="@+id/tv_edit_board_owner_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
@@ -115,7 +115,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_weight="2"
-                        app:layout_constraintStart_toEndOf="@+id/owner"
+                        app:layout_constraintStart_toEndOf="@id/tv_edit_board_owner"
                         tools:ignore="MissingConstraints" />
 
 
@@ -131,7 +131,7 @@
 
 
                     <TextView
-                        android:id="@+id/assignTo"
+                        android:id="@+id/tv_edit_board_assign_to"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
@@ -147,34 +147,34 @@
                         tools:ignore="MissingConstraints" />
 
                     <LinearLayout
-                        android:id="@+id/lini3"
+                        android:id="@+id/ll_edit_board_assignees"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="7dp"
                         android:layout_marginRight="7dp"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/editBoardPlusButton"
-                        app:layout_constraintStart_toEndOf="@+id/assignTo"
+                        app:layout_constraintEnd_toStartOf="@id/ib_edit_board_plus"
+                        app:layout_constraintStart_toEndOf="@id/tv_edit_board_assign_to"
                         tools:ignore="MissingConstraints">
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/avatarsRecyclerView2"
+                            android:id="@+id/rv_edit_board_avatars"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+                            android:layout_height="match_parent" />
                     </LinearLayout>
 
                     <ImageButton
-                        android:id="@+id/editBoardPlusButton"
+                        android:id="@+id/ib_edit_board_plus"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:background="@color/white_three"
                         android:src="@drawable/ic_outline_indeterminate_check_box_24"
-                        app:layout_constraintBottom_toBottomOf="@+id/assignTo"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_edit_board_assign_to"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/lini3"
-                        app:layout_constraintTop_toTopOf="@+id/assignTo"
+                        app:layout_constraintStart_toEndOf="@id/ll_edit_board_assignees"
+                        app:layout_constraintTop_toTopOf="@id/tv_edit_board_assign_to"
                         tools:ignore="MissingConstraints" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -193,7 +193,7 @@
                     >
 
                     <TextView
-                        android:id="@+id/textView6"
+                        android:id="@+id/tv_edit_board_background_picture"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
@@ -214,28 +214,28 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constrain4"
+                    android:id="@+id/cl_edit_board_background"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp">
 
 
                     <ImageButton
-                        android:id="@+id/editBoardMinusButton"
+                        android:id="@+id/ib_edit_board_minus"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:background="@color/white_three"
                         android:src="@drawable/ic_minus_check_box"
-                        app:layout_constraintBottom_toBottomOf="@+id/editBoardBackgroundPicture"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_edit_board_background_picture_name"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/editBoardBackgroundPicture"
-                        app:layout_constraintTop_toTopOf="@+id/editBoardBackgroundPicture"
+                        app:layout_constraintStart_toEndOf="@id/tv_edit_board_background_picture_name"
+                        app:layout_constraintTop_toTopOf="@id/tv_edit_board_background_picture_name"
                         app:layout_constraintVertical_bias="0.333"
                         tools:ignore="MissingConstraints" />
 
                     <TextView
-                        android:id="@+id/editBoardBackgroundPicture"
+                        android:id="@+id/tv_edit_board_background_picture_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="19dp"
@@ -246,18 +246,18 @@
                         android:textColor="@color/greyish_brown"
                         android:textSize="16sp"
                         android:textStyle="normal"
-                        app:layout_constraintBottom_toBottomOf="@+id/editBoardBGImage"
-                        app:layout_constraintEnd_toStartOf="@+id/editBoardMinusButton"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_edit_board_preview"
+                        app:layout_constraintEnd_toStartOf="@id/ib_edit_board_minus"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/editBoardBGImage"
-                        app:layout_constraintTop_toTopOf="@+id/editBoardBGImage"
+                        app:layout_constraintStart_toEndOf="@id/iv_edit_board_preview"
+                        app:layout_constraintTop_toTopOf="@id/iv_edit_board_preview"
                         tools:ignore="MissingConstraints" />
 
                     <ImageView
-                        android:id="@+id/editBoardBGImage"
+                        android:id="@+id/iv_edit_board_preview"
                         android:layout_width="59dp"
                         android:layout_height="59dp"
-                        app:layout_constraintEnd_toStartOf="@+id/editBoardBackgroundPicture"
+                        app:layout_constraintEnd_toStartOf="@id/tv_edit_board_background_picture_name"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         tools:ignore="MissingConstraints"
@@ -270,7 +270,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_add_task_confirm"
+                android:id="@+id/btn_edit_board_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dialog_button_round_down"

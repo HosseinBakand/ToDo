@@ -23,7 +23,7 @@
                 android:layout_height="51dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="36dp"
-                android:src="@drawable/ic_group_check"></ImageView>
+                android:src="@drawable/ic_group_check" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -31,17 +31,17 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="TodoList App"
+                android:text="@string/login_page_main_title"
                 android:textSize="20sp"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
 
             <androidx.core.widget.NestedScrollView
-                android:id="@+id/profile_nested_scroll_view"
+                android:id="@+id/nsv_register"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:paddingBottom="45dp"
-                app:layout_anchor="@id/profile_photo"
+                app:layout_anchor="@id/iv_profile_photo"
                 app:layout_anchorGravity="bottom"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -53,7 +53,7 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/profile_email_text_input_layout"
+                        android:id="@+id/til_register_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -66,7 +66,7 @@
                         app:endIconMode="custom">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/profile_email_text_input_edit_text"
+                            android:id="@+id/tiet_register_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
@@ -82,7 +82,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/profile_phone_text_input_layout"
+                        android:id="@+id/til_register_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -95,7 +95,7 @@
                         app:endIconMode="custom">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/profile_phone_text_input_edit_text"
+                            android:id="@+id/tiet_register_phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -113,7 +113,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/profile_current_password_text_input_layout"
+                        android:id="@+id/til_register_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:startIconDrawable="@drawable/ic_key_24dp"
@@ -125,7 +125,7 @@
                         app:endIconMode="password_toggle">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/profile_current_password_text_input_edit_text"
+                            android:id="@+id/tiet_register_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
@@ -141,7 +141,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/profile_new_password_text_input_layout"
+                        android:id="@+id/til_profile_confirm_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -153,7 +153,7 @@
                         app:endIconMode="password_toggle">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/profile_new_password_text_input_edit_text"
+                            android:id="@+id/tiet_register_confirm_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -171,7 +171,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/profile_confirm_button"
+                        android:id="@+id/btn_register_confirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

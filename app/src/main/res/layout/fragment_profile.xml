@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/profile_page_background"
-    android:id="@+id/profile_coordinator_layout">
+    android:id="@+id/col_profile">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/abl_profile"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         style="@style/AppTheme"
@@ -15,13 +15,13 @@
         android:outlineProvider="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/profile_toolbar_constraint_layout"
+            android:id="@+id/cl_profile_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:outlineProvider="none">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/profile_toolbar"
+                android:id="@+id/mt_profile"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
                 android:background="@color/colorPrimary"
@@ -33,12 +33,12 @@
                 app:navigationIcon="?attr/homeAsUpIndicator"/>
 
             <View
-                android:id="@+id/profile_view_below_toolbar"
+                android:id="@+id/v_profile_below_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_toolbar"
+                app:layout_constraintTop_toBottomOf="@+id/mt_profile"
                 android:outlineProvider="none"/>
 
 
@@ -47,27 +47,27 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ImageView
-        android:id="@+id/profile_photo"
+        android:id="@+id/iv_profile_photo"
         android:layout_width="76dp"
         android:layout_height="76dp"
         android:padding="2dp"
         android:elevation="4dp"
         android:src="@drawable/profile_photo"
-        app:layout_anchor="@id/appBarLayout"
+        app:layout_anchor="@id/abl_profile"
         app:layout_anchorGravity="center|bottom"
         android:outlineProvider="none"/>
 
     <View
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:layout_anchor="@id/profile_photo"
+        app:layout_anchor="@id/iv_profile_photo"
         app:layout_anchorGravity="center"
-        android:id="@+id/anchor"/>
+        android:id="@+id/v_profile_photo_anchor"/>
 
     <ImageView
-        android:id="@+id/profilePhotoPlusSign"
+        android:id="@+id/iv_profile_photo_plus_sign"
         android:scaleType="centerInside"
-        app:layout_anchor="@id/anchor"
+        app:layout_anchor="@id/v_profile_photo_anchor"
         app:layout_anchorGravity="bottom|end"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -76,12 +76,12 @@
         android:outlineProvider="none"/>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/profile_nested_scroll_view"
+        android:id="@+id/nsv_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
         android:layout_marginTop="60dp"
-        app:layout_anchor="@id/profile_photo"
+        app:layout_anchor="@id/iv_profile_photo"
         app:layout_anchorGravity="bottom"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -93,7 +93,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/profile_profile_name_text_view"
+                android:id="@+id/tv_profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -108,7 +108,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/profile_information_text_view"
+                android:id="@+id/tv_profile_information"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -123,7 +123,7 @@
                 android:textStyle="normal" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/profile_email_text_input_layout"
+                android:id="@+id/til_profile_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -135,7 +135,7 @@
                 app:startIconTint="@color/white"
                 app:startIconTintMode="multiply">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/profile_email_text_input_edit_text"
+                    android:id="@+id/tiet_profile_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/profile_page_background"
@@ -149,7 +149,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/profile_phone_text_input_layout"
+                android:id="@+id/til_profile_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -161,7 +161,7 @@
                 app:startIconTint="@color/white"
                 app:startIconTintMode="multiply">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/profile_phone_text_input_edit_text"
+                    android:id="@+id/tiet_profile_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -177,7 +177,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/profile_change_password_text_view"
+                android:id="@+id/tv_profile_change_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -191,7 +191,7 @@
                 android:textStyle="normal" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/profile_current_password_text_input_layout"
+                android:id="@+id/til_profile_current_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -202,7 +202,7 @@
                 app:startIconTint="@color/white"
                 app:startIconTintMode="multiply">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/profile_current_password_text_input_edit_text"
+                    android:id="@+id/tiet_profile_current_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/profile_page_background"
@@ -216,7 +216,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/profile_new_password_text_input_layout"
+                android:id="@+id/til_profile_new_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -227,7 +227,7 @@
                 app:startIconTint="@color/white"
                 app:startIconTintMode="multiply">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/profile_new_password_text_input_edit_text"
+                    android:id="@+id/tiet_profile_new_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -244,7 +244,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/profile_confirm_button"
+                android:id="@+id/btn_profile_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
