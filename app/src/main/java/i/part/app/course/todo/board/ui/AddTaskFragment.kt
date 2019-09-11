@@ -44,7 +44,7 @@ class AddTaskFragment : DialogFragment() {
         //dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_edge)
         dialog?.setCanceledOnTouchOutside(false)
         val view = inflater.inflate(R.layout.fragment_add_task, container, false)
-        val closeButton = view.findViewById<ImageButton>(R.id.addTaskCloseButton)
+        val closeButton = view.findViewById<ImageButton>(R.id.ib_add_task_close)
         closeButton.setOnClickListener { this.dismiss() }
 
         view.findViewById<MaterialButton>(R.id.btn_add_task_confirm)?.let {
@@ -54,7 +54,7 @@ class AddTaskFragment : DialogFragment() {
             }
         }
 
-        view.findViewById<ImageButton>(R.id.addTaskPlusButton)?.let {
+        view.findViewById<ImageButton>(R.id.ib_add_task_plus)?.let {
             it.setOnClickListener {
                 val fragmentType: String? = "add_task"
                 val myBundle = bundleOf("fragmentType" to fragmentType)
@@ -64,7 +64,7 @@ class AddTaskFragment : DialogFragment() {
         }
 
         //recycle
-        val rv_avatar = view.findViewById<RecyclerView>(R.id.avatarsRecyclerView2)
+        val rv_avatar = view.findViewById<RecyclerView>(R.id.rv_add_task_avatars)
         val myAvatars: ArrayList<Avatar> = ArrayList()
 
         rv_avatar.let { it.setHasFixedSize(true) }

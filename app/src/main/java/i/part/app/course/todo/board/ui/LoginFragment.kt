@@ -35,12 +35,12 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val myView = inflater.inflate(R.layout.fragment_login, container, false)
-        val registerButton = myView.findViewById<MaterialTextView>(R.id.tv_registerButton)
+        val registerButton = myView.findViewById<MaterialTextView>(R.id.tv_login_register_new_account)
         registerButton.setOnClickListener {
             myView.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
-        val loginButton = myView.findViewById<MaterialButton>(R.id.profile_confirm_button)
+        val loginButton = myView.findViewById<MaterialButton>(R.id.btn_login)
         loginButton.setOnClickListener {
             myView.findNavController().navigate(R.id.action_loginFragment_to_dashBoardFragment)
         }

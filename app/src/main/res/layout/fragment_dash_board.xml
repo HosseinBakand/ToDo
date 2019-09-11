@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/toolbarLayout"
+            android:id="@+id/rl_dash_board_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/materialToolbar"
+                android:id="@+id/mt_dash_board_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
                 android:background="@color/colorPrimary"
@@ -29,7 +29,7 @@
                 app:title="Boards(dashboards)"/>
 
             <ImageView
-                android:id="@+id/customMenuButton"
+                android:id="@+id/iv_dash_board_custom_menu_button"
                 android:layout_width="20dp"
                 android:layout_height="32dp"
                 android:layout_alignParentEnd="true"
@@ -42,7 +42,7 @@
                 android:src="@drawable/ic_dots"/>
 
             <ImageView
-                android:id="@+id/anchorForMenu"
+                android:id="@+id/iv_dash_board_anchor_for_menu"
                 android:layout_width="4dp"
                 android:layout_height="0dp"
                 android:layout_alignParentEnd="true"
@@ -55,50 +55,50 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tasksRecyclerView"
+            android:id="@+id/rv_boards"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarLayout">
+            app:layout_constraintTop_toBottomOf="@+id/rl_dash_board_toolbar">
             </androidx.recyclerview.widget.RecyclerView>
 
         <LinearLayout
-            android:id="@+id/ll_empty_stat"
+            android:id="@+id/ll_dash_board_empty_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/fb_dash_board_fragment"
+            app:layout_constraintBottom_toTopOf="@id/fab_dash_board_fragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarLayout">
+            app:layout_constraintTop_toBottomOf="@+id/rl_dash_board_toolbar">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_empty_state"></ImageView>
+                android:src="@drawable/ic_empty_state" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="@string/page_empty_message"
-                android:textSize="16sp"></com.google.android.material.textview.MaterialTextView>
+                android:textSize="16sp" />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fb_dash_board_fragment"
+            android:id="@+id/fab_dash_board_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp"
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/colorPrimary"
             android:src="@drawable/ic_add_black_21dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:rippleColor="@color/brown"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+            app:rippleColor="@color/brown" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

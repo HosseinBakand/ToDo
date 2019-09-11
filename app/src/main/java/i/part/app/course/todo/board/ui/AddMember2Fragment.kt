@@ -34,7 +34,7 @@ class AddMember2 : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_add_member_2, container, false)
 
-        recyclerView = view.findViewById(R.id.addMember2_nowMember) as RecyclerView
+        recyclerView = view.findViewById(R.id.rv_add_member_2_new_members) as RecyclerView
         recyclerView.setHasFixedSize(true)
 
         layoutManager = LinearLayoutManager(context)
@@ -90,7 +90,7 @@ class AddMember2 : Fragment() {
             mAdapter = AddMember2Adapter(it, list)
         }
         recyclerView.adapter = mAdapter
-        val button = view.findViewById<Button>(R.id.b_add_member)
+        val button = view.findViewById<Button>(R.id.btn_add_member)
         button.setOnClickListener {
             //            val fm = fragmentManager
 //            val editNameDialogFragment = AddMember3Fragment.newInstance()
@@ -99,7 +99,7 @@ class AddMember2 : Fragment() {
 //            }
             this.findNavController().navigate(R.id.action_addMember2_to_addMember3Fragment)
         }
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.addMember2_toolbar)
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.mt_add_member_2)
 
         toolbar.setNavigationOnClickListener {
             //            //            Toast.makeText(

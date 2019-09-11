@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/addMember2_toolbar"
+            android:id="@+id/mt_add_member_2"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/colorPrimary"
@@ -21,26 +21,26 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:theme="@style/Widget.AppCompat.ActionBar"
-            app:layout_constraintBottom_toTopOf="@id/addMember2_nowMember"
+            app:layout_constraintBottom_toTopOf="@id/rv_add_member_2_new_members"
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="?attr/homeAsUpIndicator"
             app:title="@string/add_member_title_text" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/addMember2_nowMember"
+            android:id="@+id/rv_add_member_2_new_members"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/b_add_member"
+            app:layout_constraintBottom_toTopOf="@id/btn_add_member"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addMember2_toolbar">
+            app:layout_constraintTop_toBottomOf="@id/mt_add_member_2">
 
         </androidx.recyclerview.widget.RecyclerView>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/b_add_member"
+            android:id="@+id/btn_add_member"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@color/duck_egg_blue"
@@ -56,7 +56,7 @@
             android:textStyle="bold"
 
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addMember2_nowMember" />
+            app:layout_constraintTop_toBottomOf="@id/rv_add_member_2_new_members" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

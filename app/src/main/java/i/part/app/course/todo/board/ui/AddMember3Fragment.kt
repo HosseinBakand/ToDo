@@ -36,7 +36,7 @@ class AddMember3Fragment : DialogFragment() {
         dialog?.setCanceledOnTouchOutside(false)
         var view = inflater.inflate(R.layout.fragment_add_member_3, container, false)
 
-        recyclerView = view.findViewById(R.id.add_member_3_recycle) as RecyclerView
+        recyclerView = view.findViewById(R.id.rv_add_member_3) as RecyclerView
         recyclerView.setHasFixedSize(true)
 
         layoutManager = LinearLayoutManager(context)
@@ -131,7 +131,7 @@ class AddMember3Fragment : DialogFragment() {
 //        val width = getResources().getDimensionPixelSize(R.dimen.popup_width);
 //        val height = getResources().getDimensionPixelSize(R.dimen.popup_height);
 
-        val closeButton = view.findViewById<ImageButton>(R.id.add_member_3_close)
+        val closeButton = view.findViewById<ImageButton>(R.id.ib_add_member_3_close)
         closeButton.setOnClickListener {
             this.findNavController().navigate(R.id.action_addMember3Fragment_to_addMember2)
         }

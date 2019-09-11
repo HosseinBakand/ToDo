@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardView"
+    android:id="@+id/cv_board_item"
     android:layout_width="match_parent"
     android:layout_marginLeft="8dp"
     android:layout_marginTop="10dp"
@@ -24,7 +25,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintRight_toLeftOf="@+id/RightImageViewGuideline"
+            app:layout_constraintRight_toLeftOf="@+id/gl_rightImageView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,7 +33,7 @@
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
-            android:id="@+id/boardNameTextView"
+            android:id="@+id/tv_board_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
@@ -40,11 +41,11 @@
             tools:text="Board1"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/iv_task"
+            app:layout_constraintStart_toEndOf="@id/iv_task"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/statusLabel"
+            android:id="@+id/tv_status_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
@@ -56,43 +57,43 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/iv_task"
-            app:layout_constraintTop_toBottomOf="@+id/boardNameTextView" />
+            app:layout_constraintTop_toBottomOf="@id/tv_board_name" />
 
         <TextView
-            android:id="@+id/todoCountTextView"
+            android:id="@+id/tv_todo_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="6dp"
-            android:text="8 to do (118 task)"
+            android:text="@string/todo_remaining_items_task"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/iv_task"
-            app:layout_constraintTop_toBottomOf="@+id/statusLabel" />
+            app:layout_constraintTop_toBottomOf="@id/tv_status_label" />
 
         <TextView
-            android:id="@+id/remainingTasksTextView"
+            android:id="@+id/tv_remaining_tasks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="6dp"
-            android:text="54 remaining tasks"
+            android:text="@string/todo_remaining_tasks"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_task"
-            app:layout_constraintTop_toBottomOf="@+id/todoCountTextView" />
+            app:layout_constraintStart_toEndOf="@id/iv_task"
+            app:layout_constraintTop_toBottomOf="@id/tv_todo_count" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="20dp"
             android:layout_marginTop="14dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:orientation="horizontal"
             android:layout_marginStart="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_task"
-            app:layout_constraintTop_toBottomOf="@+id/remainingTasksTextView">
+            app:layout_constraintTop_toBottomOf="@id/tv_remaining_tasks">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/avatarsRecyclerView"
+                android:id="@+id/rv_avatars"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
             </androidx.recyclerview.widget.RecyclerView>
@@ -106,7 +107,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_delete"
             android:layout_marginTop="8dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:paddingLeft="5dp"
             android:paddingTop="3dp"
             android:paddingRight="5dp"
@@ -114,7 +115,7 @@
             tools:ignore="VectorDrawableCompat" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/RightImageViewGuideline"
+            android:id="@+id/gl_rightImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"

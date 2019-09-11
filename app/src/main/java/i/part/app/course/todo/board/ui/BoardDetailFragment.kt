@@ -1,4 +1,4 @@
-package i.part.app.course.todo.task_list.ui
+package i.part.app.course.todo.board.ui
 
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -25,8 +25,8 @@ class BoardDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val inflatedView = inflater.inflate(R.layout.board_fragment, container, false)
-        recyclerView = inflatedView.findViewById<RecyclerView>(R.id.board_fragment_recycler_view)
+        val inflatedView = inflater.inflate(R.layout.fragment_board, container, false)
+        recyclerView = inflatedView.findViewById<RecyclerView>(R.id.rv_board_fragment)
         recyclerView.let {
             it.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             todoLists.apply {
@@ -42,8 +42,8 @@ class BoardDetailFragment : Fragment() {
             recyclerView.adapter = it.adapter
         }
 
-        val customMenuButton = inflatedView.findViewById<View>(R.id.board_custom_menu_button)
-        val anchorForMenu = inflatedView.findViewById<View>(R.id.board_anchor_for_Menu)
+        val customMenuButton = inflatedView.findViewById<View>(R.id.iv_board_custom_menu_button)
+        val anchorForMenu = inflatedView.findViewById<View>(R.id.iv_board_anchor_for_menu)
         customMenuButton?.setOnClickListener {
             val wrapper = ContextThemeWrapper(context, R.style.popupmenu)
             anchorForMenu?.let {
@@ -66,7 +66,7 @@ class BoardDetailFragment : Fragment() {
             }
         }
 
-        inflatedView.findViewById<View>(R.id.btn_edit_board)?.let {
+        inflatedView.findViewById<View>(R.id.iv_edit_board_button)?.let {
             it.setOnClickListener {
                 //                Toast.makeText(context,"Edit board",Toast.LENGTH_LONG)
 //                    .show()
@@ -75,7 +75,7 @@ class BoardDetailFragment : Fragment() {
             }
         }
 
-        val recycler = inflatedView.findViewById<RecyclerView>(R.id.board_fragment_recycler_view)
+        val recycler = inflatedView.findViewById<RecyclerView>(R.id.rv_board_fragment)
         val snapHelper = LinearSnapHelper()
         recycler.clipToPadding =false
         val display = DisplayMetrics()

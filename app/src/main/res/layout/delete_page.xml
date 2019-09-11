@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,20 +13,20 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/outlinear"
+            android:id="@+id/ll_delete_board"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/addBoardTitle"
+                android:id="@+id/cl_delete_board_title"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
                 android:background="@drawable/dialog_title_round_up">
 
                 <TextView
-                    android:id="@+id/addBoard"
+                    android:id="@+id/tv_delete_board_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
@@ -36,7 +37,6 @@
                     android:textStyle="bold"
                     android:typeface="sans"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/addBoardCloseButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -48,14 +48,14 @@
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constrain1"
+                    android:id="@+id/cl_delete_board_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp">
 
                     <TextView
-                        android:id="@+id/owner"
+                        android:id="@+id/tv_delete_board_message"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
@@ -65,7 +65,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/ownerName"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_edit_todolist_owner_name"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
@@ -97,31 +97,31 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tv_okButton"
+                    android:id="@+id/tv_ok_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="26dp"
                     android:layout_marginBottom="22dp"
-                    android:text="OK"
+                    android:text="@string/ok_button"
                     android:textColor="@color/seafoam_blue"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"></TextView>
+                    app:layout_constraintEnd_toEndOf="parent" />
 
 
                 <TextView
-                    android:id="@+id/tv_cancelButton"
+                    android:id="@+id/tv_cancel_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="26dp"
                     android:layout_marginBottom="22dp"
-                    android:text="Cancel"
+                    android:text="@string/cancel_button"
                     android:textColor="@color/seafoam_blue"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"></TextView>
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

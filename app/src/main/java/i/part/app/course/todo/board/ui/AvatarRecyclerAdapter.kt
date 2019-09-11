@@ -33,10 +33,10 @@ class AvatarRecyclerAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if (inputSize) {
             v = LayoutInflater.from(parent.context)
-                .inflate(i.part.app.course.todo.R.layout.avatar_item_add_board, parent, false)
+                .inflate(i.part.app.course.todo.R.layout.item_avatar_add_board, parent, false)
         } else {
             v = LayoutInflater.from(parent.context)
-                .inflate(i.part.app.course.todo.R.layout.avatar_item, parent, false)
+                .inflate(i.part.app.course.todo.R.layout.item_avatar, parent, false)
         }
         return ViewHolder(v)
     }
@@ -63,7 +63,7 @@ class AvatarRecyclerAdapter(
         internal var avatarImageView: ImageView
 
         init {
-            avatarImageView = itemView.findViewById<View>(R.id.avatarImageView) as ImageView
+            avatarImageView = itemView.findViewById<View>(R.id.im_avatar) as ImageView
             itemView.setOnClickListener { view ->
                 val myAvatar = view.tag as Avatar
                 Toast.makeText(view.context, myAvatar.image_url, Toast.LENGTH_SHORT)

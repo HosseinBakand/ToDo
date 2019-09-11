@@ -83,11 +83,11 @@ class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, pica
                 dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.setContentView(R.layout.delete_page)
                 dialog.setCanceledOnTouchOutside(false)
-                val okButton = dialog.findViewById<TextView>(R.id.tv_okButton)
+                val okButton = dialog.findViewById<TextView>(R.id.tv_ok_button)
                 okButton.setOnClickListener {
                     //
                 }
-                val closeButton = dialog.findViewById<TextView>(R.id.tv_cancelButton)
+                val closeButton = dialog.findViewById<TextView>(R.id.tv_cancel_button)
                 closeButton.setOnClickListener {
                     dialog.dismiss()
                 }
@@ -128,20 +128,20 @@ class BoardRecyclerAdapter(private val context: Context, tasks: List<Task>, pica
 
         init {
             name =
-                itemView.findViewById<View>(i.part.app.course.todo.R.id.boardNameTextView) as TextView
+                itemView.findViewById<View>(i.part.app.course.todo.R.id.tv_board_name) as TextView
             tv_status_label =
-                itemView.findViewById<View>(i.part.app.course.todo.R.id.statusLabel) as TextView
+                itemView.findViewById<View>(i.part.app.course.todo.R.id.tv_status_label) as TextView
             iv_task =
                 itemView.findViewById<View>(i.part.app.course.todo.R.id.iv_task) as ImageView
             iV_delete =
                 itemView.findViewById<View>(i.part.app.course.todo.R.id.iv_delete_board_item) as ImageView
 
             rv_avatar =
-                itemView.findViewById<View>(i.part.app.course.todo.R.id.avatarsRecyclerView) as RecyclerView
+                itemView.findViewById<View>(i.part.app.course.todo.R.id.rv_avatars) as RecyclerView
             todo =
-                itemView.findViewById<View>(i.part.app.course.todo.R.id.todoCountTextView) as TextView
+                itemView.findViewById<View>(i.part.app.course.todo.R.id.tv_todo_count) as TextView
             remaningTasks =
-                itemView.findViewById<View>(i.part.app.course.todo.R.id.remainingTasksTextView) as TextView
+                itemView.findViewById<View>(i.part.app.course.todo.R.id.tv_remaining_tasks) as TextView
             itemView.setOnClickListener { view ->
                 view.findNavController().navigate(R.id.action_dashBoardFragment_to_board)
 

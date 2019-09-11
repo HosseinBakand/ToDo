@@ -1,4 +1,4 @@
-package i.part.app.course.todo.task_list.ui
+package i.part.app.course.todo.board.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -15,7 +15,6 @@ import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.board.data.SubTask
 import i.part.app.course.todo.board.data.TodoList
-import i.part.app.course.todo.board.ui.SubTaskRecyclerAdapter
 
 class TodoListRecyclerAdapter(
     private val context: Context,
@@ -28,15 +27,15 @@ class TodoListRecyclerAdapter(
 
     inner class TodoListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var todoNameTextView =
-            itemView.findViewById<MaterialTextView>(R.id.todo_list_item_name_text_view)
+            itemView.findViewById<MaterialTextView>(R.id.tv_todo_list_item_name)
         internal val editImageView =
-            itemView.findViewById<ImageView>(R.id.todo_list_item_edit_image_view)
+            itemView.findViewById<ImageView>(R.id.iv_todo_list_item_edit)
         internal var allTasksDoneTextView =
-            itemView.findViewById<MaterialTextView>(R.id.todo_list_item_all_tasks_done_text_view)
+            itemView.findViewById<MaterialTextView>(R.id.tv_todo_list_item_all_tasks_done)
         internal val subTaskRecyclerView =
-            itemView.findViewById<RecyclerView>(R.id.todo_list_item_sub_task_recycler_view)
+            itemView.findViewById<RecyclerView>(R.id.rv_todo_list_item_sub_task)
         internal val addTaskButton =
-            itemView.findViewById<MaterialButton>(R.id.todo_list_item_add_task_button)
+            itemView.findViewById<MaterialButton>(R.id.btn_todo_list_item_add_task)
 
         init {
             itemView.setOnClickListener { view ->
@@ -77,16 +76,16 @@ class TodoListRecyclerAdapter(
         viewType: Int
     ): RecyclerView.ViewHolder {
 
-        when (viewType) {
+        return when (viewType) {
             TodoList.ADD_TODOLIST_BUTTON -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.add_todo_list, parent, false)
-                return AddToDoListButtonViewHolder(view)
+                AddToDoListButtonViewHolder(view)
             }
             else -> {
                 view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.todo_list_item, parent, false)
-                return TodoListViewHolder(view)
+                    .inflate(R.layout.item_todo_list, parent, false)
+                TodoListViewHolder(view)
             }
         }
     }
@@ -133,7 +132,7 @@ class TodoListRecyclerAdapter(
     override fun getItemCount() = todoLists.size
 
     override fun getItemViewType(position: Int): Int {
-        return todoLists.get(position).viewType
+        return todoLists[position].viewType
     }
 
 }

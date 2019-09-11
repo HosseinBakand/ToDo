@@ -35,7 +35,7 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val myView = inflater.inflate(R.layout.fragment_register, container, false)
-        val registerButton = myView.findViewById<MaterialButton>(R.id.profile_confirm_button)
+        val registerButton = myView.findViewById<MaterialButton>(R.id.btn_register_confirm)
         registerButton.setOnClickListener {
             myView.findNavController().navigate(R.id.action_registerFragment_to_dashBoardFragment)
         }

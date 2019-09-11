@@ -23,7 +23,7 @@ class AddMember3Adapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder1 {
         val v =
-            LayoutInflater.from(parent.context).inflate(R.layout.add_member_3_items, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_add_member_3, parent, false)
         return ViewHolder1(v)
     }
 
@@ -50,8 +50,8 @@ class AddMember3Adapter(
 
     class ViewHolder1(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var image: AppCompatImageView = itemView.findViewById(R.id.add_member_3_items_image)
-        var nameText: TextView = itemView.findViewById(R.id.add_member_3_items_name)
+        var image: AppCompatImageView = itemView.findViewById(R.id.iv_add_member_3_items_image)
+        var nameText: TextView = itemView.findViewById(R.id.tv_add_member_3_items_name)
 
         var checkbox: CheckBox =
             itemView.findViewById(R.id.cb_add_member_3)

@@ -21,7 +21,7 @@ class AddMember2Adapter(context: Context, personUtils: List<AddMember2Item>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v =
-            LayoutInflater.from(parent.context).inflate(R.layout.add_member_2_items, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_add_member_2, parent, false)
         return ViewHolder(v)
     }
 
@@ -50,10 +50,10 @@ class AddMember2Adapter(context: Context, personUtils: List<AddMember2Item>) :
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var image: AppCompatImageView = itemView.findViewById(R.id.add_member_2_items_image)
-        var nameText: TextView = itemView.findViewById(R.id.add_member_2_items_name)
+        var image: AppCompatImageView = itemView.findViewById(R.id.iv_add_member_2_items_image)
+        var nameText: TextView = itemView.findViewById(R.id.tv_add_member_2_items_name)
         var minesButton: AppCompatImageButton =
-            itemView.findViewById(R.id.add_member_2_items_minus_Button)
+            itemView.findViewById(R.id.btn_add_member_2_items_minus)
 
         init {
 
