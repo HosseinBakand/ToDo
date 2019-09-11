@@ -1,4 +1,4 @@
-package i.part.app.course.todo.task_list.ui
+package i.part.app.course.todo.board.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -15,7 +15,6 @@ import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.board.data.SubTask
 import i.part.app.course.todo.board.data.TodoList
-import i.part.app.course.todo.board.ui.SubTaskRecyclerAdapter
 
 class TodoListRecyclerAdapter(
     private val context: Context,
@@ -77,16 +76,16 @@ class TodoListRecyclerAdapter(
         viewType: Int
     ): RecyclerView.ViewHolder {
 
-        when (viewType) {
+        return when (viewType) {
             TodoList.ADD_TODOLIST_BUTTON -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.add_todo_list, parent, false)
-                return AddToDoListButtonViewHolder(view)
+                AddToDoListButtonViewHolder(view)
             }
             else -> {
                 view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.todo_list_item, parent, false)
-                return TodoListViewHolder(view)
+                    .inflate(R.layout.item_todo_list, parent, false)
+                TodoListViewHolder(view)
             }
         }
     }
@@ -133,7 +132,7 @@ class TodoListRecyclerAdapter(
     override fun getItemCount() = todoLists.size
 
     override fun getItemViewType(position: Int): Int {
-        return todoLists.get(position).viewType
+        return todoLists[position].viewType
     }
 
 }

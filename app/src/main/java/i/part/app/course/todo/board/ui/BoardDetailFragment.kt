@@ -1,4 +1,4 @@
-package i.part.app.course.todo.task_list.ui
+package i.part.app.course.todo.board.ui
 
 import android.os.Bundle
 import android.util.DisplayMetrics

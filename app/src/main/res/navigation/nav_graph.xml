@@ -45,11 +45,11 @@
     </fragment>
     <fragment
         android:id="@+id/profile"
-        android:name="i.part.app.course.todo.Profile"
+        android:name="i.part.app.course.todo.board.ui.Profile"
         android:label="Profile" />
     <fragment
         android:id="@+id/board"
-        android:name="i.part.app.course.todo.task_list.ui.BoardDetailFragment"
+        android:name="i.part.app.course.todo.board.ui.BoardDetailFragment"
         android:label="Board">
         <action
             android:id="@+id/action_board_to_edit_board"
