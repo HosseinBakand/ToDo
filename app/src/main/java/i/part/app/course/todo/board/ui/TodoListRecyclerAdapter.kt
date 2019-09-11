@@ -27,15 +27,15 @@ class TodoListRecyclerAdapter(
 
     inner class TodoListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var todoNameTextView =
-            itemView.findViewById<MaterialTextView>(R.id.todo_list_item_name_text_view)
+            itemView.findViewById<MaterialTextView>(R.id.tv_todo_list_item_name)
         internal val editImageView =
-            itemView.findViewById<ImageView>(R.id.todo_list_item_edit_image_view)
+            itemView.findViewById<ImageView>(R.id.iv_todo_list_item_edit)
         internal var allTasksDoneTextView =
-            itemView.findViewById<MaterialTextView>(R.id.todo_list_item_all_tasks_done_text_view)
+            itemView.findViewById<MaterialTextView>(R.id.tv_todo_list_item_all_tasks_done)
         internal val subTaskRecyclerView =
-            itemView.findViewById<RecyclerView>(R.id.todo_list_item_sub_task_recycler_view)
+            itemView.findViewById<RecyclerView>(R.id.rv_todo_list_item_sub_task)
         internal val addTaskButton =
-            itemView.findViewById<MaterialButton>(R.id.todo_list_item_add_task_button)
+            itemView.findViewById<MaterialButton>(R.id.btn_todo_list_item_add_task)
 
         init {
             itemView.setOnClickListener { view ->
