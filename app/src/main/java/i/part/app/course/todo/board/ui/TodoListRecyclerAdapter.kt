@@ -119,7 +119,7 @@ class TodoListRecyclerAdapter(
             subtasks.apply {
 
                 add(SubTaskView("Awesome", true))
-                add(SubTaskView("Marvelous", true))
+                add(SubTaskView("Marvelous", false))
                 add(SubTaskView("Spectacular", true))
                 add(SubTaskView("Awesome", true))
                 add(SubTaskView("Marvelous", true))
@@ -141,7 +141,6 @@ class TodoListRecyclerAdapter(
 
             val subTaskRecyclerAdapter = SubTaskRecyclerAdapter(context, subtasks, picasso)
             holder.subTaskRecyclerView.adapter = subTaskRecyclerAdapter
-
         }
     }
 

@@ -26,6 +26,7 @@ class BoardDetailFragment : Fragment() {
     ): View? {
         val inflatedView = inflater.inflate(R.layout.fragment_board, container, false)
         recyclerView = inflatedView.findViewById<RecyclerView>(R.id.rv_board_fragment)
+
         recyclerView.let {
             it.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             todoListViews.apply {

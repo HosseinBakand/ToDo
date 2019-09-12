@@ -15,9 +15,6 @@
         android:right="1dp"
         android:top="1dp">
         <shape android:shape="rectangle">
-            <size
-                android:height="21dp"
-                android:width="21dp"/>
             <solid android:color="@color/white_three" />
             <corners android:radius="4dp"/>
         </shape>
