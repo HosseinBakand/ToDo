@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/profile_page_background"
-    android:id="@+id/col_profile">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/abl_profile"
+    <data>
+        <variable
+            name="userViewModel"
+            type="i.part.app.course.todo.user.ui.UserViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        style="@style/AppTheme"
-        app:elevation="0dp"
-        android:outlineProvider="none">
+        android:layout_height="match_parent"
+        android:background="@color/profile_page_background"
+        android:id="@+id/col_profile">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_profile_toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/abl_profile"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="100dp"
+            style="@style/AppTheme"
+            app:elevation="0dp"
             android:outlineProvider="none">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_profile_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:outlineProvider="none">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/mt_profile"
@@ -45,228 +53,246 @@
                 android:outlineProvider="none"/>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                    android:id="@+id/v_profile_below_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mt_profile"
+                    android:outlineProvider="none" />
 
-    </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageView
-        android:id="@+id/iv_profile_photo"
-        android:layout_width="76dp"
-        android:layout_height="76dp"
-        android:padding="2dp"
-        android:elevation="4dp"
-        android:src="@drawable/profile_photo"
-        app:layout_anchor="@id/abl_profile"
-        app:layout_anchorGravity="center|bottom"
-        android:outlineProvider="none"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_anchor="@id/iv_profile_photo"
-        app:layout_anchorGravity="center"
-        android:id="@+id/v_profile_photo_anchor"/>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageView
-        android:id="@+id/iv_profile_photo_plus_sign"
-        android:scaleType="centerInside"
-        app:layout_anchor="@id/v_profile_photo_anchor"
-        app:layout_anchorGravity="bottom|end"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:elevation="6dp"
-        android:background="@drawable/plus_shape"
-        android:outlineProvider="none"/>
+        <ImageView
+            android:id="@+id/iv_profile_photo"
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:padding="2dp"
+            android:elevation="4dp"
+            imageUrlForCirular="userViewModel.profileImage"
+            android:background="@drawable/profile_photo_background"
+            app:layout_anchor="@id/abl_profile"
+            app:layout_anchorGravity="center|bottom"
+            android:outlineProvider="none" />
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nsv_profile"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="60dp"
-        app:layout_anchor="@id/iv_profile_photo"
-        app:layout_anchorGravity="bottom"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <View
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_anchor="@id/iv_profile_photo"
+            app:layout_anchorGravity="center"
+            android:id="@+id/v_profile_photo_anchor" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/iv_profile_photo_plus_sign"
+            android:scaleType="centerInside"
+            app:layout_anchor="@id/v_profile_photo_anchor"
+            app:layout_anchorGravity="bottom|end"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="47dp"
-            android:layout_marginRight="47dp"
-            android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:elevation="6dp"
+            android:background="@drawable/plus_shape"
+            android:outlineProvider="none" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_profile_name"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="60dp"
+            app:layout_anchor="@id/iv_profile_photo"
+            app:layout_anchorGravity="bottom"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginTop="20dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:letterSpacing="0.01"
-                android:lineSpacingExtra="4sp"
-                android:text="@string/profile_name"
-                android:textColor="@color/primaryText"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_marginLeft="47dp"
+                android:layout_marginRight="47dp"
+                android:orientation="vertical">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_profile_information"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="33dp"
-                android:background="@color/profile_page_background"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="start"
-                android:letterSpacing="0.01"
-                android:text="@string/profile_information"
-                android:textColor="@color/primaryText"
-                android:textSize="16sp"
-                android:textStyle="normal" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_profile_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="19dp"
-                android:gravity="start"
-                app:endIconDrawable="@drawable/ic_outline_edit_24dp"
-                app:endIconMode="custom"
-                app:startIconDrawable="@drawable/ic_mail"
-                app:startIconTint="@color/white"
-                app:startIconTintMode="multiply">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_profile_email"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_profile_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/profile_page_background"
-                    android:fontFamily="sans-serif-medium"
-                    android:hint="@string/profile_hint_email"
-                    android:inputType="textEmailAddress"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
                     android:letterSpacing="0.01"
+                    android:lineSpacingExtra="4sp"
+                    android:text="@{userViewModel.name}"
                     android:textColor="@color/primaryText"
-                    android:textSize="14sp"
-                    android:textStyle="normal" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_profile_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="19dp"
-                android:gravity="start"
-                app:endIconDrawable="@drawable/ic_outline_edit_24dp"
-                app:endIconMode="custom"
-                app:startIconDrawable="@drawable/ic_phone_24dp"
-                app:startIconTint="@color/white"
-                app:startIconTintMode="multiply">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_profile_phone"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_profile_information"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="33dp"
                     android:background="@color/profile_page_background"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="start"
-                    android:hint="@string/profile_hint_phone_number"
-                    android:inputType="phone"
                     android:letterSpacing="0.01"
+                    android:text="@string/profile_information"
                     android:textColor="@color/primaryText"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="normal" />
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_profile_change_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="33dp"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="start"
-                android:letterSpacing="0.01"
-                android:text="@string/profile_change_password"
-                android:textColor="@color/primaryText"
-                android:textSize="16sp"
-                android:textStyle="normal" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_profile_current_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="19dp"
-                android:gravity="start"
-                app:endIconMode="password_toggle"
-                app:startIconDrawable="@drawable/ic_key_24dp"
-                app:startIconTint="@color/white"
-                app:startIconTintMode="multiply">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_profile_current_password"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_profile_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/profile_page_background"
-                    android:fontFamily="sans-serif-medium"
-                    android:hint="@string/profile_current_password"
-                    android:inputType="textPassword"
-                    android:letterSpacing="0.01"
-                    android:textColor="@color/primaryText"
-                    android:textSize="14sp"
-                    android:textStyle="normal" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="center"
+                    android:layout_marginTop="19dp"
+                    android:gravity="start"
+                    app:endIconDrawable="@drawable/ic_outline_edit_24dp"
+                    app:endIconMode="custom"
+                    app:startIconDrawable="@drawable/ic_mail"
+                    app:startIconTint="@color/white"
+                    app:startIconTintMode="multiply">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_profile_new_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="19dp"
-                android:gravity="start"
-                app:endIconMode="password_toggle"
-                app:startIconDrawable="@drawable/ic_key_24dp"
-                app:startIconTint="@color/white"
-                app:startIconTintMode="multiply">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_profile_new_password"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_profile_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/profile_page_background"
+                        android:fontFamily="sans-serif-medium"
+                        android:hint="@string/profile_hint_email"
+                        android:text="@{userViewModel.email}"
+                        android:inputType="textEmailAddress"
+                        android:letterSpacing="0.01"
+                        android:textColor="@color/primaryText"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_profile_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="19dp"
+                    android:gravity="start"
+                    app:endIconDrawable="@drawable/ic_outline_edit_24dp"
+                    app:endIconMode="custom"
+                    app:startIconDrawable="@drawable/ic_phone_24dp"
+                    app:startIconTint="@color/white"
+                    app:startIconTintMode="multiply">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_profile_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/profile_page_background"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="start"
+                        android:hint="@string/profile_hint_phone_number"
+                        android:text="@{userViewModel.phone}"
+                        android:inputType="phone"
+                        android:letterSpacing="0.01"
+                        android:textColor="@color/primaryText"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_profile_change_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="33dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="start"
+                    android:letterSpacing="0.01"
+                    android:text="@string/profile_change_password"
+                    android:textColor="@color/primaryText"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_profile_current_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="19dp"
+                    android:gravity="start"
+                    app:endIconMode="password_toggle"
+                    app:startIconDrawable="@drawable/ic_key_24dp"
+                    app:startIconTint="@color/white"
+                    app:startIconTintMode="multiply">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_profile_current_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/profile_page_background"
+                        android:fontFamily="sans-serif-medium"
+                        android:hint="@string/profile_current_password"
+                        android:inputType="textPassword"
+                        android:letterSpacing="0.01"
+                        android:textColor="@color/primaryText"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_profile_new_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/profile_page_background"
-                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginTop="19dp"
                     android:gravity="start"
-                    android:hint="@string/profile_new_password"
-                    android:inputType="textPassword"
+                    app:endIconMode="password_toggle"
+                    app:startIconDrawable="@drawable/ic_key_24dp"
+                    app:startIconTint="@color/white"
+                    app:startIconTintMode="multiply">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_profile_new_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/profile_page_background"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="start"
+                        android:hint="@string/profile_new_password"
+                        android:inputType="textPassword"
+                        android:letterSpacing="0.01"
+                        android:textColor="@color/primaryText"
+                        android:textSize="14sp"
+                        android:textStyle="normal"
+                        android:textAlignment="center" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_profile_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="19dp"
+                    android:background="@color/colorPrimary"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
                     android:letterSpacing="0.01"
+                    android:text="@string/profile_confirm_button"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
                     android:textColor="@color/primaryText"
                     android:textSize="14sp"
-                    android:textStyle="normal"
-                    android:textAlignment="center" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_profile_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="19dp"
-                android:background="@color/colorPrimary"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:letterSpacing="0.01"
-                android:text="@string/profile_confirm_button"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="@color/primaryText"
-                android:textSize="14sp"
-                android:textStyle="normal" />
+                    android:textStyle="normal" />
 
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

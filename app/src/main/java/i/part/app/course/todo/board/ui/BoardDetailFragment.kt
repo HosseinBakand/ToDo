@@ -7,9 +7,11 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.MaterialToolbar
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 
@@ -123,11 +125,6 @@ class BoardDetailFragment : Fragment() {
                 val popup = PopupMenu(wrapper, anchorForMenu, Gravity.END)
                 popup.menuInflater.inflate(R.menu.board_menu, popup.menu)
                 popup.setOnMenuItemClickListener {
-                    //                    Toast.makeText(
-//                        context,
-//                        "Some Text" + item.title,
-//                        Toast.LENGTH_SHORT
-//                    ).show()
                     val fragmentType: String? = "board_detail"
                     val myBundle = bundleOf("fragmentType" to fragmentType)
                     inflatedView.findNavController()
@@ -155,6 +152,12 @@ class BoardDetailFragment : Fragment() {
         activity?.windowManager?.defaultDisplay?.getMetrics(display)
         recycler.setPadding(50*display.widthPixels/1080,recycler.paddingTop,70*display.widthPixels/1080,recycler.paddingBottom)
         snapHelper.attachToRecyclerView(recyclerView)
+
+        val toolbar = inflatedView.findViewById<MaterialToolbar>(R.id.mt_board)
+        toolbar.setNavigationOnClickListener {
+            this.findNavController().navigate(R.id.action_board_to_dashBoardFragment)
+        }
+
         return inflatedView
     }
 
