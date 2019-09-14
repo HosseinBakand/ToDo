@@ -48,7 +48,11 @@
     <fragment
         android:id="@+id/profile"
         android:name="i.part.app.course.todo.user.ui.Profile"
-        android:label="Profile" />
+        android:label="Profile" >
+        <action
+            android:id="@+id/action_profile_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment" />
+    </fragment>
     <fragment
         android:id="@+id/board"
         android:name="i.part.app.course.todo.board.ui.BoardDetailFragment"
@@ -62,6 +66,9 @@
         <action
             android:id="@+id/action_board_to_addMember2"
             app:destination="@id/addMember2" />
+        <action
+            android:id="@+id/action_board_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment" />
     </fragment>
     <fragment
         android:id="@+id/addMember2"
