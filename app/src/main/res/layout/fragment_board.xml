@@ -17,7 +17,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorAccent"
         android:elevation="4dp">
 
 
@@ -25,14 +24,16 @@
             android:id="@+id/mt_board"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
             android:layout_marginEnd="0dp"
-            android:layout_marginBottom="4dp"
-            android:paddingBottom="4dp"
+            android:layout_centerInParent="true"
             android:theme="@style/Widget.AppCompat.ActionBar"
             app:title="Board 1"
             android:background="@color/colorAccent"
-            android:elevation="0dp"/>
+            android:elevation="0dp"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"/>
 
         <ImageView
             android:id="@+id/iv_board_custom_menu_button"
