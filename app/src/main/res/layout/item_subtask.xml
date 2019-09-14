@@ -28,11 +28,11 @@
 
         <CheckBox
             android:id="@+id/cb_item_subtask"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
             android:button="@drawable/subtask_custom_checkbox"
             android:layout_centerInParent="true"
-            android:checked="true"
+            android:checked="false"
             app:drawableTint="@color/textColorPrimary" />
         </RelativeLayout>
 

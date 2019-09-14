@@ -33,50 +33,79 @@ class BoardDetailFragment : Fragment() {
                 add(
                     TodoListView(
                         TodoListView.TODOLIST,
-                        "todoList1",
-                        true
-                    )
-                )
-                add(
-                    TodoListView(
-                        TodoListView.TODOLIST,
-                        "todoList2",
-                        true
-                    )
-                )
-                add(
-                    TodoListView(
-                        TodoListView.TODOLIST,
-                        "thy",
-                        false
-                    )
-                )
-                add(
-                    TodoListView(
-                        TodoListView.TODOLIST,
                         "poker",
-                        true
+                        mutableListOf(
+                            SubTaskView("this is a good subtask"),
+                            SubTaskView("this is a nasty subtask"),
+                            SubTaskView("todo"),
+                            SubTaskView("nice subtask!")
+                        )
                     )
                 )
                 add(
                     TodoListView(
                         TodoListView.TODOLIST,
                         "joker",
-                        false
+                        mutableListOf(
+                            SubTaskView("this is a good subtask"),
+                            SubTaskView("todo"),
+                            SubTaskView("nice subtask!")
+                        )
                     )
                 )
                 add(
                     TodoListView(
                         TodoListView.TODOLIST,
-                        "foster",
-                        true
+                        "stalker",
+                        mutableListOf(
+                            SubTaskView("this is a good subtask"),
+                            SubTaskView("this is a nasty subtask"),
+                            SubTaskView("todo")
+                        )
+                    )
+                )
+                add(
+                    TodoListView(
+                        TodoListView.TODOLIST,
+                        "walker",
+                        mutableListOf(
+                            SubTaskView("this is a good subtask"),
+                            SubTaskView("nice subtask!")
+                        )
+                    )
+                )
+                add(
+                    TodoListView(
+                        TodoListView.TODOLIST,
+                        "nasty jobs todolist",
+                        mutableListOf(
+                            SubTaskView("this is a good subtask"),
+                            SubTaskView("this is a nasty subtask"),
+                            SubTaskView("Good one"),
+                            SubTaskView("harsh one"),
+                            SubTaskView("hard one"),
+                            SubTaskView("impossible one"),
+                            SubTaskView("nice subtask!")
+                        )
+                    )
+                )
+                add(
+                    TodoListView(
+                        TodoListView.TODOLIST,
+                        "kill bill",
+                        mutableListOf(
+                            SubTaskView("this is a good subtask"),
+                            SubTaskView("this is a nasty subtask"),
+                            SubTaskView("todo"),
+                            SubTaskView("nice subtask!")
+                        )
                     )
                 )
                 add(
                     TodoListView(
                         TodoListView.ADD_TODOLIST_BUTTON,
                         "button",
-                        false
+                        mutableListOf()
                     )
                 )
             }
@@ -93,7 +122,7 @@ class BoardDetailFragment : Fragment() {
             anchorForMenu?.let {
                 val popup = PopupMenu(wrapper, anchorForMenu, Gravity.END)
                 popup.menuInflater.inflate(R.menu.board_menu, popup.menu)
-                popup.setOnMenuItemClickListener { item ->
+                popup.setOnMenuItemClickListener {
                     //                    Toast.makeText(
 //                        context,
 //                        "Some Text" + item.title,

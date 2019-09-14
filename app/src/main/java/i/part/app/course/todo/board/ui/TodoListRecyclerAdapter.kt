@@ -21,7 +21,7 @@ import i.part.app.course.todo.R
 
 class TodoListRecyclerAdapter(
     private val context: Context,
-    private val todoListViews: List<TodoListView>,
+    public val todoListViews: List<TodoListView>,
     private val picasso: Picasso
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -45,7 +45,7 @@ class TodoListRecyclerAdapter(
                 val taskTag = view.tag as TodoListView
                 Toast.makeText(
                     view.context,
-                    "${taskTag.todoListName} is ${taskTag.isCompleted}",
+                    taskTag.todoListName,
                     Toast.LENGTH_SHORT
                 )
                     .show()
@@ -108,7 +108,6 @@ class TodoListRecyclerAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is TodoListViewHolder) {
-            val subtasks: ArrayList<SubTaskView> = ArrayList()
             holder.itemView.tag = todoListViews[position]
             val currentItem = todoListViews[position]
             holder.todoNameTextView.text = currentItem.todoListName
@@ -116,31 +115,32 @@ class TodoListRecyclerAdapter(
             holder.subTaskRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
 
-            subtasks.apply {
+//            subtasks.apply {
+//
+//                add(SubTaskView("Awesome", true))
+//                add(SubTaskView("Marvelous", true))
+//                add(SubTaskView("Spectacular", true))
+//                add(SubTaskView("Awesome", true))
+//                add(SubTaskView("Marvelous", true))
+//                add(SubTaskView("Awesome", true))
+//            }
+//
+//            var allCompleted = true
+//            for (st in subtasks) {
+//                if (!st.isCompleted) {
+//                    allCompleted = false
+//                    break
+//                }
+//            }
+//            if (subtasks.size == 0)
+//                allCompleted = false
 
-                add(SubTaskView("Awesome", true))
-                add(SubTaskView("Marvelous", false))
-                add(SubTaskView("Spectacular", true))
-                add(SubTaskView("Awesome", true))
-                add(SubTaskView("Marvelous", true))
-                add(SubTaskView("Awesome", true))
-            }
+//            holder.allTasksDoneTextView.visibility =
+//                if (allCompleted) View.VISIBLE else View.GONE
 
-            var allCompleted = true
-            for (st in subtasks) {
-                if (!st.isCompleted) {
-                    allCompleted = false
-                    break
-                }
-            }
-            if (subtasks.size == 0)
-                allCompleted = false
-
-            holder.allTasksDoneTextView.visibility =
-                if (allCompleted) View.VISIBLE else View.GONE
-
-            val subTaskRecyclerAdapter = SubTaskRecyclerAdapter(context, subtasks, picasso)
+            val subTaskRecyclerAdapter = SubTaskRecyclerAdapter(context, todoListViews[position].subtasks,holder.allTasksDoneTextView, picasso)
             holder.subTaskRecyclerView.adapter = subTaskRecyclerAdapter
+
         }
     }
 
@@ -149,7 +149,6 @@ class TodoListRecyclerAdapter(
     override fun getItemViewType(position: Int): Int {
         return todoListViews[position].viewType
     }
-
 }
 
 

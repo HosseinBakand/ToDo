@@ -78,24 +78,22 @@ class BoardRecyclerAdapter(
         picasso.load(t.imageUrl).transform(transformation).error(R.drawable.no_task_image).fit()
             .into(holder.iv_task)
         holder.rv_avatar.let { it.setHasFixedSize(true) }
-        holder.iV_delete.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(view: View) {
-                val dialog = Dialog(context)
-                dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
-                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialog.setContentView(R.layout.delete_page)
-                dialog.setCanceledOnTouchOutside(false)
-                val okButton = dialog.findViewById<TextView>(R.id.tv_ok_button)
-                okButton.setOnClickListener {
-                    //
-                }
-                val closeButton = dialog.findViewById<TextView>(R.id.tv_cancel_button)
-                closeButton.setOnClickListener {
-                    dialog.dismiss()
-                }
-                dialog.show()
+        holder.iV_delete.setOnClickListener {
+            val dialog = Dialog(context)
+            dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.setContentView(R.layout.delete_page)
+            dialog.setCanceledOnTouchOutside(false)
+            val okButton = dialog.findViewById<TextView>(R.id.tv_ok_button)
+            okButton.setOnClickListener {
+                dialog.dismiss()
             }
-        })
+            val closeButton = dialog.findViewById<TextView>(R.id.tv_cancel_button)
+            closeButton.setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.show()
+        }
         val overlap: OverlapDecoration = OverlapDecoration()
         holder.rv_avatar.addItemDecoration(overlap)
         avatarManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
