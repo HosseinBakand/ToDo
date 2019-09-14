@@ -52,17 +52,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/mt_profile"
                 android:outlineProvider="none"/>
 
-
-                <View
-                    android:id="@+id/v_profile_below_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:background="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mt_profile"
-                    android:outlineProvider="none" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
