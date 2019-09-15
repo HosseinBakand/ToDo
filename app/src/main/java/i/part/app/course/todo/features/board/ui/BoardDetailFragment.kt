@@ -20,8 +20,8 @@ class BoardDetailFragment : Fragment() {
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    val todoListViews: ArrayList<TodoListView> = ArrayList()
-
+    private val todoListViews: ArrayList<TodoListView> = ArrayList()
+    private lateinit var inflatedView:View
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

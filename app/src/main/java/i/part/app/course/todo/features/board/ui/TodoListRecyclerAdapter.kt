@@ -93,7 +93,7 @@ class TodoListRecyclerAdapter(
     ): RecyclerView.ViewHolder {
 
         return when (viewType) {
-            TodoListView.ADD_TODOLIST_BUTTON -> {
+            TodoListType.ADD_TODOLIST_BUTTON.type -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.add_todo_list, parent, false)
                 AddToDoListButtonViewHolder(view)
@@ -147,7 +147,7 @@ class TodoListRecyclerAdapter(
     override fun getItemCount() = todoListViews.size
 
     override fun getItemViewType(position: Int): Int {
-        return todoListViews[position].viewType
+        return todoListViews[position].todoListType.type
     }
 }
 

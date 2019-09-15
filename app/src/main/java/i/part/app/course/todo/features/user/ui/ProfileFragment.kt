@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
 import i.part.app.course.todo.databinding.FragmentProfileBinding
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class Profile : Fragment() {
 
