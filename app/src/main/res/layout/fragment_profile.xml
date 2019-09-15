@@ -19,14 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             style="@style/AppTheme"
-            app:elevation="0dp"
-            android:outlineProvider="none">
+            android:outlineProvider="none"
+            android:elevation="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_profile_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:outlineProvider="none">
+                android:outlineProvider="none"
+                app:elevation="1dp"
+                android:layout_marginBottom="1dp">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/mt_profile"
