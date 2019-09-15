@@ -74,12 +74,14 @@ class Edit_board : DialogFragment() {
         rv_avatar.let { it.layoutManager = avatarManager }
 
         //start generating fake data
-        myAvatarViews.add(AvatarView())
-        myAvatarViews.add(AvatarView())
-        myAvatarViews.add(AvatarView())
-        myAvatarViews.add(AvatarView())
-        myAvatarViews.add(AvatarView())
-        myAvatarViews.add(AvatarView())
+        val fakeLink: String =
+            "https://www.shareicon.net/download/2016/05/24/770136_man_512x512.png"
+        myAvatarViews.add(AvatarView(fakeLink))
+        myAvatarViews.add(AvatarView(fakeLink))
+        myAvatarViews.add(AvatarView(fakeLink))
+        myAvatarViews.add(AvatarView(fakeLink))
+        myAvatarViews.add(AvatarView(fakeLink))
+        myAvatarViews.add(AvatarView(fakeLink))
         //end
         val picasso = Picasso.get()
         context?.let { avatarAdapter = AvatarRecyclerAdapter(it, myAvatarViews, picasso, true) }

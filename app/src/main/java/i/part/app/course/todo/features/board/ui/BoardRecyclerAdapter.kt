@@ -79,12 +79,14 @@ class BoardRecyclerAdapter(
         avatarManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
         holder.rv_avatar.let { it.layoutManager = avatarManager }
         //start generating fake data
-        myAvatarViews.add(AvatarView())
-        myAvatarViews.add(AvatarView())
-        myAvatarViews.add(AvatarView())
-        myAvatarViews.add(AvatarView())
-        myAvatarViews.add(AvatarView())
-        myAvatarViews.add(AvatarView())
+        val fakeLink: String =
+            "https://www.shareicon.net/download/2016/05/24/770136_man_512x512.png"
+        myAvatarViews.add(AvatarView(fakeLink))
+        myAvatarViews.add(AvatarView(fakeLink))
+        myAvatarViews.add(AvatarView(fakeLink))
+        myAvatarViews.add(AvatarView(fakeLink))
+        myAvatarViews.add(AvatarView(fakeLink))
+        myAvatarViews.add(AvatarView(fakeLink))
         //end
         avatarAdapter = AvatarRecyclerAdapter(context, myAvatarViews, picasso, false)
         holder.rv_avatar.let { it.adapter = avatarAdapter }
