@@ -69,8 +69,6 @@ class TodoListRecyclerAdapter(
 
             addTaskButton.setOnClickListener {
                 itemView.findNavController().navigate(R.id.action_board_to_addTaskFragment)
-//                Toast.makeText(context,"add task",Toast.LENGTH_LONG)
-//                    .show()
             }
         }
     }
@@ -114,31 +112,12 @@ class TodoListRecyclerAdapter(
             holder.subTaskRecyclerView.setHasFixedSize(true)
             holder.subTaskRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
-
-//            subtasks.apply {
-//
-//                add(SubTaskView("Awesome", true))
-//                add(SubTaskView("Marvelous", true))
-//                add(SubTaskView("Spectacular", true))
-//                add(SubTaskView("Awesome", true))
-//                add(SubTaskView("Marvelous", true))
-//                add(SubTaskView("Awesome", true))
-//            }
-//
-//            var allCompleted = true
-//            for (st in subtasks) {
-//                if (!st.isCompleted) {
-//                    allCompleted = false
-//                    break
-//                }
-//            }
-//            if (subtasks.size == 0)
-//                allCompleted = false
-
-//            holder.allTasksDoneTextView.visibility =
-//                if (allCompleted) View.VISIBLE else View.GONE
-
-            val subTaskRecyclerAdapter = SubTaskRecyclerAdapter(context, todoListViews[position].subtasks,holder.allTasksDoneTextView, picasso)
+            val subTaskRecyclerAdapter = SubTaskRecyclerAdapter(
+                context,
+                todoListViews[position].subtasks,
+                holder.allTasksDoneTextView,
+                picasso
+            )
             holder.subTaskRecyclerView.adapter = subTaskRecyclerAdapter
 
         }
@@ -150,14 +129,3 @@ class TodoListRecyclerAdapter(
         return todoListViews[position].todoListType.type
     }
 }
-
-
-//
-//dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-//dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//dialog?.setCanceledOnTouchOutside(false)
-//
-//val closeButton = dialog.findViewById<ImageButton>(R.id.addBoardCloseButton)
-//closeButton.setOnClickListener {
-//    dialog.dismiss()
-//}

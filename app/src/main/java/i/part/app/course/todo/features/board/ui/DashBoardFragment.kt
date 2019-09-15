@@ -86,11 +86,6 @@ class DashBoardFragment : Fragment() {
                                 .navigate(R.id.action_dashBoardFragment_to_loginFragment)
 
                         }
-//                        Toast.makeText(
-//                            context,
-//                            " لمس شد" + item.title,
-//                            Toast.LENGTH_SHORT
-//                        ).show()
                         return true
                     }
                 })
@@ -169,11 +164,6 @@ class DashBoardFragment : Fragment() {
             myView.findViewById<FloatingActionButton>(R.id.fab_dash_board_fragment)
         floatingActionButton.setOnClickListener {
             myView.findNavController().navigate(R.id.action_dashBoardFragment_to_add_board)
-//            val add_b = Add_board.newInstance("vahid")
-//            val fm = fragmentManager
-//            fm?.let {
-//                add_b.show(it, "fragment_edit_name")
-//            }
         }
         return myView
 
@@ -189,7 +179,6 @@ class DashBoardFragment : Fragment() {
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
-//            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
     }
 

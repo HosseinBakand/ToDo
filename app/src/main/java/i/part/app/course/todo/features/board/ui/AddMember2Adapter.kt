@@ -27,19 +27,10 @@ class AddMember2Adapter(context: Context, personUtils: List<AddMember2Item>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.tag = list[position]
-
         val pu = list[position]
-        //holder.image.setBackgroundColor(Color.BLACK)
-        //set parametrs
         val objectFromPicasso = PicassoCircleTransformation()
         Picasso.get().load(pu.imageUrl).error(R.drawable.person_empty).transform(objectFromPicasso)
             .fit().into(holder.image)
-//        val builder = Picasso.Builder(context)
-//        builder.listener { picasso, uri, exception ->
-//            Log.e("a",exception.message)}
-//        builder.build().load(ul).into(holder.image)
-        //Picasso.Builder
-
         holder.nameText.text = pu.name
 
     }
@@ -49,27 +40,13 @@ class AddMember2Adapter(context: Context, personUtils: List<AddMember2Item>) :
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         var image: AppCompatImageView = itemView.findViewById(R.id.iv_add_member_2_items_image)
         var nameText: TextView = itemView.findViewById(R.id.tv_add_member_2_items_name)
         var minesButton: AppCompatImageButton =
             itemView.findViewById(R.id.btn_add_member_2_items_minus)
 
         init {
-
-
-//            itemView.setOnClickListener { view ->
-//                val cpu = view.tag as AddMember2Item
-//
-//                Toast.makeText(
-//                    view.context,
-//                    cpu.name + " is ",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-
             minesButton.setOnClickListener { view ->
-
                 Toast.makeText(
                     view.context,
                     " ---delete-item--- ",

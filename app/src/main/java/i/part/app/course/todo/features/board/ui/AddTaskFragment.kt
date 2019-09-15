@@ -21,7 +21,6 @@ import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -29,18 +28,14 @@ private const val ARG_PARAM2 = "param2"
 class AddTaskFragment : DialogFragment() {
     var avatarManager: RecyclerView.LayoutManager? = null
     var avatarAdapter: RecyclerView.Adapter<*>? = null
-
     @SuppressLint("ResourceAsColor")
     override fun onCreateView(
-
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         dialog?.setTitle("Add BoardDetailFragment")
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        //dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_edge)
         dialog?.setCanceledOnTouchOutside(false)
         val view = inflater.inflate(R.layout.fragment_add_task, container, false)
         val closeButton = view.findViewById<ImageButton>(R.id.ib_add_task_close)
@@ -61,18 +56,14 @@ class AddTaskFragment : DialogFragment() {
                     .navigate(R.id.action_addTaskFragment_to_addMember2, myBundle)
             }
         }
-
-        //recycle
         val rv_avatar = view.findViewById<RecyclerView>(R.id.rv_add_task_avatars)
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()
-
         rv_avatar.let { it.setHasFixedSize(true) }
         val overlap: OverlapDecoration = OverlapDecoration()
         rv_avatar.addItemDecoration(overlap)
         avatarManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
         rv_avatar.let { it.layoutManager = avatarManager }
 
-        //start generating fake data
         val fakeLink: String =
             "https://www.shareicon.net/download/2016/05/24/770136_man_512x512.png"
         myAvatarViews.add(AvatarView(fakeLink))
@@ -81,13 +72,9 @@ class AddTaskFragment : DialogFragment() {
         myAvatarViews.add(AvatarView(fakeLink))
         myAvatarViews.add(AvatarView(fakeLink))
         myAvatarViews.add(AvatarView(fakeLink))
-        //end
         val picasso = Picasso.get()
         context?.let { avatarAdapter = AvatarRecyclerAdapter(it, myAvatarViews, picasso, true) }
-
         rv_avatar.let { it.adapter = avatarAdapter }
-
-
         return view
     }
 

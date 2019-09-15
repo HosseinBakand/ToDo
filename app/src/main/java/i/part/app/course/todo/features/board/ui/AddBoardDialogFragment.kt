@@ -24,7 +24,6 @@ import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -39,11 +38,9 @@ class Add_board : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         dialog?.setTitle("Add BoardDetailFragment")
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        //dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_edge)
         dialog?.setCanceledOnTouchOutside(false)
         val view = inflater.inflate(R.layout.fragment_add_board, container, false)
         val closeButton = view.findViewById<ImageButton>(R.id.ib_add_board_close)
@@ -63,10 +60,8 @@ class Add_board : DialogFragment() {
             this.dismiss()
         }
 
-        //recycle
         val rv_avatar = view.findViewById<RecyclerView>(R.id.rv_avatars)
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()
-
         rv_avatar.let { it.setHasFixedSize(true) }
         val overlap: OverlapDecoration = OverlapDecoration()
         rv_avatar.addItemDecoration(overlap)
@@ -85,8 +80,6 @@ class Add_board : DialogFragment() {
         //end
         val picasso = Picasso.get()
         context?.let { avatarAdapter = AvatarRecyclerAdapter(it, myAvatarViews, picasso, true) }
-
-
         val image = view.findViewById<ImageView>(R.id.iv_add_board_preview)
         val url =
             "https://img.freepik.com/free-vector/colorful-watercolor-background_79603-99.jpg?size=626&ext=jpg"
@@ -97,13 +90,10 @@ class Add_board : DialogFragment() {
             .error(i.part.app.course.todo.R.drawable.person_empty)
             .fit().into(image)
         rv_avatar.let { it.adapter = avatarAdapter }
-
-
         return view
     }
 
     companion object {
-
         fun newInstance(title: String): Add_board {
             val frag = Add_board()
             val args = Bundle()
