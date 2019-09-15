@@ -1,66 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/rounded_corner"
-    android:backgroundTint="@color/white"
-    android:layout_margin="4dp"
-    android:elevation="4dp"
-    android:id="@+id/item_task_description"
-    android:minHeight="35dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <data>
+        <variable
+            name="subtask"
+            type="i.part.app.course.todo.features.board.ui.SubTaskView" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rl_item_task_description"
-        android:layout_marginTop="9dp"
-        android:layout_marginBottom="9dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/white"
+        android:layout_margin="4dp"
+        android:elevation="4dp"
+        android:id="@+id/item_task_description"
+        android:minHeight="35dp">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:id="@+id/rl_item_subtask_checkbox_container">
+            android:id="@+id/rl_item_task_description"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="9dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
 
-        <CheckBox
-            android:id="@+id/cb_item_subtask"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
-            android:button="@drawable/subtask_custom_checkbox"
-            android:layout_centerInParent="true"
-            android:checked="false"
-            app:drawableTint="@color/textColorPrimary" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:id="@+id/rl_item_subtask_checkbox_container">
+
+                <CheckBox
+                    android:id="@+id/cb_item_subtask"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:button="@drawable/subtask_custom_checkbox"
+                    android:layout_centerInParent="true"
+                    android:checked="@{subtask.completed}"
+                    app:drawableTint="@color/textColorPrimary" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="sans-serif"
+                android:letterSpacing="0.01"
+                android:textAlignment="center"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:id="@+id/tv_item_subtask_description"
+                android:text="@{subtask.subTaskDescription}"
+                android:layout_toEndOf="@id/rl_item_subtask_checkbox_container"
+                android:layout_toStartOf="@id/iv_item_task_description" />
+
+            <ImageView
+                android:id="@+id/iv_item_task_description"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitEnd"
+                imageUrlForCircular="@{subtask.imageUri}" />
+
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:fontFamily="sans-serif"
-            android:letterSpacing="0.01"
-            android:textAlignment="center"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:id="@+id/tv_item_subtask_description"
-            android:text="@string/test_task_description"
-            android:layout_toEndOf="@id/rl_item_subtask_checkbox_container"
-            android:layout_toStartOf="@id/iv_item_task_description"/>
-
-        <ImageView
-            android:id="@+id/iv_item_task_description"
-            android:layout_width="29dp"
-            android:layout_height="29dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:adjustViewBounds="true"
-            android:scaleType="fitEnd"
-            android:src="@drawable/ic_defualt_profile_photo" />
-
-    </RelativeLayout>
-
-</com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

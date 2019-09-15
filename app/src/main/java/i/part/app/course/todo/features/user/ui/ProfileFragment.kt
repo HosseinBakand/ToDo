@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.databinding.FragmentProfileBinding
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -26,11 +29,8 @@ class Profile : Fragment() {
             DataBindingUtil.inflate(inflater,R.layout.fragment_profile, container, false)
         val view = binding.root
         binding.lifecycleOwner = this  // use Fragment.viewLifecycleOwner for fragments
-        userViewModel.profilePhotoUrl = "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
-        userViewModel.name = "Vahid Safari"
-        userViewModel.email = "safarivahid132@gmail.com"
-        userViewModel.phone = "09213421432"
-        binding.userViewModel = userViewModel
+        binding.userView = userViewModel.user.value
+        //toolbar
         return view
     }
 
@@ -48,4 +48,5 @@ class Profile : Fragment() {
             this.findNavController().navigate(R.id.action_profile_to_dashBoardFragment)
         }
     }
+
 }

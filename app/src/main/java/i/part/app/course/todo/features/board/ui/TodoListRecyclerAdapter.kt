@@ -11,23 +11,23 @@ import android.view.Window
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
-import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
+import i.part.app.course.todo.databinding.ItemTodoListBinding
 
 class TodoListRecyclerAdapter(
-    val todoListViews: List<TodoListView>,
-    private val picasso: Picasso
+    val todoListViews: List<TodoListView>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var view: View
     lateinit var context: Context
     lateinit var todoListRecyclerView: RecyclerView
-
+    lateinit var mBinding: ItemTodoListBinding
     inner class TodoListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var todoNameTextView =
             itemView.findViewById<MaterialTextView>(R.id.tv_todo_list_item_name)
@@ -92,14 +92,12 @@ class TodoListRecyclerAdapter(
         context = parent.context
         return when (viewType) {
             TodoListType.ADD_TODOLIST_BUTTON.type -> {
-                view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.add_todo_list, parent, false)
+                view = LayoutInflater.from(parent.context).inflate(R.layout.add_todo_list, parent, false)
                 AddToDoListButtonViewHolder(view)
             }
             else -> {
-                view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_todo_list, parent, false)
-                TodoListViewHolder(view)
+                mBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_todo_list, parent, false)
+                TodoListViewHolder(mBinding.root)
             }
         }
     }
@@ -107,15 +105,14 @@ class TodoListRecyclerAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is TodoListViewHolder) {
             holder.itemView.tag = todoListViews[position]
-            val currentItem = todoListViews[position]
-            holder.todoNameTextView.text = currentItem.todoListName
+            mBinding.todolist = todoListViews[position]
+
             holder.subTaskRecyclerView.setHasFixedSize(true)
             holder.subTaskRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
             val subTaskRecyclerAdapter = SubTaskRecyclerAdapter(
                 todoListViews[position].subtasks,
-                holder.allTasksDoneTextView,
-                picasso
+                holder.allTasksDoneTextView
             )
             holder.subTaskRecyclerView.adapter = subTaskRecyclerAdapter
 

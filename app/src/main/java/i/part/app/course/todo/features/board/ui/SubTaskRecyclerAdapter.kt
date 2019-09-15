@@ -6,21 +6,20 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
+import i.part.app.course.todo.databinding.ItemSubtaskBinding
 
 
 class SubTaskRecyclerAdapter(
     private val subtasks: MutableList<SubTaskView>,
-    private val allTasksDone: TextView,
-    private val picasso: Picasso
+    private val allTasksDone: TextView
 ) :
 RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {
     lateinit var view:View
     var checkedTasks = 0
-
+    lateinit var mBinding: ItemSubtaskBinding
     init {
         subtasks.forEach {
             if(it.isCompleted)
@@ -41,18 +40,16 @@ RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-                view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_subtask,parent,false)
-            return ViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.item_subtask, parent, false)
+        val myBindedView = mBinding.root
+        return ViewHolder(myBindedView)
         }
 
     override fun getItemCount() = subtasks.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.tag = subtasks[position]
-        holder.descriptionTextView.text = subtasks[position].subTaskDescription
-        holder.checkBox.isChecked = subtasks[position].isCompleted
-
+        mBinding.subtask =subtasks[position]
         holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
             if (holder.checkBox.isChecked) {
                 checkedTasks++
@@ -65,11 +62,5 @@ RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {
             }
             subtasks[position].isCompleted = holder.checkBox.isChecked
         }
-
-        val currentItem = subtasks[position]
-        val transformer = PicassoCircleTransformation()
-        picasso.load(currentItem.imageUri).transform(transformer)
-            .error(R.color.design_default_color_error)
-            .into(holder.assigneeProfilePhoto)
     }
 }
