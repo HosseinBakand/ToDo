@@ -33,7 +33,6 @@ class Add_board : DialogFragment() {
         val view = binding.root
         binding.lifecycleOwner = this
 
-        dialog?.setTitle("Add BoardDetailFragment")
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         //dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_edge)
