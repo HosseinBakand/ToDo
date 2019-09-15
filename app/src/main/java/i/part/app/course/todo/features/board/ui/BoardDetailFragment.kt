@@ -119,7 +119,7 @@ class BoardDetailFragment : Fragment() {
                 )
             }
             context?.let { context ->
-                it.adapter = TodoListRecyclerAdapter(todoListViews, Picasso.get())
+                it.adapter = TodoListRecyclerAdapter(todoListViews)
             }
             rv_board_fragment.adapter = it.adapter
         }
