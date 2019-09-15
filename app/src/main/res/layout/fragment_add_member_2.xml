@@ -13,7 +13,7 @@
             android:id="@+id/mt_add_member_2"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorAccent"
             android:fontFamily="sans-serif"
 
             android:letterSpacing="0.01"
@@ -24,7 +24,9 @@
             app:layout_constraintBottom_toTopOf="@id/rv_add_member_2_new_members"
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="?attr/homeAsUpIndicator"
-            app:title="@string/add_member_title_text" />
+            app:title="@string/add_member_title_text"
+            android:elevation="4dp"
+            android:layout_marginBottom="4dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_add_member_2_new_members"

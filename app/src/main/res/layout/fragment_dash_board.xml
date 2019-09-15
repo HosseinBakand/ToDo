@@ -18,15 +18,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            >
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/mt_dash_board_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorAccent"
                 android:theme="@style/Widget.AppCompat.ActionBar"
-                app:title="Boards(dashboards)"/>
+                app:title="Boards(dashboards)"
+                android:elevation="4dp"
+                android:layout_marginBottom="4dp"/>
 
             <ImageView
                 android:id="@+id/iv_dash_board_custom_menu_button"
@@ -39,7 +42,8 @@
                 android:layout_marginBottom="12dp"
                 android:padding="8dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_dots"/>
+                android:src="@drawable/ic_dots"
+                android:elevation="4dp"/>
 
             <ImageView
                 android:id="@+id/iv_dash_board_anchor_for_menu"
@@ -48,7 +52,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="12dp"/>
+                android:layout_marginBottom="12dp"
+                android:elevation="4dp"/>
 
 
         </RelativeLayout>
