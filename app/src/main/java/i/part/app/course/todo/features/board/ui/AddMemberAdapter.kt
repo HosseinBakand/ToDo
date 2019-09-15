@@ -1,6 +1,5 @@
 package i.part.app.course.todo.features.board.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,8 @@ import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
 
 
-class AddMember2Adapter(context: Context, personUtils: List<AddMember2Item>) :
+class AddMember2Adapter(personUtils: List<AddMember2Item>) :
     RecyclerView.Adapter<AddMember2Adapter.ViewHolder>() {
-    private val context: Context = context
     private val list: List<AddMember2Item> = personUtils
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

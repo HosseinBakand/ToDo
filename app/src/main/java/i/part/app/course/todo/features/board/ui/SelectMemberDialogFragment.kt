@@ -78,7 +78,7 @@ class SelectMemberDialogFragment : DialogFragment() {
         list.add(SelectMemberItem("Albert Stewart", "Web Developer", false))
         list.add(SelectMemberItem("Wayne Diaz", "Junior Developer", false))
         context?.let {
-            mAdapter = SelectMemberAdapter(it, list)
+            mAdapter = SelectMemberAdapter(list)
         }
         recyclerView.adapter = mAdapter
         val closeButton = view.findViewById<ImageButton>(R.id.ib_add_member_3_close)

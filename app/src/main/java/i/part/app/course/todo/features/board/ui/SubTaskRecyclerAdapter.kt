@@ -1,6 +1,5 @@
 package i.part.app.course.todo.features.board.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
 
 
 class SubTaskRecyclerAdapter(
-    private val context: Context,
     private val subtasks: MutableList<SubTaskView>,
     private val allTasksDone: TextView,
     private val picasso: Picasso

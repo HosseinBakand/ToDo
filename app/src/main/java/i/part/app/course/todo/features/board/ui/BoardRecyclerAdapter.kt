@@ -23,7 +23,6 @@ import java.util.*
 
 
 class BoardRecyclerAdapter(
-    private val context: Context,
     taskViews: List<TaskView>,
     picasso: Picasso
 ) :
@@ -32,6 +31,7 @@ class BoardRecyclerAdapter(
     var avatarManager: RecyclerView.LayoutManager? = null
     lateinit var mBinding: ItemBoardBinding
     val picasso: Picasso
+    lateinit var context: Context
     private val taskViews: List<TaskView>
     lateinit var v: View
 
@@ -41,7 +41,8 @@ class BoardRecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(context)
+        val inflater = LayoutInflater.from(parent.context)
+        context = parent.context
         mBinding = DataBindingUtil.inflate(inflater, R.layout.item_board, parent, false)
         val myBindedView = mBinding.root
         return ViewHolder(myBindedView)
@@ -88,7 +89,7 @@ class BoardRecyclerAdapter(
         myAvatarViews.add(AvatarView(fakeLink))
         myAvatarViews.add(AvatarView(fakeLink))
         //end
-        avatarAdapter = AvatarRecyclerAdapter(context, myAvatarViews, picasso, false)
+        avatarAdapter = AvatarRecyclerAdapter(myAvatarViews, picasso, false)
         holder.rv_avatar.let { it.adapter = avatarAdapter }
 
 

@@ -80,7 +80,7 @@ class Edit_board : DialogFragment() {
         myAvatarViews.add(AvatarView(fakeLink))
         //end
         val picasso = Picasso.get()
-        context?.let { avatarAdapter = AvatarRecyclerAdapter(it, myAvatarViews, picasso, true) }
+        context?.let { avatarAdapter = AvatarRecyclerAdapter(myAvatarViews, picasso, true) }
 
 
         var editBoardViewModel = EditBoardViewModel(

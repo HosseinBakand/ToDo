@@ -71,7 +71,7 @@ class AddMember2 : Fragment() {
         list.add(AddMember2Item("Albert Stewart", "Web Developer"))
         list.add(AddMember2Item("Wayne Diaz", "Junior Developer"))
         context?.let {
-            mAdapter = AddMember2Adapter(it, list)
+            mAdapter = AddMember2Adapter(list)
         }
         recyclerView.adapter = mAdapter
         val button = view.findViewById<Button>(R.id.btn_add_member)
