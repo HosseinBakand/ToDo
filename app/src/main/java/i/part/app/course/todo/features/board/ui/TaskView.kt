@@ -4,7 +4,7 @@ data class TaskView(
     var name: String,
     var todo: String,
     var totalTasks: String,
-    var remaningTasks: String,
+    var remainingTasks: String,
     var status: String,
     var imageUrl: String
 )

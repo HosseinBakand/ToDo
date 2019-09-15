@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
-import i.part.app.course.todo.databinding.BoardItemBinding
+import i.part.app.course.todo.databinding.ItemBoardBinding
 import java.util.*
 
 
@@ -30,7 +30,7 @@ class BoardRecyclerAdapter(
     RecyclerView.Adapter<BoardRecyclerAdapter.ViewHolder>() {
     var avatarAdapter: RecyclerView.Adapter<*>? = null
     var avatarManager: RecyclerView.LayoutManager? = null
-    lateinit var mBinding: BoardItemBinding
+    lateinit var mBinding: ItemBoardBinding
     val picasso: Picasso
     private val taskViews: List<TaskView>
     lateinit var v: View
@@ -42,7 +42,7 @@ class BoardRecyclerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(context)
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.board_item, parent, false)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.item_board, parent, false)
         val myBindedView = mBinding.root
         return ViewHolder(myBindedView)
     }
@@ -62,7 +62,7 @@ class BoardRecyclerAdapter(
             val dialog = Dialog(context)
             dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.setContentView(R.layout.delete_page)
+            dialog.setContentView(R.layout.dialog_delete_page)
             dialog.setCanceledOnTouchOutside(false)
             val okButton = dialog.findViewById<TextView>(R.id.tv_ok_button)
             okButton.setOnClickListener {

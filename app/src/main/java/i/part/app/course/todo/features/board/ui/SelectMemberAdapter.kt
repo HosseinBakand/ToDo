@@ -14,14 +14,14 @@ import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
 
 
-class AddMember3Adapter(
+class SelectMemberAdapter(
     private val context: Context,
-    private val list: List<AddMember3Item>
+    private val list: List<SelectMemberItem>
 ) :
-    RecyclerView.Adapter<AddMember3Adapter.ViewHolder1>() {
+    RecyclerView.Adapter<SelectMemberAdapter.ViewHolder1>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder1 {
         val v =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_add_member_3, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_select_member, parent, false)
         return ViewHolder1(v)
     }
 
@@ -47,7 +47,7 @@ class AddMember3Adapter(
         var checkbox: CheckBox =
             itemView.findViewById(R.id.cb_add_member_3)
 
-        fun bind(item: AddMember3Item) {
+        fun bind(item: SelectMemberItem) {
             nameText.text = item.name
             checkbox.isChecked = item.ischeck
             checkbox.setOnCheckedChangeListener { _, isChecked -> item.ischeck = !isChecked }

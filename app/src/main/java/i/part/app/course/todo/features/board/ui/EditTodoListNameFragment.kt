@@ -20,7 +20,7 @@ class EditTodoListNameFragment : DialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.setCanceledOnTouchOutside(false)
-        var view = inflater.inflate(R.layout.edit_todolist_name, container, false)
+        var view = inflater.inflate(R.layout.dialog_edit_todolist_name, container, false)
         val bt_confirm = view.findViewById(R.id.btn_edit_todolist_confirm) as MaterialButton
         val et_boardName = view.findViewById<EditText>(R.id.et_todolist_name)
         bt_confirm.setOnClickListener {
