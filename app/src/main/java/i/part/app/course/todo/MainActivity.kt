@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("ResourceType")
     private fun frag() {
-
         //editNameDialogFragment.show(fm, "fragment_edit_name")
     }
 

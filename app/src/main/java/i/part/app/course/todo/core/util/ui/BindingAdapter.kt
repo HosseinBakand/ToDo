@@ -1,8 +1,10 @@
 package i.part.app.course.todo.core.util.ui
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
+import i.part.app.course.todo.R
 
 @BindingAdapter("imageUrlForRoundCorner")
 fun loadRoundCornerImage(view: ImageView, imageUrl: String) {
@@ -23,4 +25,16 @@ fun loadCirularImage(view: ImageView, imageUrl: String) {
         .load(imageUrl)
         .transform(transform)
         .into(view)
+}
+
+@BindingAdapter("labelStatus")
+fun setLabelStatus(view: TextView, status: String) {
+    if (status == "todo") {
+        view.setBackgroundResource(R.drawable.round_red_label)
+        view.text = "Todo"
+    } else {
+        view.setBackgroundResource(R.drawable.round_green_label)
+        view.text = "Done"
+    }
+
 }

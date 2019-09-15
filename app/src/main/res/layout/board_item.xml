@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="myBoard"
+            type="i.part.app.course.todo.features.board.ui.TaskView" />
+    </data>
+<androidx.cardview.widget.CardView
     android:id="@+id/cv_board_item"
     android:layout_width="match_parent"
     android:layout_marginLeft="8dp"
@@ -13,6 +20,7 @@
     android:background="@color/white"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,6 +31,7 @@
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_marginStart="8dp"
+            imageUrlForRoundCorner="@{myBoard.imageUrl}"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintRight_toLeftOf="@+id/gl_rightImageView"
@@ -38,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="5dp"
-            tools:text="Board1"
+            tools:text="@{myBoard.name}"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/iv_task"
@@ -50,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="6dp"
+            labelStatus="@{myBoard.status}"
             android:background="@drawable/round_green_label"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
@@ -65,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="6dp"
-            android:text="@string/todo_remaining_items_task"
+            android:text="@{myBoard.todo}"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/iv_task"
             app:layout_constraintTop_toBottomOf="@id/tv_status_label" />
@@ -76,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="6dp"
-            android:text="@string/todo_remaining_tasks"
+            android:text="@{myBoard.remaningTasks}"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/iv_task"
             app:layout_constraintTop_toBottomOf="@id/tv_todo_count" />
@@ -95,8 +105,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_avatars"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
 
         <ImageView
@@ -121,5 +130,50 @@
             android:orientation="vertical"
             app:layout_constraintGuide_begin="133dp" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="6dp"
+            android:text="@string/todo_task_first"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_todo_count"
+            app:layout_constraintTop_toBottomOf="@+id/tv_status_label" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="6dp"
+            android:text="@string/todo_remaining_tasks"
+
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_remaining_tasks"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/tv_totalTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@{myBoard.totalTasks}"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/tv_status_label" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:paddingLeft="2dp"
+            android:text="@string/todo_task_second"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_totalTask"
+            app:layout_constraintTop_toBottomOf="@+id/tv_status_label" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
+</layout>
