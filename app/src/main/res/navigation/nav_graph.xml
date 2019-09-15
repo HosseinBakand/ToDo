@@ -100,9 +100,9 @@
     </fragment>
     <dialog
         android:id="@+id/addMember3Fragment"
-        android:name="i.part.app.course.todo.features.board.ui.AddMember3Fragment"
+        android:name="i.part.app.course.todo.features.board.ui.SelectMemberDialogFragment"
         android:label="fragment_add_member_3"
-        tools:layout="@layout/fragment_add_member_3">
+        tools:layout="@layout/dialog_select_member">
         <action
             android:id="@+id/action_addMember3Fragment_to_addMember2"
             app:popUpTo="@id/addMember3Fragment"
@@ -112,7 +112,7 @@
         android:id="@+id/addTaskFragment"
         android:name="i.part.app.course.todo.features.board.ui.AddTaskFragment"
         android:label="fragment_add_task"
-        tools:layout="@layout/fragment_add_task">
+        tools:layout="@layout/dialog_add_task">
         <argument
             android:name="fragmentType"
             app:argType="string" />
@@ -127,7 +127,7 @@
         android:id="@+id/edit_board"
         android:name="i.part.app.course.todo.features.board.ui.Edit_board"
         android:label="fragment_edit_board"
-        tools:layout="@layout/fragment_edit_board">
+        tools:layout="@layout/dialog_edit_board">
         <argument
             android:name="fragmentType"
             app:argType="string" />
@@ -142,7 +142,7 @@
         android:id="@+id/add_board"
         android:name="i.part.app.course.todo.features.board.ui.Add_board"
         android:label="delete_page"
-        tools:layout="@layout/delete_page">
+        tools:layout="@layout/dialog_delete_page">
         <argument
             android:name="fragmentType"
             app:argType="string" />

@@ -30,7 +30,7 @@ class AddTaskFragment : DialogFragment() {
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.setCanceledOnTouchOutside(false)
-        val view = inflater.inflate(R.layout.fragment_add_task, container, false)
+        val view = inflater.inflate(R.layout.dialog_add_task, container, false)
         val closeButton = view.findViewById<ImageButton>(R.id.ib_add_task_close)
         closeButton.setOnClickListener { this.dismiss() }
 

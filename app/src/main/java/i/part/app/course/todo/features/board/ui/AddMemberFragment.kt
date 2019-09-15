@@ -21,7 +21,7 @@ class AddMember2 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view = inflater.inflate(R.layout.fragment_add_member_2, container, false)
+        var view = inflater.inflate(R.layout.fragment_add_member, container, false)
         recyclerView = view.findViewById(R.id.rv_add_member_2_new_members) as RecyclerView
         recyclerView.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(context)

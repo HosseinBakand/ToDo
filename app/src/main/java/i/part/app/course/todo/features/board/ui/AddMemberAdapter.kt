@@ -21,7 +21,7 @@ class AddMember2Adapter(context: Context, personUtils: List<AddMember2Item>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_add_member_2, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_add_member, parent, false)
         return ViewHolder(v)
     }
 

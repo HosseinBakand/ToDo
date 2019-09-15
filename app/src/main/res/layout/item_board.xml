@@ -38,7 +38,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/round_green_label"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
@@ -60,7 +59,6 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="6dp"
             labelStatus="@{myBoard.status}"
-            android:background="@drawable/round_green_label"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             tools:text="Done"
@@ -86,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="6dp"
-            android:text="@{myBoard.remaningTasks}"
+            android:text="@{myBoard.remainingTasks}"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/iv_task"
             app:layout_constraintTop_toBottomOf="@id/tv_todo_count" />

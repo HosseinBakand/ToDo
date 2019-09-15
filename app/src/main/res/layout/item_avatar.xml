@@ -15,7 +15,7 @@
 
         <ImageView
             android:id="@+id/im_avatar"
-            imageUrlForCirular="@{myAvatar.image_url}"
+            imageUrlForCircular="@{myAvatar.image_url}"
             android:layout_width="20dp"
             android:layout_height="20dp"
             app:layout_constraintBottom_toBottomOf="parent"

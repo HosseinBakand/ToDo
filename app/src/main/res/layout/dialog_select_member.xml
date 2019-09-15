@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".features.board.ui.AddMember3Fragment">
+    tools:context=".features.board.ui.SelectMemberDialogFragment">
 
 
     <RelativeLayout

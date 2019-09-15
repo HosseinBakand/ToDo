@@ -18,7 +18,7 @@ fun loadRoundCornerImage(view: ImageView, imageUrl: String) {
         .into(view)
 }
 
-@BindingAdapter("imageUrlForCirular")
+@BindingAdapter("imageUrlForCircular")
 fun loadCirularImage(view: ImageView, imageUrl: String) {
     val transform = PicassoCircleTransformation()
     Picasso.get()

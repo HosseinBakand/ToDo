@@ -16,20 +16,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
-import i.part.app.course.todo.databinding.FragmentAddBoardBinding
-import kotlinx.android.synthetic.main.fragment_add_board.*
+import i.part.app.course.todo.databinding.DialogAddBoardBinding
+import kotlinx.android.synthetic.main.dialog_add_board.*
 import java.util.*
 
 class Add_board : DialogFragment() {
     var avatarManager: RecyclerView.LayoutManager? = null
     var avatarAdapter: RecyclerView.Adapter<*>? = null
-    lateinit var binding: FragmentAddBoardBinding
+    lateinit var binding: DialogAddBoardBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_board, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_add_board, container, false)
         val view = binding.root
         binding.lifecycleOwner = this
 
