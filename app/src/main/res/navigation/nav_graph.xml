@@ -72,7 +72,7 @@
     </fragment>
     <fragment
         android:id="@+id/addMember2"
-        android:name="i.part.app.course.todo.features.board.ui.AddMember2"
+        android:name="i.part.app.course.todo.features.board.ui.AddMember"
         android:label="AddMember2">
 
         <action

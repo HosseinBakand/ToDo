@@ -13,9 +13,9 @@ import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
 
 
-class AddMember2Adapter(personUtils: List<AddMember2Item>) :
-    RecyclerView.Adapter<AddMember2Adapter.ViewHolder>() {
-    private val list: List<AddMember2Item> = personUtils
+class AddMemberAdapter(personUtils: List<AddMemberItem>) :
+    RecyclerView.Adapter<AddMemberAdapter.ViewHolder>() {
+    private val list: List<AddMemberItem> = personUtils
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v =

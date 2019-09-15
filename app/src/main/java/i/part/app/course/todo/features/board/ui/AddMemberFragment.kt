@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import i.part.app.course.todo.R
-class AddMember2 : Fragment() {
+
+class AddMember : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var mAdapter: RecyclerView.Adapter<*>
     lateinit var layoutManager: RecyclerView.LayoutManager
-    lateinit var list: ArrayList<AddMember2Item>
+    lateinit var list: ArrayList<AddMemberItem>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,48 +31,48 @@ class AddMember2 : Fragment() {
         //Adding Data into ArrayList
         val url =
             "https://www.irreverentgent.com/wp-content/uploads/2018/03/Awesome-Profile-Pictures-for-Guys-look-away2.jpg"
-        list.add(AddMember2Item(url, "Project Manager"))
-        list.add(AddMember2Item("Bradley Matthews", "Senior Developer"))
-        list.add(AddMember2Item(url, "Lead Developer"))
-        list.add(AddMember2Item("Gary Thompson", "Lead Developer"))
-        list.add(AddMember2Item("Corey Williamson", "UI/UX Developer"))
-        list.add(AddMember2Item("Samuel Jones", "Front-End Developer"))
-        list.add(AddMember2Item("Michael Read", "Backend Developer"))
-        list.add(AddMember2Item("Robert Phillips", "Android Developer"))
-        list.add(AddMember2Item("Albert Stewart", "Web Developer"))
-        list.add(AddMember2Item("Wayne Diaz", "Junior Devafdsgeloper"))
-        list.add(AddMember2Item("Todd Miller", "Project Manageafdr"))
-        list.add(AddMember2Item("Bradley Matthews", "Senior Devefaloper"))
-        list.add(AddMember2Item("Harley Gibson", "Lead Developfaer"))
-        list.add(AddMember2Item("Gary Thompson", "Lead Developedfr"))
-        list.add(AddMember2Item("Corey Williamson", "UI/UX Develoabper"))
-        list.add(AddMember2Item("Samuel Jones", "Front-End Developeafr"))
-        list.add(AddMember2Item("Michael Read", "Backend Developxcvxcber"))
-        list.add(AddMember2Item("Robert Phillips", "Android Developeiyl,r"))
-        list.add(AddMember2Item("Albert Stewart", "Web Developesadgadsr"))
-        list.add(AddMember2Item("Wayne Diaz", "Junior Developerasfbafs"))
-        list.add(AddMember2Item("Todd Miller", "Project Manageradva"))
-        list.add(AddMember2Item("Bradley Matthews", "Senior Developsdgsder"))
-        list.add(AddMember2Item("Harley Gibson", "Lead Developer"))
-        list.add(AddMember2Item("Gary Thompson", "Lead Developer"))
-        list.add(AddMember2Item("Corey Williamson", "UI/UX Developer"))
-        list.add(AddMember2Item("Samuel Jones", "Front-End Developer"))
-        list.add(AddMember2Item("Michael Read", "Backend Developer"))
-        list.add(AddMember2Item("Robert Phillips", "Android Developer"))
-        list.add(AddMember2Item("Albert Stewart", "Web Developer"))
-        list.add(AddMember2Item("Wayne Diaz", "Junior Developer"))
-        list.add(AddMember2Item("Todd Miller", "Project Manager"))
-        list.add(AddMember2Item("Bradley Matthews", "Senior Developer"))
-        list.add(AddMember2Item("Harley Gibson", "Lead Developer"))
-        list.add(AddMember2Item("Gary Thompson", "Lead Developer"))
-        list.add(AddMember2Item("Corey Williamson", "UI/UX Developer"))
-        list.add(AddMember2Item("Samuel Jones", "Front-End Developer"))
-        list.add(AddMember2Item("Michael Read", "Backend Developer"))
-        list.add(AddMember2Item("Robert Phillips", "Android Developer"))
-        list.add(AddMember2Item("Albert Stewart", "Web Developer"))
-        list.add(AddMember2Item("Wayne Diaz", "Junior Developer"))
+        list.add(AddMemberItem(url, "Project Manager"))
+        list.add(AddMemberItem("Bradley Matthews", "Senior Developer"))
+        list.add(AddMemberItem(url, "Lead Developer"))
+        list.add(AddMemberItem("Gary Thompson", "Lead Developer"))
+        list.add(AddMemberItem("Corey Williamson", "UI/UX Developer"))
+        list.add(AddMemberItem("Samuel Jones", "Front-End Developer"))
+        list.add(AddMemberItem("Michael Read", "Backend Developer"))
+        list.add(AddMemberItem("Robert Phillips", "Android Developer"))
+        list.add(AddMemberItem("Albert Stewart", "Web Developer"))
+        list.add(AddMemberItem("Wayne Diaz", "Junior Devafdsgeloper"))
+        list.add(AddMemberItem("Todd Miller", "Project Manageafdr"))
+        list.add(AddMemberItem("Bradley Matthews", "Senior Devefaloper"))
+        list.add(AddMemberItem("Harley Gibson", "Lead Developfaer"))
+        list.add(AddMemberItem("Gary Thompson", "Lead Developedfr"))
+        list.add(AddMemberItem("Corey Williamson", "UI/UX Develoabper"))
+        list.add(AddMemberItem("Samuel Jones", "Front-End Developeafr"))
+        list.add(AddMemberItem("Michael Read", "Backend Developxcvxcber"))
+        list.add(AddMemberItem("Robert Phillips", "Android Developeiyl,r"))
+        list.add(AddMemberItem("Albert Stewart", "Web Developesadgadsr"))
+        list.add(AddMemberItem("Wayne Diaz", "Junior Developerasfbafs"))
+        list.add(AddMemberItem("Todd Miller", "Project Manageradva"))
+        list.add(AddMemberItem("Bradley Matthews", "Senior Developsdgsder"))
+        list.add(AddMemberItem("Harley Gibson", "Lead Developer"))
+        list.add(AddMemberItem("Gary Thompson", "Lead Developer"))
+        list.add(AddMemberItem("Corey Williamson", "UI/UX Developer"))
+        list.add(AddMemberItem("Samuel Jones", "Front-End Developer"))
+        list.add(AddMemberItem("Michael Read", "Backend Developer"))
+        list.add(AddMemberItem("Robert Phillips", "Android Developer"))
+        list.add(AddMemberItem("Albert Stewart", "Web Developer"))
+        list.add(AddMemberItem("Wayne Diaz", "Junior Developer"))
+        list.add(AddMemberItem("Todd Miller", "Project Manager"))
+        list.add(AddMemberItem("Bradley Matthews", "Senior Developer"))
+        list.add(AddMemberItem("Harley Gibson", "Lead Developer"))
+        list.add(AddMemberItem("Gary Thompson", "Lead Developer"))
+        list.add(AddMemberItem("Corey Williamson", "UI/UX Developer"))
+        list.add(AddMemberItem("Samuel Jones", "Front-End Developer"))
+        list.add(AddMemberItem("Michael Read", "Backend Developer"))
+        list.add(AddMemberItem("Robert Phillips", "Android Developer"))
+        list.add(AddMemberItem("Albert Stewart", "Web Developer"))
+        list.add(AddMemberItem("Wayne Diaz", "Junior Developer"))
         context?.let {
-            mAdapter = AddMember2Adapter(list)
+            mAdapter = AddMemberAdapter(list)
         }
         recyclerView.adapter = mAdapter
         val button = view.findViewById<Button>(R.id.btn_add_member)
