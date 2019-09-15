@@ -22,11 +22,6 @@ import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.core.util.ui.RoundedCornersTransformation
 import java.util.*
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-
 class Edit_board : DialogFragment() {
     var avatarManager: RecyclerView.LayoutManager? = null
     var avatarAdapter: RecyclerView.Adapter<*>? = null
@@ -95,17 +90,5 @@ class Edit_board : DialogFragment() {
         val editText = view.findViewById<EditText>(R.id.et_edit_board_name)
         editText.setSelection(0, editText.text.toString().length)
         return view
-    }
-
-    companion object {
-
-        fun newInstance(title: String): Edit_board {
-            val frag = Edit_board()
-            val args = Bundle()
-
-            args.putString("Add BoardDetailFragment", title)
-            frag.arguments = args
-            return frag
-        }
     }
 }

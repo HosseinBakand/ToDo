@@ -2,7 +2,6 @@ package i.part.app.course.todo.features.board.ui
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,19 +26,6 @@ class EditTodoListNameFragment : DialogFragment() {
         bt_confirm.setOnClickListener {
         }
         return view
-    }
-
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            AddMember3Fragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 }
 

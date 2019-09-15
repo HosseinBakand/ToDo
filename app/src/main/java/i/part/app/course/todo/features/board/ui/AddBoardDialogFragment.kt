@@ -1,6 +1,5 @@
 package i.part.app.course.todo.features.board.ui
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -31,8 +30,6 @@ private const val ARG_PARAM2 = "param2"
 class Add_board : DialogFragment() {
     var avatarManager: RecyclerView.LayoutManager? = null
     var avatarAdapter: RecyclerView.Adapter<*>? = null
-
-    @SuppressLint("ResourceAsColor")
     override fun onCreateView(
 
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,16 +88,5 @@ class Add_board : DialogFragment() {
             .fit().into(image)
         rv_avatar.let { it.adapter = avatarAdapter }
         return view
-    }
-
-    companion object {
-        fun newInstance(title: String): Add_board {
-            val frag = Add_board()
-            val args = Bundle()
-
-            args.putString("Add BoardDetailFragment", title)
-            frag.arguments = args
-            return frag
-        }
     }
 }

@@ -1,7 +1,5 @@
 package i.part.app.course.todo.features.board.ui
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
@@ -24,7 +22,6 @@ private const val ARG_PARAM2 = "param2"
 class DashBoardFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
     lateinit var recyclerView: RecyclerView
     lateinit var customMenuButton: ImageView
     lateinit var ll_empty_stat: LinearLayout
@@ -166,40 +163,5 @@ class DashBoardFragment : Fragment() {
             myView.findNavController().navigate(R.id.action_dashBoardFragment_to_add_board)
         }
         return myView
-
-
-    }
-
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DashBoardFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
