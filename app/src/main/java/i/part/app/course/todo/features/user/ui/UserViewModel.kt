@@ -1,11 +1,6 @@
-package i.part.app.course.todo.user.ui
+package i.part.app.course.todo.features.user.ui
 
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
-import com.squareup.picasso.Picasso
-import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
-
 
 
 class UserViewModel:ViewModel() {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_four"
-    tools:context=".board.ui.DashBoardFragment">
+    tools:context=".features.board.ui.DashBoardFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

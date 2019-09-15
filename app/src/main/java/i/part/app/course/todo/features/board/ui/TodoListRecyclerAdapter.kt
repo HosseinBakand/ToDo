@@ -1,4 +1,4 @@
-package i.part.app.course.todo.board.ui
+package i.part.app.course.todo.features.board.ui
 
 import android.app.Dialog
 import android.content.Context
@@ -21,7 +21,7 @@ import i.part.app.course.todo.R
 
 class TodoListRecyclerAdapter(
     private val context: Context,
-    public val todoListViews: List<TodoListView>,
+    val todoListViews: List<TodoListView>,
     private val picasso: Picasso
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

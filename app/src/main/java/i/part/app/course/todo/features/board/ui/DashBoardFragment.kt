@@ -1,4 +1,4 @@
-package i.part.app.course.todo.board.ui
+package i.part.app.course.todo.features.board.ui
 
 import android.content.Context
 import android.net.Uri
