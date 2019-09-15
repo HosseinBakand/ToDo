@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
+import kotlinx.android.synthetic.main.fragment_board.*
 
 class BoardDetailFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     val todoListViews: ArrayList<TodoListView> = ArrayList()
@@ -26,15 +26,19 @@ class BoardDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val inflatedView = inflater.inflate(R.layout.fragment_board, container, false)
-        recyclerView = inflatedView.findViewById<RecyclerView>(R.id.rv_board_fragment)
+        return inflater.inflate(R.layout.fragment_board, container, false)
+    }
 
-        recyclerView.let {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        rv_board_fragment.let {
             it.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            todoListViews.clear()
             todoListViews.apply {
                 add(
                     TodoListView(
-                        TodoListView.TODOLIST,
+                        TodoListType.TODOLIST,
                         "poker",
                         mutableListOf(
                             SubTaskView("this is a good subtask"),
@@ -46,7 +50,7 @@ class BoardDetailFragment : Fragment() {
                 )
                 add(
                     TodoListView(
-                        TodoListView.TODOLIST,
+                        TodoListType.TODOLIST,
                         "joker",
                         mutableListOf(
                             SubTaskView("this is a good subtask"),
@@ -57,7 +61,7 @@ class BoardDetailFragment : Fragment() {
                 )
                 add(
                     TodoListView(
-                        TodoListView.TODOLIST,
+                        TodoListType.TODOLIST,
                         "stalker",
                         mutableListOf(
                             SubTaskView("this is a good subtask"),
@@ -68,7 +72,7 @@ class BoardDetailFragment : Fragment() {
                 )
                 add(
                     TodoListView(
-                        TodoListView.TODOLIST,
+                        TodoListType.TODOLIST,
                         "walker",
                         mutableListOf(
                             SubTaskView("this is a good subtask"),
@@ -78,7 +82,7 @@ class BoardDetailFragment : Fragment() {
                 )
                 add(
                     TodoListView(
-                        TodoListView.TODOLIST,
+                        TodoListType.TODOLIST,
                         "nasty jobs todolist",
                         mutableListOf(
                             SubTaskView("this is a good subtask"),
@@ -93,7 +97,7 @@ class BoardDetailFragment : Fragment() {
                 )
                 add(
                     TodoListView(
-                        TodoListView.TODOLIST,
+                        TodoListType.TODOLIST,
                         "kill bill",
                         mutableListOf(
                             SubTaskView("this is a good subtask"),
@@ -105,7 +109,7 @@ class BoardDetailFragment : Fragment() {
                 )
                 add(
                     TodoListView(
-                        TodoListView.ADD_TODOLIST_BUTTON,
+                        TodoListType.ADD_TODOLIST_BUTTON,
                         "button",
                         mutableListOf()
                     )
@@ -114,29 +118,25 @@ class BoardDetailFragment : Fragment() {
             context?.let { context ->
                 it.adapter = TodoListRecyclerAdapter(context, todoListViews, Picasso.get())
             }
-            recyclerView.adapter = it.adapter
+            rv_board_fragment.adapter = it.adapter
         }
-
-        val customMenuButton = inflatedView.findViewById<View>(R.id.iv_board_custom_menu_button)
-        val anchorForMenu = inflatedView.findViewById<View>(R.id.iv_board_anchor_for_menu)
-        customMenuButton?.setOnClickListener {
+        iv_board_custom_menu_button?.setOnClickListener {
             val wrapper = ContextThemeWrapper(context, R.style.popupmenu)
-            anchorForMenu?.let {
-                val popup = PopupMenu(wrapper, anchorForMenu, Gravity.END)
+            iv_board_anchor_for_menu?.let {
+                val popup = PopupMenu(wrapper, it, Gravity.END)
                 popup.menuInflater.inflate(R.menu.board_menu, popup.menu)
                 popup.setOnMenuItemClickListener {
                     val fragmentType: String? = "board_detail"
                     val myBundle = bundleOf("fragmentType" to fragmentType)
                     inflatedView.findNavController()
                         .navigate(R.id.action_board_to_addMember2, myBundle)
-
                     true
                 }
                 popup.show()
             }
         }
 
-        inflatedView.findViewById<View>(R.id.iv_edit_board_button)?.let {
+        iv_edit_board_button?.let {
             it.setOnClickListener {
                 //                Toast.makeText(context,"Edit board",Toast.LENGTH_LONG)
 //                    .show()
@@ -144,21 +144,15 @@ class BoardDetailFragment : Fragment() {
 
             }
         }
-
-        val recycler = inflatedView.findViewById<RecyclerView>(R.id.rv_board_fragment)
         val snapHelper = LinearSnapHelper()
-        recycler.clipToPadding =false
+        rv_board_fragment.clipToPadding =false
         val display = DisplayMetrics()
         activity?.windowManager?.defaultDisplay?.getMetrics(display)
-        recycler.setPadding(50*display.widthPixels/1080,recycler.paddingTop,70*display.widthPixels/1080,recycler.paddingBottom)
-        snapHelper.attachToRecyclerView(recyclerView)
+        rv_board_fragment.setPadding(50*display.widthPixels/1080,rv_board_fragment.paddingTop,70*display.widthPixels/1080,rv_board_fragment.paddingBottom)
+        snapHelper.attachToRecyclerView(rv_board_fragment)
 
-        val toolbar = inflatedView.findViewById<MaterialToolbar>(R.id.mt_board)
-        toolbar.setNavigationOnClickListener {
+        mt_board.setNavigationOnClickListener {
             this.findNavController().navigate(R.id.action_board_to_dashBoardFragment)
         }
-
-        return inflatedView
     }
-
 }

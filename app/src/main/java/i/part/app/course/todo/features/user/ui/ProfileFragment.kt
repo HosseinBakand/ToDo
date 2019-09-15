@@ -4,19 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.appbar.MaterialToolbar
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
 import i.part.app.course.todo.databinding.FragmentProfileBinding
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 class Profile : Fragment() {
 
     // Obtain ViewModel from ViewModelProviders
@@ -28,36 +24,32 @@ class Profile : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //data binding
         val binding: FragmentProfileBinding =
             DataBindingUtil.inflate(inflater,R.layout.fragment_profile, container, false)
         val view = binding.root
         binding.lifecycleOwner = this  // use Fragment.viewLifecycleOwner for fragments
-
+        userViewModel.profilePhotoUrl = "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+        userViewModel.name = "Vahid Safari"
+        userViewModel.email = "safarivahid132@gmail.com"
+        userViewModel.phone = "09213421432"
         binding.userViewModel = userViewModel
-        // Inflate the layout for this fragment
-        val transformer = PicassoCircleTransformation()
-        val profilePhoto = view.findViewById<ImageView>(R.id.iv_profile_photo)
-        val plusSign = view.findViewById<ImageView>(R.id.iv_profile_photo_plus_sign)
-        Picasso
-            .get()
-            .load(userViewModel.profilePhotoUrl)
-            .transform(transformer)
-            .into(profilePhoto)
+        //toolbar
+        return view
+    }
 
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.mt_profile)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        til_profile_email.setEndIconOnClickListener {
+                tiet_profile_email.isEnabled = !tiet_profile_email.isEnabled
+        }
 
-        toolbar.setNavigationOnClickListener {
-            //            //            Toast.makeText(
-////                view.context,
-////                "---back---",
-////                Toast.LENGTH_SHORT
-////            ).show()
-//
-//
-//           // activity?.supportFragmentManager?.popBackStack()
-//            this.findNavController().navigate(R.id.action_addMember2_to_add_board)
+        til_profile_phone.setEndIconOnClickListener {
+            tiet_profile_phone.isEnabled = !tiet_profile_phone.isEnabled
+        }
+
+        mt_profile.setNavigationOnClickListener {
             this.findNavController().navigate(R.id.action_profile_to_dashBoardFragment)
         }
-        return view
     }
 }

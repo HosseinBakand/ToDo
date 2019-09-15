@@ -1,4 +1,3 @@
-
 ### در هنگام توسعه اپلیکیشن حتما رعایت شود
 
 
@@ -135,3 +134,28 @@ Abbreviation examples for most-used views:
 *  error: اگر مربوط به ارور باشد
 *  key: مربوط به sherdPreferences و ...
 *  other: مربوط به سایر رشته ها 
+Button -> btn 
+TextView -> tv 
+ImageView -> iv 
+RecyclerView -> rv 
+ScrollView -> sv 
+LinearLayout -> ll 
+ConstraintLayout -> cl 
+ProgressBar -> pb 
+Spinner -> sp 
+TextInputLayout -> til
+TextInputEditText -> tiet 
+EditText -> et 
+CardView -> cv 
+RelativeLayout -> rl 
+FrameLayout -> fl 
+RadioGroup -> rg 
+RadioButton -> rb
+MaterialToolbar -> mt
+Guideline -> gl
+ImageButton -> ib
+FloatingActionButton -> fab
+NestedScrollView -> nsv
+CoordinatorLAyout -> col
+AppBarLayout -> abl
+v -> view
