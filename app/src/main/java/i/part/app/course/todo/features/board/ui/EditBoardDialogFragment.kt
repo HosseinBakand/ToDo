@@ -33,13 +33,9 @@ class Edit_board : DialogFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_edit_board, container, false)
         val view = binding.root
         binding.lifecycleOwner = this
-
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.setCanceledOnTouchOutside(false)
-
-
-
         return view
     }
 

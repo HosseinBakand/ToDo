@@ -76,7 +76,7 @@ class AddTaskFragment : DialogFragment() {
         myAvatarViews.add(AvatarView(fakeLink))
         myAvatarViews.add(AvatarView(fakeLink))
         val picasso = Picasso.get()
-        context?.let { avatarAdapter = AvatarRecyclerAdapter(it, myAvatarViews, picasso, true) }
+        context?.let { avatarAdapter = AvatarRecyclerAdapter(myAvatarViews, picasso, true) }
         rv_add_task_avatars.let { it.adapter = avatarAdapter }
 
         binding.ownerName = "HosseiN Bakand"
