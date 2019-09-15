@@ -20,12 +20,12 @@ import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 
 class TodoListRecyclerAdapter(
-    private val context: Context,
     val todoListViews: List<TodoListView>,
     private val picasso: Picasso
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var view: View
+    lateinit var context: Context
     lateinit var todoListRecyclerView: RecyclerView
 
     inner class TodoListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -89,7 +89,7 @@ class TodoListRecyclerAdapter(
         parent: ViewGroup,
         viewType: Int
     ): RecyclerView.ViewHolder {
-
+        context = parent.context
         return when (viewType) {
             TodoListType.ADD_TODOLIST_BUTTON.type -> {
                 view = LayoutInflater.from(parent.context)
@@ -113,7 +113,6 @@ class TodoListRecyclerAdapter(
             holder.subTaskRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
             val subTaskRecyclerAdapter = SubTaskRecyclerAdapter(
-                context,
                 todoListViews[position].subtasks,
                 holder.allTasksDoneTextView,
                 picasso

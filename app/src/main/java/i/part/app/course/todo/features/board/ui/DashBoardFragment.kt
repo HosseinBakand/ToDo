@@ -152,7 +152,7 @@ class DashBoardFragment : Fragment() {
                 "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
             )
         )
-        context?.let { mAdapter = BoardRecyclerAdapter(it, myTaskViews, Picasso.get()) }
+        context?.let { mAdapter = BoardRecyclerAdapter(myTaskViews, Picasso.get()) }
         if (mAdapter?.itemCount == 0) {
             ll_empty_stat.visibility = View.VISIBLE
         }

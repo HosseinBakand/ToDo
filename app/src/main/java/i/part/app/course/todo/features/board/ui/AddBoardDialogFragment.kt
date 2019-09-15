@@ -35,7 +35,6 @@ class Add_board : DialogFragment() {
 
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        //dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_edge)
         dialog?.setCanceledOnTouchOutside(false)
 
         return view
@@ -81,7 +80,7 @@ class Add_board : DialogFragment() {
         myAvatarViews.add(AvatarView(fakeLink))
         //end
         val picasso = Picasso.get()
-        context?.let { avatarAdapter = AvatarRecyclerAdapter(it, myAvatarViews, picasso, true) }
+        context?.let { avatarAdapter = AvatarRecyclerAdapter(myAvatarViews, picasso, true) }
 
 
         var addBoardViewModel = AddBoardViewModel(

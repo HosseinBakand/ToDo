@@ -1,6 +1,5 @@
 package i.part.app.course.todo.features.board.ui
 
-import android.content.Context
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import i.part.app.course.todo.databinding.ItemAvatarBinding
 
 //input size is for choose item // true for big and false for small
 class AvatarRecyclerAdapter(
-    private val context: Context,
     avatarViews: List<AvatarView>,
     picasso: Picasso,
     val inputSize: Boolean
@@ -34,7 +32,7 @@ class AvatarRecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(context)
+        val inflater = LayoutInflater.from(parent.context)
         if (inputSize) {
             mBindingforAddBoard =
                 DataBindingUtil.inflate(inflater, R.layout.item_avatar_add_board, parent, false)

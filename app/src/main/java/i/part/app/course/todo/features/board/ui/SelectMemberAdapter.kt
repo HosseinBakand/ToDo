@@ -1,7 +1,6 @@
 package i.part.app.course.todo.features.board.ui
 
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
 
 
 class SelectMemberAdapter(
-    private val context: Context,
     private val list: List<SelectMemberItem>
 ) :
     RecyclerView.Adapter<SelectMemberAdapter.ViewHolder1>() {
