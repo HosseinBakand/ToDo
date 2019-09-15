@@ -10,15 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
-import i.part.app.course.todo.core.util.ui.RoundedCornersTransformation
+import i.part.app.course.todo.databinding.BoardItemBinding
 import java.util.*
 
 
@@ -30,6 +30,7 @@ class BoardRecyclerAdapter(
     RecyclerView.Adapter<BoardRecyclerAdapter.ViewHolder>() {
     var avatarAdapter: RecyclerView.Adapter<*>? = null
     var avatarManager: RecyclerView.LayoutManager? = null
+    lateinit var mBinding: BoardItemBinding
     val picasso: Picasso
     private val taskViews: List<TaskView>
     lateinit var v: View
@@ -40,8 +41,10 @@ class BoardRecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        v = LayoutInflater.from(parent.context).inflate(R.layout.board_item, parent, false)
-        return ViewHolder(v)
+        val inflater = LayoutInflater.from(context)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.board_item, parent, false)
+        val myBindedView = mBinding.root
+        return ViewHolder(myBindedView)
     }
 
     val Int.dp: Int
@@ -51,32 +54,9 @@ class BoardRecyclerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()
-        if (position == 0) {
-            val params = RelativeLayout.LayoutParams(v.layoutParams)
-            params.setMargins(8.dp, 25.dp, 8.dp, 10.dp)
-            v.layoutParams = params
-        }
         holder.itemView.tag = taskViews[position]
         val t = taskViews[position]
-        holder.name.text = t.name
-        holder.todo.text = "${t.todo} to do (${t.totalTasks} task)"
-        holder.remaningTasks.text = "${t.remaningTasks} remaining taskViews"
-        val radius = 8
-        val margin = 0
-        val transformation = RoundedCornersTransformation(radius, margin)
-        if (t.status.equals("todo")) {
-            holder.tv_status_label.apply {
-                text = "Todo"
-                setBackgroundResource(R.drawable.round_red_label)
-            }
-        } else {
-            holder.tv_status_label.apply {
-                text = "Done"
-                setBackgroundResource(R.drawable.round_green_label)
-            }
-        }
-        picasso.load(t.imageUrl).transform(transformation).error(R.drawable.no_task_image).fit()
-            .into(holder.iv_task)
+        mBinding.myBoard = t
         holder.rv_avatar.let { it.setHasFixedSize(true) }
         holder.iV_delete.setOnClickListener {
             val dialog = Dialog(context)
@@ -117,37 +97,15 @@ class BoardRecyclerAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var name: TextView
-        internal var todo: TextView
-        internal var totalTasks: TextView? = null
-        internal var remaningTasks: TextView
         internal var rv_avatar: RecyclerView
-        internal var iv_task: ImageView
         internal var iV_delete: ImageView
-        internal var tv_status_label: TextView
-
         init {
-            name =
-                itemView.findViewById<View>(i.part.app.course.todo.R.id.tv_board_name) as TextView
-            tv_status_label =
-                itemView.findViewById<View>(i.part.app.course.todo.R.id.tv_status_label) as TextView
-            iv_task =
-                itemView.findViewById<View>(i.part.app.course.todo.R.id.iv_task) as ImageView
             iV_delete =
                 itemView.findViewById<View>(i.part.app.course.todo.R.id.iv_delete_board_item) as ImageView
-
             rv_avatar =
                 itemView.findViewById<View>(i.part.app.course.todo.R.id.rv_avatars) as RecyclerView
-            todo =
-                itemView.findViewById<View>(i.part.app.course.todo.R.id.tv_todo_count) as TextView
-            remaningTasks =
-                itemView.findViewById<View>(i.part.app.course.todo.R.id.tv_remaining_tasks) as TextView
             itemView.setOnClickListener { view ->
                 view.findNavController().navigate(R.id.action_dashBoardFragment_to_board)
-
-//                val myTask = view.tag as TaskView
-//                Toast.makeText(view.context, myTask.name + " is " + myTask.todo, Toast.LENGTH_SHORT)
-//                    .show()
             }
         }
     }
