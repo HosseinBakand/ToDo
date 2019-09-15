@@ -2,7 +2,6 @@ package i.part.app.course.todo.features.board.ui
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import i.part.app.course.todo.R
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class AddMember3Fragment : DialogFragment() {
     lateinit var recyclerView: RecyclerView
@@ -90,21 +86,5 @@ class AddMember3Fragment : DialogFragment() {
             this.findNavController().navigate(R.id.action_addMember3Fragment_to_addMember2)
         }
         return view
-    }
-
-
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
-    }
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance() =
-            AddMember3Fragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
     }
 }

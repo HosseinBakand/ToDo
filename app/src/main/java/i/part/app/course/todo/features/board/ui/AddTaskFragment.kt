@@ -1,6 +1,5 @@
 package i.part.app.course.todo.features.board.ui
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -20,15 +19,9 @@ import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-
 class AddTaskFragment : DialogFragment() {
     var avatarManager: RecyclerView.LayoutManager? = null
     var avatarAdapter: RecyclerView.Adapter<*>? = null
-    @SuppressLint("ResourceAsColor")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,17 +69,5 @@ class AddTaskFragment : DialogFragment() {
         context?.let { avatarAdapter = AvatarRecyclerAdapter(it, myAvatarViews, picasso, true) }
         rv_avatar.let { it.adapter = avatarAdapter }
         return view
-    }
-
-    companion object {
-
-        fun newInstance(title: String): AddTaskFragment {
-            val frag = AddTaskFragment()
-            val args = Bundle()
-
-            args.putString("Add TaskView", title)
-            frag.arguments = args
-            return frag
-        }
     }
 }

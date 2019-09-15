@@ -1,6 +1,5 @@
 package i.part.app.course.todo
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import i.part.app.course.todo.features.user.ui.LoginFragment
@@ -15,12 +14,4 @@ class MainActivity : AppCompatActivity() {
         ).commit()
 
     }
-
-    @SuppressLint("ResourceType")
-    private fun frag() {
-        //editNameDialogFragment.show(fm, "fragment_edit_name")
-    }
-
-
-
 }
