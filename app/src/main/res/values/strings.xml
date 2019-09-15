@@ -2,13 +2,11 @@
     <string name="app_name">Todo</string>
     <string name="add_member_title_text">Add Member</string>
     <string name="addBoardConfirmButton">Confirm</string>
-    <string name="addBoardBGName">Background1.jpg</string>
     <string name="addBoardBrowseButton">Browse</string>
     <string name="addBoardBackground_picture_text">Background picture:</string>
     <string name="addBoardAssignTo">Assign to : </string>
-    <string name="AddBoardOwnerName">Ali Mohammadi</string>
     <string name="fake_board_name">Board1</string>
-    <string name="addBoardOwner">Owner :</string>
+    <string name="addBoardOwner">Owner : </string>
     <string name="are_you_sure">Are you sure you want to  Delete Board1?</string>
     <string name="AddBoardBoardName">Board name</string>
     <string name="addBoardTitle">Add board</string>
