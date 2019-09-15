@@ -69,18 +69,13 @@
                 app:endIconMode="custom"
                 app:endIconTint="@color/transparent"
                 app:endIconTintMode="screen">
-                <!--                android:backgroundTint="@color/primaryText"-->
-                <!--                android:backgroundTintMode="screen"-->
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_search_member"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/add_member_3_searcch"
-                    android:textColorHint="@color/primaryText"
-
-
-                    />
+                    android:textColorHint="@color/primaryText" />
             </com.google.android.material.textfield.TextInputLayout>
 
 

@@ -25,7 +25,6 @@ class EditTodoListNameFragment : DialogFragment() {
         val bt_confirm = view.findViewById(R.id.btn_edit_todolist_confirm) as MaterialButton
         val et_boardName = view.findViewById<EditText>(R.id.et_todolist_name)
         bt_confirm.setOnClickListener {
-            //navigation
         }
         return view
     }

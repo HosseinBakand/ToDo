@@ -101,6 +101,7 @@ class BoardRecyclerAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var rv_avatar: RecyclerView
         internal var iV_delete: ImageView
+
         init {
             iV_delete =
                 itemView.findViewById<View>(i.part.app.course.todo.R.id.iv_delete_board_item) as ImageView

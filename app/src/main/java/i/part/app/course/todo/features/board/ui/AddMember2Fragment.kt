@@ -24,25 +24,17 @@ class AddMember2 : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var mAdapter: RecyclerView.Adapter<*>
     lateinit var layoutManager: RecyclerView.LayoutManager
-
     lateinit var list: ArrayList<AddMember2Item>
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_add_member_2, container, false)
-
         recyclerView = view.findViewById(R.id.rv_add_member_2_new_members) as RecyclerView
         recyclerView.setHasFixedSize(true)
-
         layoutManager = LinearLayoutManager(context)
-
         recyclerView.layoutManager = layoutManager
-
         list = ArrayList()
-
         //Adding Data into ArrayList
         val url =
             "https://www.irreverentgent.com/wp-content/uploads/2018/03/Awesome-Profile-Pictures-for-Guys-look-away2.jpg"
@@ -92,33 +84,16 @@ class AddMember2 : Fragment() {
         recyclerView.adapter = mAdapter
         val button = view.findViewById<Button>(R.id.btn_add_member)
         button.setOnClickListener {
-            //            val fm = fragmentManager
-//            val editNameDialogFragment = AddMember3Fragment.newInstance()
-//            fm?.let {
-//                editNameDialogFragment.show(it, "fragment_edit_name")
-//            }
             this.findNavController().navigate(R.id.action_addMember2_to_addMember3Fragment)
         }
         val toolbar = view.findViewById<MaterialToolbar>(R.id.mt_add_member_2)
-
         toolbar.setNavigationOnClickListener {
-            //            //            Toast.makeText(
-////                view.context,
-////                "---back---",
-////                Toast.LENGTH_SHORT
-////            ).show()
-//
-//
-//           // activity?.supportFragmentManager?.popBackStack()
-//            this.findNavController().navigate(R.id.action_addMember2_to_add_board)
             when (arguments?.getString("fragmentType")) {
                 "add_board" -> this.findNavController().navigate(R.id.action_addMember2_to_add_board)
                 "edit_board" -> this.findNavController().navigate(R.id.action_addMember2_to_edit_board)
                 "add_task" -> this.findNavController().navigate(R.id.action_addMember2_to_addTaskFragment)
                 "board_detail" -> this.findNavController().navigate(R.id.action_addMember2_to_board_detail)
             }
-
-
         }
         return view
     }

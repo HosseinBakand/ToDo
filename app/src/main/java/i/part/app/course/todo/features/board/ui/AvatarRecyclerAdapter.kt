@@ -62,9 +62,6 @@ class AvatarRecyclerAdapter(
         } else {
             mBinding.myAvatar = t
         }
-//        val trsfrm = PicassoCircleTransformation()
-//        picasso.load(t.image_url).transform(trsfrm).error(R.drawable.ic_person_gray_24dp)
-        //holder.avatarImageView.setBackgroundResource(R.drawable.ic_avatar)
     }
 
     override fun getItemCount(): Int {

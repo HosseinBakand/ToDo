@@ -8,15 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
 import i.part.app.course.todo.databinding.FragmentProfileBinding
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class Profile : Fragment() {
-
-    // Obtain ViewModel from ViewModelProviders
     private val userViewModel by lazy {
         ViewModelProviders.of(this).get(UserViewModel::class.java)
     }
@@ -35,7 +31,6 @@ class Profile : Fragment() {
         userViewModel.email = "safarivahid132@gmail.com"
         userViewModel.phone = "09213421432"
         binding.userViewModel = userViewModel
-        //toolbar
         return view
     }
 

@@ -29,20 +29,14 @@ class AddMember3Fragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-
         dialog?.setCanceledOnTouchOutside(false)
         var view = inflater.inflate(R.layout.fragment_add_member_3, container, false)
-
         recyclerView = view.findViewById(R.id.rv_add_member_3) as RecyclerView
         recyclerView.setHasFixedSize(true)
-
         layoutManager = LinearLayoutManager(context)
-
         recyclerView.layoutManager = layoutManager
-
         list = ArrayList()
         val url =
             "https://www.irreverentgent.com/wp-content/uploads/2018/03/Awesome-Profile-Pictures-for-Guys-look-away2.jpg"
@@ -87,50 +81,10 @@ class AddMember3Fragment : DialogFragment() {
         list.add(AddMember3Item("Robert Phillips", "Android Developer", false))
         list.add(AddMember3Item("Albert Stewart", "Web Developer", false))
         list.add(AddMember3Item("Wayne Diaz", "Junior Developer", false))
-
-
-//        list.add(AddMember3Item(url, "1",false))
-//        list.add(AddMember3Item("", "2",true))
-//        list.add(AddMember3Item(url, "3",false))
-//        list.add(AddMember3Item("", "4",false))
-//        list.add(AddMember3Item("", "5",false))
-//        list.add(AddMember3Item("", "6",false))
-//        list.add(AddMember3Item("", "7",false))
-//        list.add(AddMember3Item("", "8",false))
-//        list.add(AddMember3Item("", "9",false))
-//        list.add(AddMember3Item("", "10",false))
-//        list.add(AddMember3Item("", "11",false))
-//        list.add(AddMember3Item("", "12",false))
-//        list.add(AddMember3Item("", "13",false))
-//        list.add(AddMember3Item("", "14",false))
-//        list.add(AddMember3Item("", "15",false))
-//        list.add(AddMember3Item("", "16",false))
-//        list.add(AddMember3Item("", "17",false))
-//        list.add(AddMember3Item("", "18",false))
-//        list.add(AddMember3Item("", "19",false))
-//        list.add(AddMember3Item("", "20",false))
-//        list.add(AddMember3Item("", "21",false))
-//        list.add(AddMember3Item("", "22",false))
-//        list.add(AddMember3Item("", "23",false))
-//        list.add(AddMember3Item("", "24",false))
-//        list.add(AddMember3Item("", "25",false))
-//        list.add(AddMember3Item("", "26",false))
-//        list.add(AddMember3Item("", "27",false))
-//        list.add(AddMember3Item("", "28",false))
         context?.let {
             mAdapter = AddMember3Adapter(it, list)
         }
-
         recyclerView.adapter = mAdapter
-//        val button = view.findViewById<Button>(R.id.b_add_member)
-//        button.setOnClickListener {
-//            val fm = fragmentManager
-//            val editNameDialogFragment = AddMember3Fragment.newInstance()
-//            editNameDialogFragment.show(fm!! , "fragment_edit_name")
-//        }
-//        val width = getResources().getDimensionPixelSize(R.dimen.popup_width);
-//        val height = getResources().getDimensionPixelSize(R.dimen.popup_height);
-
         val closeButton = view.findViewById<ImageButton>(R.id.ib_add_member_3_close)
         closeButton.setOnClickListener {
             this.findNavController().navigate(R.id.action_addMember3Fragment_to_addMember2)

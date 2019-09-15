@@ -20,14 +20,15 @@ class BoardDetailFragment : Fragment() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private val todoListViews: ArrayList<TodoListView> = ArrayList()
-    private lateinit var inflatedView:View
+    private lateinit var inflatedView: View
     private val fakeLink: String =
         "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        inflatedView=inflater.inflate(R.layout.fragment_board, container, false)
+        inflatedView = inflater.inflate(R.layout.fragment_board, container, false)
         return inflatedView
     }
 
@@ -35,7 +36,7 @@ class BoardDetailFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         rv_board_fragment.let {
-            it.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             todoListViews.clear()
             todoListViews.apply {
                 add(
@@ -140,17 +141,20 @@ class BoardDetailFragment : Fragment() {
 
         iv_edit_board_button?.let {
             it.setOnClickListener {
-                //                Toast.makeText(context,"Edit board",Toast.LENGTH_LONG)
-//                    .show()
                 inflatedView.findNavController().navigate(R.id.action_board_to_edit_board)
 
             }
         }
         val snapHelper = LinearSnapHelper()
-        rv_board_fragment.clipToPadding =false
+        rv_board_fragment.clipToPadding = false
         val display = DisplayMetrics()
         activity?.windowManager?.defaultDisplay?.getMetrics(display)
-        rv_board_fragment.setPadding(50*display.widthPixels/1080,rv_board_fragment.paddingTop,70*display.widthPixels/1080,rv_board_fragment.paddingBottom)
+        rv_board_fragment.setPadding(
+            50 * display.widthPixels / 1080,
+            rv_board_fragment.paddingTop,
+            70 * display.widthPixels / 1080,
+            rv_board_fragment.paddingBottom
+        )
         snapHelper.attachToRecyclerView(rv_board_fragment)
 
         mt_board.setNavigationOnClickListener {

@@ -23,8 +23,6 @@ import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.core.util.ui.RoundedCornersTransformation
 import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -39,10 +37,8 @@ class Edit_board : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        //dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_edge)
         dialog?.setCanceledOnTouchOutside(false)
         val view = inflater.inflate(R.layout.fragment_edit_board, container, false)
         val closeButton = view.findViewById<ImageButton>(R.id.ib_edit_board_close)
@@ -63,7 +59,6 @@ class Edit_board : DialogFragment() {
                 this.findNavController().navigate(R.id.action_edit_board_to_board)
             }
         }
-        //recycle
         val rv_avatar = view.findViewById<RecyclerView>(R.id.rv_edit_board_avatars)
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()
 

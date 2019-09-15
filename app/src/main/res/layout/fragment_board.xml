@@ -1,41 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:id="@+id/ll_board_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ll_board_parent"
-    android:background="@color/white_four">
-    <!--    android:background="@drawable/tower">-->
+    android:background="@color/white_four"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_board_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorAccent"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="4dp"
-        android:background="@color/colorAccent"
-        android:layout_marginBottom="4dp">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/mt_board"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="0dp"
             android:layout_centerInParent="true"
-            android:theme="@style/Widget.AppCompat.ActionBar"
-            app:title="Board 1"
+            android:layout_marginEnd="0dp"
             android:background="@color/colorAccent"
             android:elevation="0dp"
-            app:navigationIcon="?attr/homeAsUpIndicator"
+            android:theme="@style/Widget.AppCompat.ActionBar"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
-            app:contentInsetStartWithNavigation="0dp"/>
+            app:contentInsetStartWithNavigation="0dp"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:title="Board 1" />
 
         <ImageView
             android:id="@+id/iv_board_custom_menu_button"
@@ -48,18 +46,18 @@
             android:layout_marginBottom="12dp"
             android:padding="8dp"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_dots"/>
+            android:src="@drawable/ic_dots" />
 
         <ImageView
+            android:id="@+id/iv_edit_board_button"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_outline_edit_24dp"
+            android:layout_toStartOf="@id/iv_board_custom_menu_button"
             android:padding="10dp"
             android:scaleType="fitXY"
-            android:layout_toStartOf="@id/iv_board_custom_menu_button"
-            android:layout_centerVertical="true"
-            android:id="@+id/iv_edit_board_button"/>
+            android:src="@drawable/ic_outline_edit_24dp" />
 
         <ImageView
             android:id="@+id/iv_board_anchor_for_menu"
@@ -68,20 +66,20 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp" />
     </RelativeLayout>
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:clipToPadding="true"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rl_board_toolbar"
-            android:id="@+id/rv_board_fragment"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_board_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:clipToPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_board_toolbar" />
 
 
 </LinearLayout>

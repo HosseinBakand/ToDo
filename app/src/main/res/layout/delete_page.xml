@@ -71,23 +71,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         tools:ignore="MissingConstraints" />
 
-                    <!--                    <TextView-->
-                    <!--                        android:id="@+id/tv_boardNameOnDeleteDialog"-->
-                    <!--                        android:layout_width="0dp"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:fontFamily="sans-serif"-->
-                    <!--                        android:letterSpacing="0.01"-->
-                    <!--                        android:text="@string/fake_board_name"-->
-                    <!--                        android:textColor="@color/black_87_two"-->
-                    <!--                        android:textSize="16sp"-->
-                    <!--                        android:textStyle="bold"-->
-                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--                        app:layout_constraintHorizontal_bias="0.5"-->
-                    <!--                        app:layout_constraintHorizontal_weight="2"-->
-                    <!--                        app:layout_constraintStart_toEndOf="@+id/owner"-->
-                    <!--                        tools:ignore="MissingConstraints" />-->
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
@@ -128,15 +111,3 @@
         </LinearLayout>
     </RelativeLayout>
 </FrameLayout>
-
-
-    <!--
-            dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog?.setCanceledOnTouchOutside(false)
-
-            val closeButton = dialog.findViewById<ImageButton>(R.id.addBoardCloseButton)
-            closeButton.setOnClickListener {
-                dialog.dismiss()
-            }
-    -->
