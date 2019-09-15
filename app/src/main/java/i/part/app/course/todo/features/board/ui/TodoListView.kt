@@ -1,4 +1,4 @@
-package i.part.app.course.todo.board.ui
+package i.part.app.course.todo.features.board.ui
 
 data class TodoListView(val viewType: Int, var todoListName: String, var subtasks:MutableList<SubTaskView>) {
     companion object{

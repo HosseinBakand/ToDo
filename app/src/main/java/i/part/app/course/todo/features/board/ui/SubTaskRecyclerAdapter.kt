@@ -1,18 +1,16 @@
-package i.part.app.course.todo.board.ui
+package i.part.app.course.todo.features.board.ui
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.CheckBox
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
-import android.widget.CompoundButton
-
-
-
 
 
 class SubTaskRecyclerAdapter(

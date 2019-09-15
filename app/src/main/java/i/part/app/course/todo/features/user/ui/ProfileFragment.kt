@@ -1,4 +1,4 @@
-package i.part.app.course.todo.user.ui
+package i.part.app.course.todo.features.user.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
 import i.part.app.course.todo.databinding.FragmentProfileBinding
-import kotlinx.android.synthetic.main.fragment_profile.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
