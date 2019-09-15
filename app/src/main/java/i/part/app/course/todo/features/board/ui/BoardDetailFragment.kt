@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.appbar.MaterialToolbar
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import kotlinx.android.synthetic.main.fragment_board.*
@@ -22,6 +21,8 @@ class BoardDetailFragment : Fragment() {
     private lateinit var viewManager: RecyclerView.LayoutManager
     private val todoListViews: ArrayList<TodoListView> = ArrayList()
     private lateinit var inflatedView:View
+    private val fakeLink: String =
+        "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,10 +43,10 @@ class BoardDetailFragment : Fragment() {
                         TodoListType.TODOLIST,
                         "poker",
                         mutableListOf(
-                            SubTaskView("this is a good subtask"),
-                            SubTaskView("this is a nasty subtask"),
-                            SubTaskView("todo"),
-                            SubTaskView("nice subtask!")
+                            SubTaskView("this is a good subtask", fakeLink),
+                            SubTaskView("this is a nasty subtask", fakeLink),
+                            SubTaskView("todo", fakeLink),
+                            SubTaskView("nice subtask!", fakeLink)
                         )
                     )
                 )
@@ -54,9 +55,9 @@ class BoardDetailFragment : Fragment() {
                         TodoListType.TODOLIST,
                         "joker",
                         mutableListOf(
-                            SubTaskView("this is a good subtask"),
-                            SubTaskView("todo"),
-                            SubTaskView("nice subtask!")
+                            SubTaskView("this is a good subtask", fakeLink),
+                            SubTaskView("todo", fakeLink),
+                            SubTaskView("nice subtask!", fakeLink)
                         )
                     )
                 )
@@ -65,9 +66,9 @@ class BoardDetailFragment : Fragment() {
                         TodoListType.TODOLIST,
                         "stalker",
                         mutableListOf(
-                            SubTaskView("this is a good subtask"),
-                            SubTaskView("this is a nasty subtask"),
-                            SubTaskView("todo")
+                            SubTaskView("this is a good subtask", fakeLink),
+                            SubTaskView("this is a nasty subtask", fakeLink),
+                            SubTaskView("todo", fakeLink)
                         )
                     )
                 )
@@ -76,8 +77,8 @@ class BoardDetailFragment : Fragment() {
                         TodoListType.TODOLIST,
                         "walker",
                         mutableListOf(
-                            SubTaskView("this is a good subtask"),
-                            SubTaskView("nice subtask!")
+                            SubTaskView("this is a good subtask", fakeLink),
+                            SubTaskView("nice subtask!", fakeLink)
                         )
                     )
                 )
@@ -86,13 +87,13 @@ class BoardDetailFragment : Fragment() {
                         TodoListType.TODOLIST,
                         "nasty jobs todolist",
                         mutableListOf(
-                            SubTaskView("this is a good subtask"),
-                            SubTaskView("this is a nasty subtask"),
-                            SubTaskView("Good one"),
-                            SubTaskView("harsh one"),
-                            SubTaskView("hard one"),
-                            SubTaskView("impossible one"),
-                            SubTaskView("nice subtask!")
+                            SubTaskView("this is a good subtask", fakeLink),
+                            SubTaskView("this is a nasty subtask", fakeLink),
+                            SubTaskView("Good one", fakeLink),
+                            SubTaskView("harsh one", fakeLink),
+                            SubTaskView("hard one", fakeLink),
+                            SubTaskView("impossible one", fakeLink),
+                            SubTaskView("nice subtask!", fakeLink)
                         )
                     )
                 )
@@ -101,10 +102,10 @@ class BoardDetailFragment : Fragment() {
                         TodoListType.TODOLIST,
                         "kill bill",
                         mutableListOf(
-                            SubTaskView("this is a good subtask"),
-                            SubTaskView("this is a nasty subtask"),
-                            SubTaskView("todo"),
-                            SubTaskView("nice subtask!")
+                            SubTaskView("this is a good subtask", fakeLink),
+                            SubTaskView("this is a nasty subtask", fakeLink),
+                            SubTaskView("todo", fakeLink),
+                            SubTaskView("nice subtask!", fakeLink)
                         )
                     )
                 )
