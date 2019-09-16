@@ -10,7 +10,6 @@
     <string name="are_you_sure">Are you sure you want to  Delete Board1?</string>
     <string name="AddBoardBoardName">Board name</string>
     <string name="addBoardTitle">Add board</string>
-
     <string name="profile_toolbar_title">Profile</string>
     <string name="profile_hint_email">Email</string>
     <string name="profile_hint_phone_number">Phone number</string>
@@ -59,6 +58,9 @@
     <string name="login_page_main_title">TodoList App</string>
     <string name="test_task_description">task description</string>
     <string name="todo_task_second">tasks)</string>
+    <string name="add_todolist_title">Add To Do List</string>
+    <string name="add_todo_list_hint">Todo list name</string>
+    <string name="default_owner_add_to_do_list">none</string>
 
 
 </resources>

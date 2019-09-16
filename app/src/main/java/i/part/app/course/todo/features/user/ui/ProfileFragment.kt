@@ -30,6 +30,10 @@ class Profile : Fragment() {
         val view = binding.root
         binding.lifecycleOwner = this  // use Fragment.viewLifecycleOwner for fragments
         binding.userView = userViewModel.user.value
+        userViewModel.user.observe(this, Observer {
+            binding.userView = it
+            userViewModel.user.value = it
+        })
         //toolbar
         return view
     }
