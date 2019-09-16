@@ -162,7 +162,7 @@ class TodoListRecyclerAdapter(
                     notifyItemInserted(position-1)
                     notifyItemRangeChanged(position-1,itemCount)
                     dialog.dismiss()
-                    recyclerView.scrollToPosition(position)
+                    //recyclerView.scrollToPosition(position)
                 }
                 confirmButton.onEditorAction(EditorInfo.IME_ACTION_DONE)
                 val closeButton = dialog.findViewById<ImageButton>(R.id.ib_add_todolist_close)
