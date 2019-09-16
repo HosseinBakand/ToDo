@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import i.part.app.course.todo.R
 import kotlinx.android.synthetic.main.fragment_add_member.*
 
+
 class AddMember : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var mAdapter: RecyclerView.Adapter<*>
@@ -87,9 +88,11 @@ class AddMember : Fragment() {
             when (arguments?.getString("fragmentType")) {
                 "add_board" -> this.findNavController().navigate(R.id.action_addMember2_to_add_board)
                 "edit_board" -> this.findNavController().navigate(R.id.action_addMember2_to_edit_board)
-                "add_task" -> this.findNavController().navigate(R.id.action_addMember2_to_addTaskFragment)
-                "board_detail" -> this.findNavController().navigate(R.id.action_addMember2_to_board_detail)
+                "add_task" -> this.findNavController().navigate(i.part.app.course.todo.R.id.action_addMember2_to_addTaskFragment)
+                "board_detail" -> this.findNavController().navigate(i.part.app.course.todo.R.id.action_addMember2_to_board_detail)
             }
         }
+
+
     }
 }

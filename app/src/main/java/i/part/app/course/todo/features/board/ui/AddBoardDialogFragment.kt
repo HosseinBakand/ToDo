@@ -56,7 +56,6 @@ class Add_board : DialogFragment() {
         }
 
         btn_add_board_confirm.setOnClickListener {
-            this.findNavController().navigate(R.id.action_add_board_to_dashBoardFragment)
             this.dismiss()
         }
 
