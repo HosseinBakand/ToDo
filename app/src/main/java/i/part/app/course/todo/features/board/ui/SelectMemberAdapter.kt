@@ -27,9 +27,13 @@ class SelectMemberAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder1, position: Int) {
         val item = list[position]
-        holder.bind(
-            item
-        )
+
+
+        holder.checkbox.setOnCheckedChangeListener { _, isChecked -> item.ischeck = isChecked }
+        holder.itemView.setOnClickListener {
+            item.ischeck = !holder.checkbox.isChecked
+            holder.checkbox.isChecked = !holder.checkbox.isChecked
+        }
 
         holder.mbinding.allMember = item
     }
@@ -44,13 +48,6 @@ class SelectMemberAdapter(
         var checkbox: CheckBox =
             itemView.findViewById(R.id.cb_add_member_3)
 
-        fun bind(item: SelectMemberItem) {
-            checkbox.setOnCheckedChangeListener { _, isChecked -> item.ischeck = !isChecked }
-            itemView.setOnClickListener {
-                checkbox.isChecked = !checkbox.isChecked
-                item.ischeck = !checkbox.isChecked
-            }
-        }
 
     }
 }
