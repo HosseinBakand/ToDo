@@ -2,7 +2,6 @@ package i.part.app.course.todo.features.board.ui
 
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.databinding.DataBindingUtil
@@ -15,14 +14,15 @@ class SelectMemberAdapter(
     private val list: List<SelectMemberItem>
 ) :
     RecyclerView.Adapter<SelectMemberAdapter.ViewHolder1>() {
-    lateinit var mBinding: ItemSelectMemberBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder1 {
 
         val inflater = LayoutInflater.from(parent.context)
+        lateinit var mBinding: ItemSelectMemberBinding
+
         mBinding = DataBindingUtil.inflate(inflater, R.layout.item_select_member, parent, false)
         val myBindedView = mBinding.root
-        return ViewHolder1(myBindedView)
+        return ViewHolder1(mBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder1, position: Int) {
@@ -31,22 +31,15 @@ class SelectMemberAdapter(
             item
         )
 
-        mBinding.allMember = item
+        holder.mbinding.allMember = item
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return position
-    }
-
-    class ViewHolder1(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder1(val mbinding: ItemSelectMemberBinding) :
+        RecyclerView.ViewHolder(mbinding.root) {
 
         var checkbox: CheckBox =
             itemView.findViewById(R.id.cb_add_member_3)
