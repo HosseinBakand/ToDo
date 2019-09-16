@@ -24,6 +24,8 @@ fun loadCirularImage(view: ImageView, imageUrl: String) {
     Picasso.get()
         .load(imageUrl)
         .transform(transform)
+        .error(R.drawable.person_empty)
+        .fit()
         .into(view)
 }
 
