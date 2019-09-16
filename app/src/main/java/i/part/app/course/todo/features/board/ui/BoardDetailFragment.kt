@@ -19,7 +19,7 @@ class BoardDetailFragment : Fragment() {
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private val todoListViews: ArrayList<TodoListView> = ArrayList()
+    val todoListViews: ArrayList<TodoListView> = ArrayList()
     private lateinit var inflatedView: View
     private val fakeLink: String =
         "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
@@ -119,7 +119,7 @@ class BoardDetailFragment : Fragment() {
                 )
             }
             context?.let { context ->
-                it.adapter = TodoListRecyclerAdapter(todoListViews)
+                it.adapter = TodoListRecyclerAdapter(it.adapter as TodoListRecyclerAdapter?,todoListViews)
             }
             rv_board_fragment.adapter = it.adapter
         }

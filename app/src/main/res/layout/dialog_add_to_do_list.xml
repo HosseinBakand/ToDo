@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_round_edge"
+    tools:context=".features.board.ui.Add_board">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_add_todolist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_add_todolist_name"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:background="@drawable/dialog_title_round_up">
+
+                <TextView
+                    android:id="@+id/tv_add_todolist_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:paddingTop="4dp"
+                    android:text="@string/add_todolist_title"
+                    android:textColor="@color/primaryText"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ib_add_todolist_close"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/ib_add_todolist_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="24dp"
+                    android:background="@color/white_gray"
+                    android:src="@drawable/ic_close_black_24dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_add_todolist_title"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_todolist_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/warm_grey"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-medium"
+                    android:hint="@string/add_todo_list_hint"
+                    android:inputType="textPersonName"
+                    android:letterSpacing="0.01"
+                    android:textColor="@color/primaryText"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_add_todolist_owner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_add_todolist_owner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:letterSpacing="0.01"
+                        android:text="@string/addBoardOwner"
+                        android:textColor="@color/black_87_two"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_add_todolist_owner_name"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/tv_add_todolist_owner_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:letterSpacing="0.01"
+                        android:text="@string/default_owner_add_to_do_list"
+                        android:textColor="@color/black_87_two"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="2"
+                        app:layout_constraintStart_toEndOf="@+id/tv_add_todolist_owner"
+                        tools:ignore="MissingConstraints" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_todolist_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dialog_button_round_down"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                android:letterSpacing="0.01"
+                android:padding="10dp"
+                android:text="@string/addBoardConfirmButton"
+                android:textAllCaps="false"
+                android:textColor="@color/almost_black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>
