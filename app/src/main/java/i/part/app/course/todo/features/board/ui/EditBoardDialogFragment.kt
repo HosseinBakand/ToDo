@@ -20,7 +20,7 @@ import i.part.app.course.todo.databinding.DialogEditBoardBinding
 import kotlinx.android.synthetic.main.dialog_edit_board.*
 import java.util.*
 
-class Edit_board : DialogFragment() {
+class EditBoardDialogFragment : DialogFragment() {
     var avatarManager: RecyclerView.LayoutManager? = null
     var avatarAdapter: RecyclerView.Adapter<*>? = null
     lateinit var binding: DialogEditBoardBinding
@@ -75,7 +75,7 @@ class Edit_board : DialogFragment() {
         context?.let { avatarAdapter = AvatarRecyclerAdapter(myAvatarViews, picasso, true) }
 
 
-        var editBoardViewModel = EditBoardViewModel(
+        var editBoardViewModel = EditBoardView(
             "HosseiNBoard",
             "HosseiNBakand",
             "https://img.freepik.com/free-vector/colorful-watercolor-background_79603-99.jpg?size=626&ext=jpg",

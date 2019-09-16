@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/profile"
-        android:name="i.part.app.course.todo.features.user.ui.Profile"
+        android:name="i.part.app.course.todo.features.user.ui.ProfileFragment"
         android:label="Profile" >
         <action
             android:id="@+id/action_profile_to_dashBoardFragment"
@@ -123,7 +123,7 @@
     </dialog>
     <dialog
         android:id="@+id/edit_board"
-        android:name="i.part.app.course.todo.features.board.ui.Edit_board"
+        android:name="i.part.app.course.todo.features.board.ui.EditBoardDialogFragment"
         android:label="fragment_edit_board"
         tools:layout="@layout/dialog_edit_board">
         <argument

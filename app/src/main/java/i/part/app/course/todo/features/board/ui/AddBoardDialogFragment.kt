@@ -76,7 +76,7 @@ class Add_board : DialogFragment() {
         context?.let { avatarAdapter = AvatarRecyclerAdapter(myAvatarViews, picasso, true) }
 
 
-        var addBoardViewModel = AddBoardViewModel(
+        var addBoardViewModel = AddBoardView(
             "Vahid Safari",
             "https://img.freepik.com/free-vector/colorful-watercolor-background_79603-99.jpg?size=626&ext=jpg",
             "vahidImage.jpg"

@@ -13,7 +13,7 @@ import i.part.app.course.todo.R
 import i.part.app.course.todo.databinding.FragmentProfileBinding
 import kotlinx.android.synthetic.main.fragment_profile.*
 
-class Profile : Fragment() {
+class ProfileFragment : Fragment() {
     lateinit var binding: FragmentProfileBinding
     private val userViewModel by lazy {
         ViewModelProviders.of(this).get(UserViewModel::class.java)
@@ -24,8 +24,7 @@ class Profile : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         //data binding
-        binding =
-            DataBindingUtil.inflate(inflater,R.layout.fragment_profile, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         return binding.root
     }
 

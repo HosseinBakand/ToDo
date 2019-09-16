@@ -5,7 +5,7 @@
 
         <variable
             name="newBoardDetail"
-            type="i.part.app.course.todo.features.board.ui.AddBoardViewModel" />
+            type="i.part.app.course.todo.features.board.ui.AddBoardView" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
