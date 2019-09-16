@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.databinding.FragmentProfileBinding
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class Profile : Fragment() {
+    lateinit var binding: FragmentProfileBinding
     private val userViewModel by lazy {
         ViewModelProviders.of(this).get(UserViewModel::class.java)
     }
@@ -25,20 +24,17 @@ class Profile : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         //data binding
-        val binding: FragmentProfileBinding =
-            DataBindingUtil.inflate(inflater,R.layout.fragment_profile, container, false)
-        val view = binding.root
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         binding.lifecycleOwner = this  // use Fragment.viewLifecycleOwner for fragments
         binding.userView = userViewModel.user.value
         userViewModel.user.observe(this, Observer {
             binding.userView = it
-            userViewModel.user.value = it
+            //userViewModel.user.value = it
         })
-        //toolbar
-        return view
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         til_profile_email.setEndIconOnClickListener {
                 tiet_profile_email.isEnabled = !tiet_profile_email.isEnabled
