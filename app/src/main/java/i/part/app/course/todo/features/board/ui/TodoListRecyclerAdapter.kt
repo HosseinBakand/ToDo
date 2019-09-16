@@ -30,6 +30,7 @@ class TodoListRecyclerAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var view: View
     lateinit var context: Context
+    lateinit var recyclerView: RecyclerView
     lateinit var mBinding: ItemTodoListBinding
     inner class TodoListViewHolder(binding: ItemTodoListBinding) : RecyclerView.ViewHolder(binding.root) {
         val holderBinding = binding
@@ -162,7 +163,7 @@ class TodoListRecyclerAdapter(
                     notifyItemInserted(position-1)
                     notifyItemRangeChanged(position-1,itemCount)
                     dialog.dismiss()
-                    //recyclerView.scrollToPosition(position)
+                    recyclerView.scrollToPosition(position)
                 }
                 confirmButton.onEditorAction(EditorInfo.IME_ACTION_DONE)
                 val closeButton = dialog.findViewById<ImageButton>(R.id.ib_add_todolist_close)
