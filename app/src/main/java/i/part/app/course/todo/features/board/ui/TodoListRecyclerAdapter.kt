@@ -21,8 +21,6 @@ import com.google.android.material.textview.MaterialTextView
 import i.part.app.course.todo.R
 import i.part.app.course.todo.databinding.ItemTodoListBinding
 import kotlinx.android.synthetic.main.dialog_add_to_do_list.*
-import androidx.core.content.ContextCompat.getSystemService
-import android.view.inputmethod.InputMethodManager
 
 
 class TodoListRecyclerAdapter(
@@ -108,6 +106,7 @@ class TodoListRecyclerAdapter(
                 closeButton?.setOnClickListener {
                     dialog.dismiss()
                 }
+
                 dialog.show()
             }
         }
