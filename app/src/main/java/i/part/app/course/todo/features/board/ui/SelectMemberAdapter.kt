@@ -5,22 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.core.util.ui.PicassoCircleTransformation
+import i.part.app.course.todo.databinding.ItemSelectMemberBinding
 
 
 class SelectMemberAdapter(
     private val list: List<SelectMemberItem>
 ) :
     RecyclerView.Adapter<SelectMemberAdapter.ViewHolder1>() {
+    lateinit var mBinding: ItemSelectMemberBinding
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder1 {
-        val v =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_select_member, parent, false)
-        return ViewHolder1(v)
+
+        val inflater = LayoutInflater.from(parent.context)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.item_select_member, parent, false)
+        val myBindedView = mBinding.root
+        return ViewHolder1(myBindedView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder1, position: Int) {
@@ -28,26 +30,28 @@ class SelectMemberAdapter(
         holder.bind(
             item
         )
-        val pu = list[position]
-        if (pu.imageUrl == "") pu.imageUrl = "salam"
-        val objectFromPicasso = PicassoCircleTransformation()
-        Picasso.get().load(pu.imageUrl).error(R.drawable.person_empty).transform(objectFromPicasso)
-            .fit().into(holder.image)
+
+        mBinding.allMember = item
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     class ViewHolder1(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var image: AppCompatImageView = itemView.findViewById(R.id.iv_add_member_3_items_image)
-        var nameText: TextView = itemView.findViewById(R.id.tv_add_member_3_items_name)
+
         var checkbox: CheckBox =
             itemView.findViewById(R.id.cb_add_member_3)
 
         fun bind(item: SelectMemberItem) {
-            nameText.text = item.name
-            checkbox.isChecked = item.ischeck
             checkbox.setOnCheckedChangeListener { _, isChecked -> item.ischeck = !isChecked }
             itemView.setOnClickListener {
                 checkbox.isChecked = !checkbox.isChecked
@@ -55,8 +59,6 @@ class SelectMemberAdapter(
             }
         }
 
-        init {
-        }
     }
 }
 
