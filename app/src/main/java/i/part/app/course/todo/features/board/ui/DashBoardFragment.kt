@@ -15,28 +15,16 @@ import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import java.util.*
 
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class DashBoardFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
+
     lateinit var recyclerView: RecyclerView
+    lateinit var myView: View
     lateinit var customMenuButton: ImageView
     lateinit var ll_empty_stat: LinearLayout
     lateinit var anchorForMenu: ImageView
     var mAdapter: RecyclerView.Adapter<*>? = null
     var layoutManager: RecyclerView.LayoutManager? = null
     val myTaskViews: ArrayList<TaskView> = ArrayList()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.dashboard_fragment_menu, menu)
@@ -62,7 +50,12 @@ class DashBoardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val myView = inflater.inflate(R.layout.fragment_dash_board, container, false)
+        myView = inflater.inflate(R.layout.fragment_dash_board, container, false)
+        return myView
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         recyclerView = myView.findViewById(R.id.rv_boards) as RecyclerView
         customMenuButton = myView.findViewById(R.id.iv_dash_board_custom_menu_button)
         anchorForMenu = myView.findViewById(R.id.iv_dash_board_anchor_for_menu)
@@ -162,6 +155,5 @@ class DashBoardFragment : Fragment() {
         floatingActionButton.setOnClickListener {
             myView.findNavController().navigate(R.id.action_dashBoardFragment_to_add_board)
         }
-        return myView
     }
 }

@@ -25,14 +25,13 @@ class SelectMemberDialogFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-        dialog?.setCanceledOnTouchOutside(false)
-
         return inflater.inflate(R.layout.dialog_select_member, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        dialog?.setCanceledOnTouchOutside(false)
         super.onActivityCreated(savedInstanceState)
         rv_add_member_3.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(context)

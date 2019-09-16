@@ -11,14 +11,19 @@ import com.google.android.material.textview.MaterialTextView
 import i.part.app.course.todo.R
 
 class LoginFragment : Fragment() {
-
+    lateinit var myView: View
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val myView = inflater.inflate(R.layout.fragment_login, container, false)
-        val registerButton = myView.findViewById<MaterialTextView>(R.id.tv_login_register_new_account)
+        myView = inflater.inflate(R.layout.fragment_login, container, false)
+        return myView
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        val registerButton =
+            myView.findViewById<MaterialTextView>(R.id.tv_login_register_new_account)
         registerButton.setOnClickListener {
             myView.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
@@ -27,7 +32,6 @@ class LoginFragment : Fragment() {
         loginButton.setOnClickListener {
             myView.findNavController().navigate(R.id.action_loginFragment_to_dashBoardFragment)
         }
-        return myView
-
+        super.onActivityCreated(savedInstanceState)
     }
 }

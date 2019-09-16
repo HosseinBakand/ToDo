@@ -10,17 +10,21 @@ import com.google.android.material.button.MaterialButton
 import i.part.app.course.todo.R
 
 class RegisterFragment : Fragment() {
-
+    lateinit var myView: View
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val myView = inflater.inflate(R.layout.fragment_register, container, false)
+        myView = inflater.inflate(R.layout.fragment_register, container, false)
+        return myView
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         val registerButton = myView.findViewById<MaterialButton>(R.id.btn_register_confirm)
         registerButton.setOnClickListener {
             myView.findNavController().navigate(R.id.action_registerFragment_to_dashBoardFragment)
         }
-        return myView
+        super.onActivityCreated(savedInstanceState)
     }
 }

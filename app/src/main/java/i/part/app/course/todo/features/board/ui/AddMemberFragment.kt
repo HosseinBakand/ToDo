@@ -23,7 +23,6 @@ class AddMember : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var view = inflater.inflate(R.layout.fragment_add_member, container, false)
-
         return view
     }
 
