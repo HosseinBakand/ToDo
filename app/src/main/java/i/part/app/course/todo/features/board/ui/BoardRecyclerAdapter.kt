@@ -44,7 +44,7 @@ class BoardRecyclerAdapter(
         val inflater = LayoutInflater.from(parent.context)
         context = parent.context
         mBinding = DataBindingUtil.inflate(inflater, R.layout.item_board, parent, false)
-        val myBindedView = mBinding.root
+        val myBindedView = mBinding
         return ViewHolder(myBindedView)
     }
 
@@ -57,7 +57,7 @@ class BoardRecyclerAdapter(
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()
         holder.itemView.tag = taskViews[position]
         val t = taskViews[position]
-        mBinding.myBoard = t
+        holder.holderBinding.myBoard = t
         holder.rv_avatar.let { it.setHasFixedSize(true) }
         holder.iV_delete.setOnClickListener {
             val dialog = Dialog(context)
@@ -99,9 +99,10 @@ class BoardRecyclerAdapter(
         return taskViews.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(binding: ItemBoardBinding) : RecyclerView.ViewHolder(binding.root) {
         internal var rv_avatar: RecyclerView
         internal var iV_delete: ImageView
+        val holderBinding = binding
 
         init {
             iV_delete =
