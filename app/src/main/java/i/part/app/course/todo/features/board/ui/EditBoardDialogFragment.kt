@@ -54,7 +54,7 @@ class Edit_board : DialogFragment() {
         }
 
         btn_edit_board_confirm.setOnClickListener {
-            this.findNavController().navigate(R.id.action_edit_board_to_board)
+            this.dismiss()
         }
 
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()

@@ -119,9 +119,7 @@
         <action
             android:id="@+id/action_addTaskFragment_to_addMember2"
             app:destination="@id/addMember2" />
-        <action
-            android:id="@+id/action_addTaskFragment_to_board"
-            app:destination="@id/board" />
+
     </dialog>
     <dialog
         android:id="@+id/edit_board"
@@ -134,9 +132,7 @@
         <action
             android:id="@+id/action_edit_board_to_addMember2"
             app:destination="@id/addMember2" />
-        <action
-            android:id="@+id/action_edit_board_to_board"
-            app:destination="@id/board" />
+
     </dialog>
     <dialog
         android:id="@+id/add_board"
@@ -149,8 +145,6 @@
         <action
             android:id="@+id/action_add_board_to_addMember2"
             app:destination="@id/addMember2" />
-        <action
-            android:id="@+id/action_add_board_to_dashBoardFragment"
-            app:destination="@id/dashBoardFragment" />
+
     </dialog>
 </navigation>

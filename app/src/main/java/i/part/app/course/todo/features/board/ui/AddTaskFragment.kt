@@ -48,7 +48,6 @@ class AddTaskFragment : DialogFragment() {
         ib_add_task_close.setOnClickListener { this.dismiss() }
 
         btn_add_task_confirm.setOnClickListener {
-            this.findNavController().navigate(R.id.action_addTaskFragment_to_board)
             this.dismiss()
         }
 
