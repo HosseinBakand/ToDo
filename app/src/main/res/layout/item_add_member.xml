@@ -54,8 +54,8 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_add_member_2_items_minus"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:background="@color/transparent"
                 android:src="@drawable/ic_minus_check_box_18dp"
                 app:layout_constraintBottom_toBottomOf="parent"
