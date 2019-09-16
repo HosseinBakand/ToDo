@@ -169,6 +169,7 @@ class TodoListRecyclerAdapter(
                 closeButton?.setOnClickListener {
                     dialog.dismiss()
                 }
+
                 dialog.show()
             }
         }
