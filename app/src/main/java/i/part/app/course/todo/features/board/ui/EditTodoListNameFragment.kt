@@ -13,19 +13,25 @@ import com.google.android.material.button.MaterialButton
 import i.part.app.course.todo.R
 
 class EditTodoListNameFragment : DialogFragment() {
+    lateinit var myView: View
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        myView = inflater.inflate(R.layout.dialog_edit_todolist_name, container, false)
+        return myView
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.setCanceledOnTouchOutside(false)
-        var view = inflater.inflate(R.layout.dialog_edit_todolist_name, container, false)
-        val bt_confirm = view.findViewById(R.id.btn_edit_todolist_confirm) as MaterialButton
-        val et_boardName = view.findViewById<EditText>(R.id.et_todolist_name)
+        val bt_confirm = myView.findViewById(R.id.btn_edit_todolist_confirm) as MaterialButton
+        val et_boardName = myView.findViewById<EditText>(R.id.et_todolist_name)
         bt_confirm.setOnClickListener {
         }
-        return view
+        super.onActivityCreated(savedInstanceState)
     }
 }
 

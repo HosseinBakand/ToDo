@@ -31,22 +31,18 @@ class Edit_board : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_edit_board, container, false)
-        val view = binding.root
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         binding.lifecycleOwner = this
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.setCanceledOnTouchOutside(false)
-        return view
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         ib_edit_board_close.setOnClickListener {
             this.dismiss()
         }
-
-
+        super.onActivityCreated(savedInstanceState)
         ib_edit_board_plus.setOnClickListener {
             val fragmentType: String? = "edit_board"
             val myBundle = bundleOf("fragmentType" to fragmentType)
