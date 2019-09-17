@@ -117,6 +117,7 @@ class TodoListRecyclerAdapter(
         viewType: Int
     ): RecyclerView.ViewHolder {
         context = parent.context
+        recyclerView = parent.findViewById(R.id.rv_board_fragment)
         return when (viewType) {
             TodoListType.ADD_TODOLIST_BUTTON.type -> {
                 view = LayoutInflater.from(parent.context).inflate(R.layout.add_todo_list, parent, false)
