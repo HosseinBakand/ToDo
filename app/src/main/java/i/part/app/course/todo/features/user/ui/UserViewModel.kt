@@ -1,17 +1,26 @@
 package i.part.app.course.todo.features.user.ui
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 
 class UserViewModel:ViewModel(){
-    val user : MutableLiveData<UserView> = MutableLiveData()
+    private val _user = MutableLiveData<UserView>()
+    val user: LiveData<UserView>
+        get() = _user
 
-    init {
-        user.value = UserView(
+    fun getUser() {
+        _user.value = loadUser()
+    }
+
+    private fun loadUser() : UserView {
+        return UserView(
             "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-            "Vahid Safari",
-            "safarivahid132@gmail.com",
-            "09213421432")
+            "Mamad Bahadori",
+            "dsavcdas@gmail.com",
+            "09212314241"
+        )
     }
 }
