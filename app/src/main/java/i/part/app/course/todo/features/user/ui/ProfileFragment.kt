@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import i.part.app.course.todo.R
 import i.part.app.course.todo.databinding.FragmentProfileBinding
 import kotlinx.android.synthetic.main.fragment_profile.*
+import android.widget.Toast
+
 
 class ProfileFragment : Fragment() {
     lateinit var binding: FragmentProfileBinding
@@ -30,10 +32,10 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         binding.lifecycleOwner = this  // use Fragment.viewLifecycleOwner for fragments
+        userViewModel.getUser()
         binding.userView = userViewModel.user.value
         userViewModel.user.observe(this, Observer {
             binding.userView = it
-            //userViewModel.user.value = it
         })
         super.onActivityCreated(savedInstanceState)
         til_profile_email.setEndIconOnClickListener {
