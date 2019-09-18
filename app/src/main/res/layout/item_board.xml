@@ -7,7 +7,7 @@
 
         <variable
             name="myBoard"
-            type="i.part.app.course.todo.features.board.ui.TaskView" />
+            type="i.part.app.course.todo.features.board.ui.BoardView" />
     </data>
 <androidx.cardview.widget.CardView
     android:id="@+id/cv_board_item"

@@ -10,6 +10,7 @@ import android.view.Window
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,8 +34,15 @@ class AddTaskFragment : DialogFragment() {
         return binding.root
     }
 
+    private val taskViewModel by lazy {
+        ViewModelProviders.of(this).get(TaskViewModel::class.java)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         binding.lifecycleOwner = this
+        taskViewModel.getTask()
+        binding.ownerName = taskViewModel.task.value
+        taskViewModel.task.observe(this, androidx.lifecycle.Observer { binding.ownerName = it })
 
         dialog?.setTitle("Add BoardDetailFragment")
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
@@ -74,7 +82,7 @@ class AddTaskFragment : DialogFragment() {
         val picasso = Picasso.get()
         context?.let { avatarAdapter = AvatarRecyclerAdapter(myAvatarViews, picasso, true) }
         rv_add_task_avatars.let { it.adapter = avatarAdapter }
-
-        binding.ownerName = "HosseiN Bakand"
+        val mohammad: TaskView = TaskView("Mohammad bahadori")
+        binding.ownerName = mohammad
     }
 }

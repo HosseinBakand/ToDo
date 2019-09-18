@@ -1,6 +1,5 @@
 package i.part.app.course.todo.features.user.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +7,7 @@ import androidx.lifecycle.ViewModel
 
 class UserViewModel:ViewModel(){
     private val _user = MutableLiveData<UserView>()
+
     val user: LiveData<UserView>
         get() = _user
 
