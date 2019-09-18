@@ -24,7 +24,7 @@ class DashBoardFragment : Fragment() {
     lateinit var anchorForMenu: ImageView
     var mAdapter: RecyclerView.Adapter<*>? = null
     var layoutManager: RecyclerView.LayoutManager? = null
-    val myTaskViews: ArrayList<TaskView> = ArrayList()
+    val myBoardViews: ArrayList<BoardView> = ArrayList()
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.dashboard_fragment_menu, menu)
@@ -85,8 +85,8 @@ class DashBoardFragment : Fragment() {
         recyclerView.let { it.setHasFixedSize(true) }
         layoutManager = LinearLayoutManager(context)
         recyclerView.let { it.layoutManager = layoutManager }
-        myTaskViews.add(
-            TaskView(
+        myBoardViews.add(
+            BoardView(
                 "board1",
                 "8",
                 "118",
@@ -95,8 +95,8 @@ class DashBoardFragment : Fragment() {
                 "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
             )
         )
-        myTaskViews.add(
-            TaskView(
+        myBoardViews.add(
+            BoardView(
                 "board2",
                 "6",
                 "118",
@@ -105,8 +105,8 @@ class DashBoardFragment : Fragment() {
                 "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
             )
         )
-        myTaskViews.add(
-            TaskView(
+        myBoardViews.add(
+            BoardView(
                 "board3",
                 "7",
                 "118",
@@ -115,8 +115,8 @@ class DashBoardFragment : Fragment() {
                 "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
             )
         )
-        myTaskViews.add(
-            TaskView(
+        myBoardViews.add(
+            BoardView(
                 "board4",
                 "81",
                 "118",
@@ -125,8 +125,8 @@ class DashBoardFragment : Fragment() {
                 "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
             )
         )
-        myTaskViews.add(
-            TaskView(
+        myBoardViews.add(
+            BoardView(
                 "board5",
                 "12",
                 "118",
@@ -135,8 +135,8 @@ class DashBoardFragment : Fragment() {
                 "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
             )
         )
-        myTaskViews.add(
-            TaskView(
+        myBoardViews.add(
+            BoardView(
                 "board6",
                 "55",
                 "118",
@@ -145,7 +145,7 @@ class DashBoardFragment : Fragment() {
                 "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
             )
         )
-        context?.let { mAdapter = BoardRecyclerAdapter(myTaskViews, Picasso.get()) }
+        context?.let { mAdapter = BoardRecyclerAdapter(myBoardViews, Picasso.get()) }
         if (mAdapter?.itemCount == 0) {
             ll_empty_stat.visibility = View.VISIBLE
         }

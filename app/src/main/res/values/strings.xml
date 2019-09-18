@@ -61,6 +61,8 @@
     <string name="add_todolist_title">Add To Do List</string>
     <string name="add_todo_list_hint">Todo list name</string>
     <string name="default_owner_add_to_do_list">none</string>
+    <string name="msg_please_wait">Please wait...</string>
+    <string name="msg_loging_in">Loging in</string>
 
 
 </resources>

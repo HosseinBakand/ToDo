@@ -23,7 +23,7 @@ import java.util.*
 
 
 class BoardRecyclerAdapter(
-    taskViews: List<TaskView>,
+    boardViews: List<BoardView>,
     picasso: Picasso
 ) :
     RecyclerView.Adapter<BoardRecyclerAdapter.ViewHolder>() {
@@ -32,11 +32,11 @@ class BoardRecyclerAdapter(
     lateinit var mBinding: ItemBoardBinding
     val picasso: Picasso
     lateinit var context: Context
-    private val taskViews: List<TaskView>
+    private val boardViews: List<BoardView>
     lateinit var v: View
 
     init {
-        this.taskViews = taskViews
+        this.boardViews = boardViews
         this.picasso = picasso
     }
 
@@ -55,8 +55,8 @@ class BoardRecyclerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()
-        holder.itemView.tag = taskViews[position]
-        val t = taskViews[position]
+        holder.itemView.tag = boardViews[position]
+        val t = boardViews[position]
         holder.holderBinding.myBoard = t
         holder.rv_avatar.let { it.setHasFixedSize(true) }
         holder.iV_delete.setOnClickListener {
@@ -96,7 +96,7 @@ class BoardRecyclerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return taskViews.size
+        return boardViews.size
     }
 
     inner class ViewHolder(binding: ItemBoardBinding) : RecyclerView.ViewHolder(binding.root) {

@@ -5,7 +5,7 @@
 
         <variable
             name="ownerName"
-            type="String" />
+            type="i.part.app.course.todo.features.board.ui.TaskView" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -117,7 +117,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
                             android:letterSpacing="0.01"
-                            android:text="@{ownerName}"
+                            android:text="@{ownerName.owner}"
                             android:textColor="@color/black_87_two"
                             android:textSize="16sp"
                             android:textStyle="bold"
