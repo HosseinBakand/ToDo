@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.fragment_dash_board.*
 
 class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
 
-    lateinit var recyclerView: RecyclerView
     lateinit var myView: View
     private val boardViewModel by lazy {
         activity?.let {
@@ -76,7 +75,7 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
             if (listNum == 0) ll_dash_board_empty_state.visibility = View.VISIBLE
             else ll_dash_board_empty_state.visibility = View.GONE
             if (listNum == lastNum + 1) {
-                recyclerView.smoothScrollToPosition(lastNum)
+                rv_boards.smoothScrollToPosition(lastNum)
             }
         })
 
