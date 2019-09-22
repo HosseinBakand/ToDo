@@ -1,30 +1,37 @@
 package i.part.app.course.todo.features.board.ui
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import java.util.*
+import kotlinx.android.synthetic.main.fragment_dash_board.*
 
-class DashBoardFragment : Fragment() {
+class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
 
     lateinit var recyclerView: RecyclerView
     lateinit var myView: View
-    lateinit var customMenuButton: ImageView
-    lateinit var ll_empty_stat: LinearLayout
-    lateinit var anchorForMenu: ImageView
-    var mAdapter: RecyclerView.Adapter<*>? = null
+    private val boardViewModel by lazy {
+        activity?.let {
+            ViewModelProviders.of(activity as FragmentActivity).get(DashBoardViewModel::class.java)
+        }
+    }
+
+    lateinit var mAdapter: BoardRecyclerAdapter
     var layoutManager: RecyclerView.LayoutManager? = null
-    val myBoardViews: ArrayList<BoardView> = ArrayList()
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.dashboard_fragment_menu, menu)
@@ -33,16 +40,16 @@ class DashBoardFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.profileItem -> {
                 Toast.makeText(context, "profileItem", Toast.LENGTH_SHORT).show()
-                return true
+                true
             }
             R.id.logOutItem -> {
                 Toast.makeText(context, "logoutItem", Toast.LENGTH_SHORT).show()
-                return true
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -56,104 +63,62 @@ class DashBoardFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        recyclerView = myView.findViewById(R.id.rv_boards) as RecyclerView
-        customMenuButton = myView.findViewById(R.id.iv_dash_board_custom_menu_button)
-        anchorForMenu = myView.findViewById(R.id.iv_dash_board_anchor_for_menu)
-        ll_empty_stat = myView.findViewById(R.id.ll_dash_board_empty_state)
-        customMenuButton.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(view: View) {
-                val wrapper = ContextThemeWrapper(context, R.style.popupmenu)
-                val popup = PopupMenu(wrapper, anchorForMenu, Gravity.END)
-                popup.menuInflater.inflate(R.menu.dashboard_fragment_menu, popup.menu)
-                popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
-                    override fun onMenuItemClick(item: MenuItem): Boolean {
-                        if (item.title == "Profile") {
-                            myView.findNavController()
-                                .navigate(R.id.action_dashBoardFragment_to_profile)
-
-                        } else if (item.title == "Log out") {
-                            myView.findNavController()
-                                .navigate(R.id.action_dashBoardFragment_to_loginFragment)
-
-                        }
-                        return true
-                    }
-                })
-                popup.show()
+        rv_boards.setHasFixedSize(true)
+        layoutManager = LinearLayoutManager(context)
+        rv_boards.layoutManager = layoutManager
+        mAdapter = BoardRecyclerAdapter(Picasso.get(), this)
+        rv_boards.adapter = mAdapter
+        boardViewModel?.getBoards()
+        boardViewModel?.boardList?.observe(this, Observer { boardList ->
+            val lastNum: Int = mAdapter.itemCount
+            mAdapter.submitList(boardList)
+            val listNum = boardList.size
+            if (listNum == 0) ll_dash_board_empty_state.visibility = View.VISIBLE
+            else ll_dash_board_empty_state.visibility = View.GONE
+            if (listNum == lastNum + 1) {
+                recyclerView.smoothScrollToPosition(lastNum)
             }
         })
-        recyclerView.let { it.setHasFixedSize(true) }
-        layoutManager = LinearLayoutManager(context)
-        recyclerView.let { it.layoutManager = layoutManager }
-        myBoardViews.add(
-            BoardView(
-                "board1",
-                "8",
-                "118",
-                "43",
-                "done",
-                "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
-            )
-        )
-        myBoardViews.add(
-            BoardView(
-                "board2",
-                "6",
-                "118",
-                "54",
-                "todo",
-                "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
-            )
-        )
-        myBoardViews.add(
-            BoardView(
-                "board3",
-                "7",
-                "118",
-                "12",
-                "todo",
-                "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
-            )
-        )
-        myBoardViews.add(
-            BoardView(
-                "board4",
-                "81",
-                "118",
-                "498",
-                "done",
-                "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
-            )
-        )
-        myBoardViews.add(
-            BoardView(
-                "board5",
-                "12",
-                "118",
-                "34",
-                "done",
-                "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
-            )
-        )
-        myBoardViews.add(
-            BoardView(
-                "board6",
-                "55",
-                "118",
-                "23",
-                "todo",
-                "https://images-na.ssl-images-amazon.com/images/I/71QMsWSZqaL._SL1152_.jpg"
-            )
-        )
-        context?.let { mAdapter = BoardRecyclerAdapter(myBoardViews, Picasso.get()) }
-        if (mAdapter?.itemCount == 0) {
-            ll_empty_stat.visibility = View.VISIBLE
+
+        iv_dash_board_custom_menu_button.setOnClickListener {
+            val wrapper = ContextThemeWrapper(context, R.style.popupmenu)
+            val popup = PopupMenu(wrapper, iv_dash_board_anchor_for_menu, Gravity.END)
+            popup.menuInflater.inflate(R.menu.dashboard_fragment_menu, popup.menu)
+            popup.setOnMenuItemClickListener { item ->
+                if (item.title == "Profile") {
+                    myView.findNavController()
+                        .navigate(R.id.action_dashBoardFragment_to_profile)
+                } else if (item.title == "Log out") {
+                    myView.findNavController()
+                        .navigate(R.id.action_dashBoardFragment_to_loginFragment)
+                }
+                true
+            }
+            popup.show()
         }
-        recyclerView.let { it.adapter = mAdapter }
+
         val floatingActionButton =
             myView.findViewById<FloatingActionButton>(R.id.fab_dash_board_fragment)
         floatingActionButton.setOnClickListener {
             myView.findNavController().navigate(R.id.action_dashBoardFragment_to_add_board)
         }
+    }
+
+    override fun deleteBoard(item: BoardView) {
+        var dialog = Dialog(context)
+        dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setContentView(R.layout.dialog_delete_page)
+        dialog.setCanceledOnTouchOutside(false)
+        val okButton = dialog.findViewById<TextView>(R.id.tv_ok_button)
+        okButton.setOnClickListener {
+            boardViewModel?.removeBoard(item)
+            dialog.dismiss()
+        }
+        val closeButton = dialog.findViewById<TextView>(R.id.tv_cancel_button)
+        closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 }
