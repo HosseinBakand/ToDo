@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +27,12 @@ class Add_board : DialogFragment() {
     var avatarManager: RecyclerView.LayoutManager? = null
     var avatarAdapter: RecyclerView.Adapter<*>? = null
     lateinit var binding: DialogAddBoardBinding
+    val boardViewModel by lazy {
+        activity?.let {
+            ViewModelProviders.of(activity as FragmentActivity).get(DashBoardViewModel::class.java)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,7 +59,20 @@ class Add_board : DialogFragment() {
         }
 
         btn_add_board_confirm.setOnClickListener {
-            this.dismiss()
+            if (et_add_board_name.text.length != 0) {
+                val board = BoardView(
+                    et_add_board_name.text.toString(),
+                    "0",
+                    "0",
+                    "0",
+                    BoardStatusEnum.ToDo,
+                    "https://img.freepik.com/free-vector/colorful-watercolor-background_79603-99.jpg?size=626&ext=jpg"
+                )
+                boardViewModel?.addBoard(board)
+                this.dismiss()
+            } else {
+                Toast.makeText(context, "Board should have name", Toast.LENGTH_SHORT).show()
+            }
         }
 
         //recycle

@@ -5,6 +5,6 @@ data class BoardView(
     var todo: String,
     var totalTasks: String,
     var remainingTasks: String,
-    var status: String,
+    var status: BoardStatusEnum,
     var imageUrl: String
 )

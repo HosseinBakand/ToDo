@@ -1,19 +1,16 @@
 package i.part.app.course.todo.features.board.ui
 
-import android.app.Dialog
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
@@ -22,21 +19,30 @@ import i.part.app.course.todo.databinding.ItemBoardBinding
 import java.util.*
 
 
+private object Callback : DiffUtil.ItemCallback<BoardView>() {
+    override fun areItemsTheSame(oldItem: BoardView, newItem: BoardView): Boolean {
+        return (oldItem == newItem)
+    }
+
+    override fun areContentsTheSame(oldItem: BoardView, newItem: BoardView): Boolean {
+        return (oldItem == newItem && oldItem.imageUrl == newItem.imageUrl)
+    }
+
+}
+
+
 class BoardRecyclerAdapter(
-    boardViews: List<BoardView>,
-    picasso: Picasso
-) :
-    RecyclerView.Adapter<BoardRecyclerAdapter.ViewHolder>() {
+    picasso: Picasso,
+    val callback: MyCallback
+) : ListAdapter<BoardView, BoardRecyclerAdapter.ViewHolder>(Callback) {
     var avatarAdapter: RecyclerView.Adapter<*>? = null
     var avatarManager: RecyclerView.LayoutManager? = null
     lateinit var mBinding: ItemBoardBinding
     val picasso: Picasso
     lateinit var context: Context
-    private val boardViews: List<BoardView>
     lateinit var v: View
 
     init {
-        this.boardViews = boardViews
         this.picasso = picasso
     }
 
@@ -55,25 +61,14 @@ class BoardRecyclerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()
-        holder.itemView.tag = boardViews[position]
-        val t = boardViews[position]
+        holder.itemView.tag = getItem(position)
+        val t = getItem(position)
         holder.holderBinding.myBoard = t
         holder.rv_avatar.let { it.setHasFixedSize(true) }
         holder.iV_delete.setOnClickListener {
-            val dialog = Dialog(context)
-            dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
-            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.setContentView(R.layout.dialog_delete_page)
-            dialog.setCanceledOnTouchOutside(false)
-            val okButton = dialog.findViewById<TextView>(R.id.tv_ok_button)
-            okButton.setOnClickListener {
-                dialog.dismiss()
-            }
-            val closeButton = dialog.findViewById<TextView>(R.id.tv_cancel_button)
-            closeButton.setOnClickListener {
-                dialog.dismiss()
-            }
-            dialog.show()
+            callback.deleteBoard(t)
+
+
         }
         val overlap: OverlapDecoration = OverlapDecoration()
         holder.rv_avatar.addItemDecoration(overlap)
@@ -95,10 +90,6 @@ class BoardRecyclerAdapter(
 
     }
 
-    override fun getItemCount(): Int {
-        return boardViews.size
-    }
-
     inner class ViewHolder(binding: ItemBoardBinding) : RecyclerView.ViewHolder(binding.root) {
         internal var rv_avatar: RecyclerView
         internal var iV_delete: ImageView
@@ -106,13 +97,18 @@ class BoardRecyclerAdapter(
 
         init {
             iV_delete =
-                itemView.findViewById<View>(i.part.app.course.todo.R.id.iv_delete_board_item) as ImageView
+                itemView.findViewById<View>(R.id.iv_delete_board_item) as ImageView
             rv_avatar =
-                itemView.findViewById<View>(i.part.app.course.todo.R.id.rv_avatars) as RecyclerView
+                itemView.findViewById<View>(R.id.rv_avatars) as RecyclerView
             itemView.setOnClickListener { view ->
                 view.findNavController().navigate(R.id.action_dashBoardFragment_to_board)
             }
         }
+    }
+
+    interface MyCallback {
+        fun deleteBoard(item: BoardView)
+
     }
 
 }

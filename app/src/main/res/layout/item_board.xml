@@ -119,6 +119,8 @@
             android:paddingTop="3dp"
             android:paddingRight="5dp"
             android:paddingBottom="3dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
             tools:ignore="VectorDrawableCompat" />
 
         <androidx.constraintlayout.widget.Guideline
