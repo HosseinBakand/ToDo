@@ -10,6 +10,7 @@ import android.view.Window
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,14 +36,16 @@ class AddTaskFragment : DialogFragment() {
     }
 
     private val taskViewModel by lazy {
-        ViewModelProviders.of(this).get(TaskViewModel::class.java)
+        activity.let {
+            ViewModelProviders.of(activity as FragmentActivity).get(TodoListViewModel::class.java)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         binding.lifecycleOwner = this
-        taskViewModel.getTask()
-        binding.ownerName = taskViewModel.task.value
-        taskViewModel.task.observe(this, androidx.lifecycle.Observer { binding.ownerName = it })
+        //taskViewModel.getTask()
+        //binding.ownerName = taskViewModel.task.value
+        //taskViewModel.task.observe(this, androidx.lifecycle.Observer { binding.ownerName = it })
 
         dialog?.setTitle("Add BoardDetailFragment")
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
@@ -53,6 +56,12 @@ class AddTaskFragment : DialogFragment() {
         ib_add_task_close.setOnClickListener { this.dismiss() }
 
         btn_add_task_confirm.setOnClickListener {
+            val fakeLink =
+                "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+            var mySubTask = SubTaskView(dialog?.et_add_task_task_name?.text.toString(), fakeLink)
+            arguments?.let {
+                taskViewModel.addTask(it.getInt("toDoListViewPosition"), mySubTask)
+            }
             this.dismiss()
         }
 
@@ -63,7 +72,6 @@ class AddTaskFragment : DialogFragment() {
             this.findNavController()
                 .navigate(R.id.action_addTaskFragment_to_addMember2, myBundle)
         }
-
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()
         rv_add_task_avatars.let { it.setHasFixedSize(true) }
         val overlap: OverlapDecoration = OverlapDecoration()

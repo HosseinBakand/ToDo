@@ -13,21 +13,29 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import i.part.app.course.todo.R
 import i.part.app.course.todo.databinding.ItemTodoListBinding
-import kotlinx.android.synthetic.main.dialog_add_to_do_list.*
 
+private object TodoListRecyclerAdapterCallback : DiffUtil.ItemCallback<TodoListView>() {
+    override fun areContentsTheSame(oldItem: TodoListView, newItem: TodoListView): Boolean {
+        return (oldItem.todoListName == newItem.todoListName && oldItem.subtasks == newItem.subtasks)
+    }
+
+    override fun areItemsTheSame(oldItem: TodoListView, newItem: TodoListView): Boolean {
+        return (oldItem.hashCode() == newItem.hashCode())
+    }
+}
 
 class TodoListRecyclerAdapter(
-    val adapter: TodoListRecyclerAdapter?,
-    val todoListViews: MutableList<TodoListView>
+    val callback: MyTodoListCallback
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    ListAdapter<TodoListView, RecyclerView.ViewHolder>(TodoListRecyclerAdapterCallback) {
     lateinit var view: View
     lateinit var context: Context
     lateinit var recyclerView: RecyclerView
@@ -55,26 +63,6 @@ class TodoListRecyclerAdapter(
                 )
                     .show()
             }
-            editImageView.setOnClickListener {
-                val dialog = Dialog(context)
-                dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
-                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialog.setContentView(R.layout.dialog_edit_todolist_name)
-                dialog.setCanceledOnTouchOutside(false)
-                val okButton = dialog.findViewById<MaterialButton>(R.id.btn_edit_todolist_confirm)
-                okButton?.setOnClickListener {
-                    dialog.dismiss()
-                }
-                val closeButton = dialog.findViewById<ImageButton>(R.id.ib_edit_todolist_close)
-                closeButton?.setOnClickListener {
-                    dialog.dismiss()
-                }
-                dialog.show()
-            }
-
-            addTaskButton.setOnClickListener {
-                itemView.findNavController().navigate(R.id.action_board_to_addTaskFragment)
-            }
         }
     }
 
@@ -89,24 +77,11 @@ class TodoListRecyclerAdapter(
                 dialog.setContentView(R.layout.dialog_add_to_do_list)
                 dialog.setCanceledOnTouchOutside(false)
                 val confirmButton = dialog.findViewById<MaterialButton>(R.id.btn_add_todolist_confirm)
-                confirmButton?.setOnClickListener {
-                    todoListViews.add(
-                        todoListViews.size-1,
-                        TodoListView(
-                            TodoListType.TODOLIST,
-                            dialog.et_todolist_name.text.toString(),
-                            mutableListOf()
-                        )
-                    )
-                    notifyDataSetChanged()
-                    dialog.dismiss()
-                }
                 confirmButton.onEditorAction(EditorInfo.IME_ACTION_DONE)
                 val closeButton = dialog.findViewById<ImageButton>(R.id.ib_add_todolist_close)
                 closeButton?.setOnClickListener {
                     dialog.dismiss()
                 }
-
                 dialog.show()
             }
         }
@@ -133,57 +108,43 @@ class TodoListRecyclerAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is TodoListViewHolder) {
             //used in the listener for add task
-            holder.itemView.tag = todoListViews[position]
-            holder.holderBinding.todolist = todoListViews[position]
+            holder.itemView.tag = getItem(position)
+            holder.holderBinding.todolist = getItem(position)
             holder.subTaskRecyclerView.setHasFixedSize(true)
             holder.subTaskRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
             val subTaskRecyclerAdapter = SubTaskRecyclerAdapter(
-                todoListViews[position].subtasks,
+                getItem(position).subtasks,
                 holder.allTasksDoneTextView
             )
             holder.subTaskRecyclerView.adapter = subTaskRecyclerAdapter
+            holder.editImageView.setOnClickListener {
+                callback.editTodoListName(getItem(position))
+            }
+
+
+            holder.addTaskButton.setOnClickListener {
+                callback.addTask(position)
+            }
         }
         else if(holder is AddToDoListButtonViewHolder){
+            // callback.addTodoList()
             holder.button.setOnClickListener {
-                val dialog = Dialog(context)
-                dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
-                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialog.setContentView(R.layout.dialog_add_to_do_list)
-                dialog.setCanceledOnTouchOutside(false)
-                val confirmButton = dialog.findViewById<MaterialButton>(R.id.btn_add_todolist_confirm)
-                confirmButton?.setOnClickListener {
-                    todoListViews.add(
-                        todoListViews.size-1,
-                        TodoListView(
-                            TodoListType.TODOLIST,
-                            dialog.et_todolist_name.text.toString(),
-                            mutableListOf()
-                        )
-                    )
-                    notifyItemInserted(position-1)
-                    notifyItemRangeChanged(position-1,itemCount)
-                    dialog.dismiss()
-                    recyclerView.scrollToPosition(position)
-                }
-                confirmButton.onEditorAction(EditorInfo.IME_ACTION_DONE)
-                val closeButton = dialog.findViewById<ImageButton>(R.id.ib_add_todolist_close)
-                closeButton?.setOnClickListener {
-                    dialog.dismiss()
-                }
-
-                dialog.show()
+                callback.addTodoList()
             }
         }
     }
-
-    override fun getItemCount() = todoListViews.size
-
     override fun getItemViewType(position: Int): Int {
-        return todoListViews[position].todoListType.type
+        return getItem(position).todoListType.type
     }
 
     override fun getItemId(position: Int): Long {
         return RecyclerView.NO_ID
+    }
+
+    interface MyTodoListCallback {
+        fun addTask(position: Int)
+        fun editTodoListName(todoListView: TodoListView)
+        fun addTodoList()
     }
 }
