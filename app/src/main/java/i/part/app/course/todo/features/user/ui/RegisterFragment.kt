@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import i.part.app.course.todo.R
+import i.part.app.course.todo.core.api.Result
 import kotlinx.android.synthetic.main.dialog_login_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_register.*
 
@@ -69,30 +70,6 @@ class RegisterFragment : Fragment() {
             }
         })
 
-        registerViewModel.registerResult.observe(this, Observer {
-            val registerResult = it ?: return@Observer
-
-
-            if (registerResult.error != null) {
-                progressRegisterDialog.dismiss()
-
-                showSnackbar(myView, "Please Check your network", Snackbar.LENGTH_INDEFINITE)
-
-            }
-            if (registerResult.success != null) {
-                progressRegisterDialog.dismiss()
-
-                Toast.makeText(context, "wellCome ${registerResult.success}", Toast.LENGTH_SHORT)
-                    .show()
-                myView.findNavController()
-                    .navigate(R.id.action_registerFragment_to_dashBoardFragment)
-
-            }
-
-        })
-
-
-
         tiet_register_email.setOnFocusChangeListener { _, _ ->
             registerViewModel.onDataChange(
                 tiet_register_email.text.toString(),
@@ -137,34 +114,75 @@ class RegisterFragment : Fragment() {
         })
 
         btn_register_confirm.setOnClickListener {
-            progressRegisterDialog = Dialog(context)
-            progressRegisterDialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
-            progressRegisterDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            progressRegisterDialog.setCanceledOnTouchOutside(false)
-            progressRegisterDialog.setContentView(R.layout.dialog_login_progress_bar)
-            progressRegisterDialog.show()
-            progressRegisterDialog.ib_login_dialog_close.setOnClickListener { progressRegisterDialog.dismiss() }
+            showDialog()
 
             registerViewModel.clickOnRegisterButton(
                 tiet_register_email.text.toString(),
                 tiet_register_phone.text.toString(),
                 tiet_register_password.text.toString()
             )
+
+            registerViewModel.registerResult.observe(this, Observer {
+
+                when (it) {
+                    is Result.Success -> {
+                        progressRegisterDialog.dismiss()
+                        Toast.makeText(
+                            context,
+                            "Please Login with your new user",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                        myView.findNavController()
+                            .navigate(R.id.action_registerFragment_to_loginFragment)
+                    }
+                    is Result.Error -> {
+                        if (it.message == "ConnectionError") {
+                            progressRegisterDialog.dismiss()
+                            showSnackbar(
+                                myView,
+                                "Please Check your network",
+                                Snackbar.LENGTH_INDEFINITE,
+                                "Connection"
+                            )
+                        } else if (it.message == "Exist") {
+                            progressRegisterDialog.dismiss()
+                            showSnackbar(myView, "Your email exist", Snackbar.LENGTH_LONG, "Exist")
+                        }
+                    }
+                    is Result.Loading -> {
+                    }
+                }
+            })
         }
 
         super.onActivityCreated(savedInstanceState)
 
     }
 
-    fun showSnackbar(view: View, message: String, duration: Int) {
-        val snackbar = Snackbar.make(view, message, duration)
-        snackbar.setActionTextColor(Color.RED)
-        snackbar.setAction("Try againg") {
-            //try to recconect
-        }
-
-        snackbar.show()
+    private fun showDialog() {
+        progressRegisterDialog = Dialog(context)
+        progressRegisterDialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        progressRegisterDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        progressRegisterDialog.setCanceledOnTouchOutside(false)
+        progressRegisterDialog.setContentView(R.layout.dialog_login_progress_bar)
+        progressRegisterDialog.show()
+        progressRegisterDialog.ib_login_dialog_close.setOnClickListener { progressRegisterDialog.dismiss() }
     }
 
+    fun showSnackbar(view: View, message: String, duration: Int, type: String) {
+        if (type == "Connection") {
+            val snackbar = Snackbar.make(view, message, duration)
+            snackbar.setActionTextColor(Color.RED)
+            snackbar.setAction("Try againg") {
+                //try to recconect
+                btn_register_confirm.performClick()
+            }
+            snackbar.show()
+        } else if (type == "Exist") {
+            val snackbar = Snackbar.make(view, message, duration)
+            snackbar.show()
+        }
 
+    }
 }
