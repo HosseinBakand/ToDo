@@ -28,7 +28,7 @@ class EditTodoListNameFragment : DialogFragment() {
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.setCanceledOnTouchOutside(false)
         val bt_confirm = myView.findViewById(R.id.btn_edit_todolist_confirm) as MaterialButton
-        val et_boardName = myView.findViewById<EditText>(R.id.et_todolist_name)
+        val et_boardName = myView.findViewById<EditText>(R.id.et_edit_todolist_name)
         bt_confirm.setOnClickListener {
         }
         super.onActivityCreated(savedInstanceState)

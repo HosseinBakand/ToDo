@@ -32,6 +32,9 @@
         android:name="i.part.app.course.todo.features.board.ui.DashBoardFragment"
         android:label="fragment_dash_board"
         tools:layout="@layout/fragment_dash_board">
+        <argument
+            android:name="boardName"
+            app:argType="string" />
         <action
             android:id="@+id/action_dashBoardFragment_to_board"
             app:destination="@id/board" />
@@ -57,6 +60,9 @@
         android:id="@+id/board"
         android:name="i.part.app.course.todo.features.board.ui.BoardDetailFragment"
         android:label="Board">
+        <argument
+            android:name="toDoListViewPosition"
+            app:argType="integer"></argument>
         <action
             android:id="@+id/action_board_to_edit_board"
             app:destination="@id/edit_board" />

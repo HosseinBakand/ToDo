@@ -45,7 +45,6 @@ class RegisterFragment : Fragment() {
         registerViewModel.registerState.observe(this, Observer {
             val registerState = it ?: return@Observer
 
-            // disable login button unless both username / password is valid
             btn_register_confirm.isEnabled = registerState.isDataValid
 
             if (registerState.emailError != null) {

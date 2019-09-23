@@ -2,6 +2,7 @@ package i.part.app.course.todo.features.board.ui
 
 import android.content.Context
 import android.content.res.Resources
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,6 +71,11 @@ class BoardRecyclerAdapter(
 
 
         }
+        holder.itemView.setOnClickListener { view ->
+            val myBundle = Bundle()
+            myBundle.putString("boardName", getItem(position).name)
+            view.findNavController().navigate(R.id.action_dashBoardFragment_to_board, myBundle)
+        }
         val overlap: OverlapDecoration = OverlapDecoration()
         holder.rv_avatar.addItemDecoration(overlap)
         avatarManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
@@ -100,9 +106,7 @@ class BoardRecyclerAdapter(
                 itemView.findViewById<View>(R.id.iv_delete_board_item) as ImageView
             rv_avatar =
                 itemView.findViewById<View>(R.id.rv_avatars) as RecyclerView
-            itemView.setOnClickListener { view ->
-                view.findNavController().navigate(R.id.action_dashBoardFragment_to_board)
-            }
+
         }
     }
 
