@@ -5,7 +5,7 @@
 
         <variable
             name="allMember"
-            type="i.part.app.course.todo.features.board.ui.SelectMemberItem" />
+            type="i.part.app.course.todo.features.board.ui.SelectMemberView" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
