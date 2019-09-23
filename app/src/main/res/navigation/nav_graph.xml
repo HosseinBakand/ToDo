@@ -22,8 +22,8 @@
         android:name="i.part.app.course.todo.features.user.ui.RegisterFragment"
         android:label="RegisterFragment">
         <action
-            android:id="@+id/action_registerFragment_to_dashBoardFragment"
-            app:destination="@id/dashBoardFragment"
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
