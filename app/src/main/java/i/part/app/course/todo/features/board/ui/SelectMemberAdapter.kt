@@ -3,52 +3,58 @@ package i.part.app.course.todo.features.board.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.CheckBox
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import i.part.app.course.todo.R
 import i.part.app.course.todo.databinding.ItemSelectMemberBinding
 
 
-class SelectMemberAdapter(
-    private val list: List<SelectMemberItem>
-) :
-    RecyclerView.Adapter<SelectMemberAdapter.ViewHolder1>() {
+private object SelectMemberAdapterCallback : DiffUtil.ItemCallback<SelectMemberView>(){
+    override fun areItemsTheSame(oldItem: SelectMemberView, newItem: SelectMemberView): Boolean {
+        return (oldItem.name == newItem.name)
+    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder1 {
+    override fun areContentsTheSame(oldItem: SelectMemberView, newItem: SelectMemberView): Boolean {
+        return (oldItem.imageUrl == newItem.imageUrl && oldItem.name == newItem.name && oldItem.ischeck == newItem.ischeck)
+    }
+}
+
+class SelectMemberAdapter
+    : ListAdapter<SelectMemberView, SelectMemberAdapter.ViewHolder>(SelectMemberAdapterCallback) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
         lateinit var mBinding: ItemSelectMemberBinding
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.item_select_member, parent, false)
-        val myBindedView = mBinding.root
-        return ViewHolder1(mBinding)
+        return ViewHolder(mBinding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder1, position: Int) {
-        val item = list[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.binding.allMember = item
 
-
-        holder.checkbox.setOnCheckedChangeListener { _, isChecked -> item.ischeck = isChecked }
-        holder.itemView.setOnClickListener {
-            item.ischeck = !holder.checkbox.isChecked
-            holder.checkbox.isChecked = !holder.checkbox.isChecked
+        holder.binding.cbAddMember3.setOnCheckedChangeListener { _, checked ->
+            item.ischeck = checked
         }
 
-        holder.mbinding.allMember = item
+        holder.itemView.setOnClickListener {
+            holder.binding.cbAddMember3.performClick()
+        }
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+    class ViewHolder(val binding: ItemSelectMemberBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-    class ViewHolder1(val mbinding: ItemSelectMemberBinding) :
-        RecyclerView.ViewHolder(mbinding.root) {
-
-        var checkbox: CheckBox =
-            itemView.findViewById(R.id.cb_add_member_3)
-
-
+    fun getItems(): List<AddMemberView> {
+        val list = mutableListOf<AddMemberView>()
+        for (i in 0 until itemCount)
+            if (getItem(i).ischeck)
+                list.add(AddMemberView(getItem(i).imageUrl, getItem(i).name))
+        return list
     }
 }
 
