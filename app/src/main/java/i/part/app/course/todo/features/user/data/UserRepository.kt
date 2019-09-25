@@ -36,4 +36,35 @@ class UserRepository {
         })
         return result
     }
+
+    fun login(userParam: LoginParam): MutableLiveData<Result<LoginResponse?>> {
+        var result = MutableLiveData<Result<LoginResponse?>>()
+        //result.value = Result.Loading<>
+        val call: Call<LoginResponse>? = userServices?.loginUser(userParam)
+        call?.enqueue(object : Callback<LoginResponse> {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                result.value = Result.Error("ConnectionError", null)
+            }
+
+            override fun onResponse(
+                call: Call<LoginResponse>,
+                response: Response<LoginResponse>
+            ) {
+                if (response.isSuccessful) {
+                    result.value = Result.Success(response.body())
+                } else if (response.code() == 400) {
+                    if (response.message().contains("Bad Request")) {
+                        result.value = Result.Error("Password Not Verified")
+                    }
+                } else if (response.code() == 404) {
+                    if (response.message() == "Not Found") {
+                        result.value = Result.Error("Not Found")
+                    }
+                }
+            }
+
+        })
+        return result
+
+    }
 }

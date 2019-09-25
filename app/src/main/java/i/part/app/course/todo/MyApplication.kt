@@ -14,12 +14,6 @@ class MyApplication : Application() {
         getToken()
     }
 
-    fun saveToken(token: String) {
-        val editor = getSharedPreferences("myPref", Context.MODE_PRIVATE).edit()
-        editor.putString("myToken", token)
-        editor.apply()
-        TOKEN = token
-    }
 
     fun getToken() {
         val prefs = getSharedPreferences("myPref", Context.MODE_PRIVATE)
