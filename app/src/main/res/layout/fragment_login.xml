@@ -69,6 +69,7 @@
                             android:id="@+id/tiet_login_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="pie@test.com"
                             android:background="@color/white"
                             android:nextFocusDown="@id/tiet_login_password"
                             android:drawableStart="@drawable/ic_mail"
@@ -97,6 +98,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tiet_login_password"
+                            android:text="Aa123456"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionDone"
@@ -124,6 +126,7 @@
                         android:letterSpacing="0.01"
                         android:text="@string/login_register_button"
                         android:textAlignment="center"
+                        android:enabled="false"
                         android:textAllCaps="false"
                         android:textColor="@color/primaryText"
                         android:textSize="14sp"
