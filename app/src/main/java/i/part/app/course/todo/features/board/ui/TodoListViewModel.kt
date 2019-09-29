@@ -6,174 +6,61 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Window
 import android.widget.ImageButton
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.material.button.MaterialButton
 import i.part.app.course.todo.R
+import i.part.app.course.todo.core.api.Result
+import i.part.app.course.todo.features.board.data.*
 
 
 class TodoListViewModel : ViewModel() {
-    private val _todolists = MutableLiveData<List<TodoListView>>()
-    val todolists: LiveData<List<TodoListView>>
-        get() = _todolists
+    private var _addTodoListResponse = MutableLiveData<Result<AddTodoListResponse?>>()
+    val addTodoListResponse: MutableLiveData<Result<AddTodoListResponse?>>
+        get() = _addTodoListResponse
 
-    fun getTodoLists() {
-        _todolists.value = loadTodoLists()
+    private var _editTodoListResponse = MutableLiveData<Result<EditTodoListResponse?>>()
+    val editTodoListResponse: MutableLiveData<Result<EditTodoListResponse?>>
+        get() = _editTodoListResponse
+
+    private var _todoLists = MutableLiveData<Result<ThisBoardTodoListResponse?>>()
+    val todoLists: MutableLiveData<Result<ThisBoardTodoListResponse?>>
+        get() = _todoLists
+
+    private var _addTask = MutableLiveData<Result<AddTaskResponse?>>()
+    val addTask: MutableLiveData<Result<AddTaskResponse?>>
+        get() = _addTask
+
+    private var _addTaskChanged = MutableLiveData<Boolean>()
+    val addTaskChanged: MutableLiveData<Boolean>
+        get() = _addTaskChanged
+
+    val repository = BoardRepository()
+
+    fun getTodoLists(boardID: Int) {
+        _todoLists = repository.loadTodoLists(boardID)
     }
 
-    fun editToDoListName(myTodoListView: TodoListView, newName: String) {
-        todolists.value?.indexOf(myTodoListView)?.let { index ->
-            var firstHalf = todolists.value?.slice(0..index - 1)
-            var listSize = (todolists.value?.size)
-            listSize?.let { listSize ->
-                var secondHalf = todolists.value?.slice(index + 1..listSize - 1)
-                myTodoListView.todoListName = newName
-                firstHalf = firstHalf?.plus(myTodoListView)
-                var finalList = mutableListOf<TodoListView>()
-                firstHalf?.let {
-                    finalList.addAll(it)
-                    secondHalf?.let { ss ->
-                        finalList.addAll(ss)
-                        _todolists.value = finalList
-                    }
-                }
-            }
-            //index.let { todolists.value?.get(it)?.todoListName = newName }
+    fun editToDoListName(id: Int, newName: String) {
+        _editTodoListResponse = repository.editTodoList(newName, id)
+    }
+
+    fun addTask(id: Int, addTaskParam: AddTaskParam) {
+        _addTask = repository.addTask(id = id, addTaskParam = addTaskParam)
+        addTaskChanged.value?.let {
+            _addTaskChanged.value = !(it)
         }
     }
 
-    fun addTask(myTodoListViewPosition: Int, mySubTaskView: SubTaskView) {
-        myTodoListViewPosition.let { index ->
-            var firstHalf = todolists.value?.slice(0..index - 1)
-            var listSize = (todolists.value?.size)
-            listSize?.let { listSize ->
-                var secondHalf = todolists.value?.slice(index + 1..listSize - 1)
-                //myTodoListView.subtasks. = newName
-                var temp = todolists.value?.get(myTodoListViewPosition)
-                temp?.subtasks?.add(mySubTaskView)
-                temp?.let { t -> firstHalf = firstHalf?.plus(t) }
-                var finalList = mutableListOf<TodoListView>()
-                firstHalf?.let {
-                    finalList.addAll(it)
-                    secondHalf?.let { ss ->
-                        finalList.addAll(ss)
-                        _todolists.value = finalList
-                    }
-                }
-            }
-            //index.let { todolists.value?.get(it)?.todoListName = newName }
-        }
-    }
-
-    fun addTodoList(name: String) {
-        val buttonTemp =
-            TodoListView(TodoListType.ADD_TODOLIST_BUTTON, "button", mutableListOf())
-        _todolists.value?.let { list ->
-            _todolists.value = list.minus(list.get(list.size - 1))
-        }
-
-        _todolists.value = _todolists.value?.plus(
-            TodoListView(
-                TodoListType.TODOLIST,
-                name,
-                mutableListOf()
-            )
-        )
-        _todolists.value = _todolists.value?.plus(buttonTemp)
-        //notifyItemInserted(position-1)
-        //notifyItemRangeChanged(position-1,itemCount)
-        //dialog.dismiss()
-        //recyclerView.scrollToPosition(position)
+    fun editTask(id: Int, addTaskParam: AddTaskParam) {
+        repository.editTask(id = id, addTaskParam = addTaskParam)
 
     }
 
-    private fun loadTodoLists(): MutableList<TodoListView> {
-        val fakeLink =
-            "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
-        val todoListViews: ArrayList<TodoListView> = ArrayList()
-        todoListViews.apply {
-            add(
-                TodoListView(
-                    TodoListType.TODOLIST,
-                    "poker",
-                    mutableListOf(
-                        SubTaskView("this is a good subtask", fakeLink),
-                        SubTaskView("this is a nasty subtask", fakeLink),
-                        SubTaskView("todo", fakeLink),
-                        SubTaskView("nice subtask!", fakeLink)
-                    )
-                )
-            )
-            add(
-                TodoListView(
-                    TodoListType.TODOLIST,
-                    "joker",
-                    mutableListOf(
-                        SubTaskView("this is a good subtask", fakeLink),
-                        SubTaskView("todo", fakeLink),
-                        SubTaskView("nice subtask!", fakeLink)
-                    )
-                )
-            )
-            add(
-                TodoListView(
-                    TodoListType.TODOLIST,
-                    "stalker",
-                    mutableListOf(
-                        SubTaskView("this is a good subtask", fakeLink),
-                        SubTaskView("this is a nasty subtask", fakeLink),
-                        SubTaskView("todo", fakeLink)
-                    )
-                )
-            )
-            add(
-                TodoListView(
-                    TodoListType.TODOLIST,
-                    "walker",
-                    mutableListOf(
-                        SubTaskView("this is a good subtask", fakeLink),
-                        SubTaskView("nice subtask!", fakeLink)
-                    )
-                )
-            )
-            add(
-                TodoListView(
-                    TodoListType.TODOLIST,
-                    "nasty jobs todolist",
-                    mutableListOf(
-                        SubTaskView("this is a good subtask", fakeLink),
-                        SubTaskView("this is a nasty subtask", fakeLink),
-                        SubTaskView("Good one", fakeLink),
-                        SubTaskView("harsh one", fakeLink),
-                        SubTaskView("hard one", fakeLink),
-                        SubTaskView("impossible one", fakeLink),
-                        SubTaskView("nice subtask!", fakeLink)
-                    )
-                )
-            )
-            add(
-                TodoListView(
-                    TodoListType.TODOLIST,
-                    "kill bill",
-                    mutableListOf(
-                        SubTaskView("this is a good subtask", fakeLink),
-                        SubTaskView("this is a nasty subtask", fakeLink),
-                        SubTaskView("todo", fakeLink),
-                        SubTaskView("nice subtask!", fakeLink)
-                    )
-                )
-            )
-            add(
-                TodoListView(
-                    TodoListType.ADD_TODOLIST_BUTTON,
-                    "button",
-                    mutableListOf()
-                )
-            )
-        }
-        return todoListViews
+    fun addTodoList(name: String, boardId: Int) {
+        _addTodoListResponse = repository.addTodoList(name, boardId)
     }
+
 
     fun onEditClicked(dialog: Dialog) {
         dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)

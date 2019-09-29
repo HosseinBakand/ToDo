@@ -35,7 +35,8 @@ private object TodoListRecyclerAdapterCallback : DiffUtil.ItemCallback<TodoListV
 class TodoListRecyclerAdapter(
     val callback: MyTodoListCallback
 ) :
-    ListAdapter<TodoListView, RecyclerView.ViewHolder>(TodoListRecyclerAdapterCallback) {
+    ListAdapter<TodoListView, RecyclerView.ViewHolder>(TodoListRecyclerAdapterCallback),
+    SubTaskRecyclerAdapter.MyTaskListCallback {
     lateinit var view: View
     lateinit var context: Context
     lateinit var recyclerView: RecyclerView
@@ -105,6 +106,25 @@ class TodoListRecyclerAdapter(
         }
     }
 
+    override fun submitList(list: MutableList<TodoListView>?) {
+        list?.sortBy { it.id }
+        list?.add(
+            TodoListView(
+                -1,
+                TodoListType.ADD_TODOLIST_BUTTON,
+                "button",
+                mutableListOf(),
+                -1
+
+            )
+        )
+        super.submitList(list)
+    }
+
+    override fun checkTask(taskId: Int, state: Boolean, description: String) {
+        callback.checkTask(taskId, state, description)
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is TodoListViewHolder) {
             //used in the listener for add task
@@ -115,7 +135,8 @@ class TodoListRecyclerAdapter(
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
             val subTaskRecyclerAdapter = SubTaskRecyclerAdapter(
                 getItem(position).subtasks,
-                holder.allTasksDoneTextView
+                holder.allTasksDoneTextView,
+                this
             )
             holder.subTaskRecyclerView.adapter = subTaskRecyclerAdapter
             holder.editImageView.setOnClickListener {
@@ -124,7 +145,7 @@ class TodoListRecyclerAdapter(
 
 
             holder.addTaskButton.setOnClickListener {
-                callback.addTask(position)
+                callback.addTask(getItem(position).id)
             }
         }
         else if(holder is AddToDoListButtonViewHolder){
@@ -142,9 +163,14 @@ class TodoListRecyclerAdapter(
         return RecyclerView.NO_ID
     }
 
+    fun getItemView(position: Int): TodoListView {
+        return getItem(position)
+    }
+
     interface MyTodoListCallback {
-        fun addTask(position: Int)
+        fun addTask(id: Int)
         fun editTodoListName(todoListView: TodoListView)
         fun addTodoList()
+        fun checkTask(taskId: Int, state: Boolean, description: String)
     }
 }

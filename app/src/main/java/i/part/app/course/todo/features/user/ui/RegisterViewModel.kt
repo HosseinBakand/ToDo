@@ -82,8 +82,4 @@ class RegisterViewModel : ViewModel() {
         else "Password should contain at least 8 character"
     }
 
-    fun exist_email(email: String): Boolean {
-        //TODO is not implement
-        return false
-    }
 }
