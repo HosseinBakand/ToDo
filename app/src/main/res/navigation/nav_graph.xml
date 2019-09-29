@@ -74,7 +74,8 @@
             app:destination="@id/addMember2" />
         <action
             android:id="@+id/action_board_to_dashBoardFragment"
-            app:destination="@id/dashBoardFragment" />
+            app:popUpTo="@id/board"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/addMember2"

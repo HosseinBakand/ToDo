@@ -34,10 +34,10 @@ fun loadCirularImage(view: ImageView, imageUrl: String) {
 fun setLabelStatus(view: TextView, status: BoardStatusEnum) {
     if (status == BoardStatusEnum.ToDo) {
         view.setBackgroundResource(R.drawable.round_red_label)
-        view.text = "Todo"
+        view.text = BoardStatusEnum.ToDo.name
     } else {
         view.setBackgroundResource(R.drawable.round_green_label)
-        view.text = "Done"
+        view.text = BoardStatusEnum.Done.name
     }
 
 }

@@ -2,15 +2,15 @@ package i.part.app.course.todo.features.user.data
 
 import androidx.lifecycle.MutableLiveData
 import i.part.app.course.todo.core.api.Result
-import i.part.app.course.todo.core.api.retrofitFactory
+import i.part.app.course.todo.core.api.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
 class UserRepository {
-    val retrofit = retrofitFactory.getRetrofit()
-    val userServices = retrofit?.create(UserServices::class.java)
+    private val retrofit = RetrofitFactory.getRetrofit()
+    private val userServices = retrofit?.create(UserServices::class.java)
 
 
     fun register(userParam: RegisterParam): MutableLiveData<Result<RegisterResponse?>> {

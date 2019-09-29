@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.databinding.DialogAddTaskBinding
+import i.part.app.course.todo.features.board.data.AddTaskParam
 import kotlinx.android.synthetic.main.dialog_add_task.*
 import java.util.*
 
@@ -56,12 +57,15 @@ class AddTaskFragment : DialogFragment() {
         ib_add_task_close.setOnClickListener { this.dismiss() }
 
         btn_add_task_confirm.setOnClickListener {
-            val fakeLink =
-                "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
-            var mySubTask = SubTaskView(dialog?.et_add_task_task_name?.text.toString(), fakeLink)
+
             arguments?.let {
-                taskViewModel.addTask(it.getInt("toDoListViewPosition"), mySubTask)
+                taskViewModel.addTask(
+                    it.getInt("TaskID"),
+                    AddTaskParam(description = dialog?.et_add_task_task_name?.text.toString())
+                )
+                taskViewModel.addTaskChanged.value = true
             }
+            //TODO complete this part
             this.dismiss()
         }
 
@@ -72,12 +76,13 @@ class AddTaskFragment : DialogFragment() {
             this.findNavController()
                 .navigate(R.id.action_addTaskFragment_to_addMember2, myBundle)
         }
+
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()
-        rv_add_task_avatars.let { it.setHasFixedSize(true) }
+        rv_add_task_avatars.setHasFixedSize(true)
         val overlap: OverlapDecoration = OverlapDecoration()
         rv_add_task_avatars.addItemDecoration(overlap)
         avatarManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
-        rv_add_task_avatars.let { it.layoutManager = avatarManager }
+        rv_add_task_avatars.layoutManager = avatarManager
 
         val fakeLink: String =
             "https://www.shareicon.net/download/2016/05/24/770136_man_512x512.png"

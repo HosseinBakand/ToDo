@@ -14,20 +14,14 @@ import i.part.app.course.todo.databinding.ItemSubtaskBinding
 
 class SubTaskRecyclerAdapter(
     private val subtasks: MutableList<SubTaskView>,
-    private val allTasksDone: TextView
+    private val allTasksDone: TextView,
+    val callBack: MyTaskListCallback
 ) :
-RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {
+    RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {
     lateinit var view:View
     var checkedTasks = 0
+
     lateinit var mBinding: ItemSubtaskBinding
-    init {
-        subtasks.forEach {
-            if(it.isCompleted)
-                checkedTasks++
-        }
-    }
-
-
 
 
     inner class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView) {
@@ -50,7 +44,7 @@ RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         mBinding.subtask =subtasks[position]
-        holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+        holder.checkBox.setOnCheckedChangeListener { _, _ ->
             if (holder.checkBox.isChecked) {
                 checkedTasks++
                 if (checkedTasks == itemCount) {
@@ -61,6 +55,15 @@ RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {
                 allTasksDone.visibility = TextView.GONE
             }
             subtasks[position].isCompleted = holder.checkBox.isChecked
+            callBack.checkTask(
+                subtasks[position].id,
+                holder.checkBox.isChecked,
+                subtasks[position].subTaskDescription
+            )
         }
+    }
+
+    interface MyTaskListCallback {
+        fun checkTask(taskId: Int, state: Boolean, description: String)
     }
 }
