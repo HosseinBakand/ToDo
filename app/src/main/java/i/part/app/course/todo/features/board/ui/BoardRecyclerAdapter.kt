@@ -28,7 +28,6 @@ private object Callback : DiffUtil.ItemCallback<BoardView>() {
     override fun areContentsTheSame(oldItem: BoardView, newItem: BoardView): Boolean {
         return (oldItem == newItem && oldItem.imageUrl == newItem.imageUrl)
     }
-
 }
 
 
@@ -73,7 +72,7 @@ class BoardRecyclerAdapter(
         }
         holder.itemView.setOnClickListener { view ->
             val myBundle = Bundle()
-            myBundle.putString("boardName", getItem(position).name)
+            myBundle.putInt("boardId", getItem(position).id)
             view.findNavController().navigate(R.id.action_dashBoardFragment_to_board, myBundle)
         }
         val overlap: OverlapDecoration = OverlapDecoration()
@@ -112,7 +111,6 @@ class BoardRecyclerAdapter(
 
     interface MyCallback {
         fun deleteBoard(item: BoardView)
-
     }
 
 }

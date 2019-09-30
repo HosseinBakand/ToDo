@@ -5,6 +5,12 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface BoardServices {
+
+    @GET("/api/todo")
+    fun getCurrentTodos(
+        @Header("Authorization") token: String = MyApplication.TOKEN as String
+    ): Call<List<TodoSpecification>>
+
     @GET("/api/boards/todosof/{boardID}")
     fun getAllTodoList(
         @Path("boardID") boardID: Int,
@@ -56,4 +62,33 @@ interface BoardServices {
         @Header("Authorization") token: String = MyApplication.TOKEN as String,
         @Body addTask: AddTaskParam
     ): Call<EditTaskResponse>
+    @GET("boards")
+    fun getBoards(
+        @Header("Authorization") token: String = MyApplication.TOKEN as String
+    ): Call<List<BoardResponse>>
+
+    @POST("boards")
+    fun createBoard(
+        @Header("Authorization") token: String = MyApplication.TOKEN as String,
+        @Body newBoardParam: NewBoardParam
+    ): Call<NewBoardResponse>
+
+    @GET("boards/{id}")
+    fun getBoardById(
+        @Header("Authorization") token: String = MyApplication.TOKEN as String,
+        @Path("id") id: Int
+    ): Call<BoardDetailResponse>
+
+    @PUT("boards/{id}")
+    fun updateBoardTitle(
+        @Header("Authorization") token: String = MyApplication.TOKEN as String,
+        @Path("id") id: Int,
+        @Body updateBoardParam: UpdateBoardParam
+    ): Call<UpdateBoardResponse>
+
+    @DELETE("boards/{id}")
+    fun deleteBoardById(
+        @Header("Authorization") token: String = MyApplication.TOKEN as String,
+        @Path("id") id: Int
+    ): Call<DeleteBoardResponse>
 }

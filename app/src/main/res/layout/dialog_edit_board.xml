@@ -70,7 +70,6 @@
                     android:orientation="vertical"
 
                     >
-
                     <EditText
                         android:id="@+id/et_edit_board_name"
                         android:layout_width="match_parent"

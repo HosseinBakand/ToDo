@@ -23,7 +23,7 @@ class AddMember : Fragment() {
     lateinit var list: ArrayList<AddMemberView>
     private val addMemberViewModel by lazy {
         activity?.let {
-            ViewModelProviders.of(it).get(AddMemberViewModel::class.java)
+            ViewModelProviders.of(activity as FragmentActivity).get(AddMemberViewModel::class.java)
         }
     }
 

@@ -12,7 +12,6 @@ class UserRepository {
     private val retrofit = RetrofitFactory.getRetrofit()
     private val userServices = retrofit?.create(UserServices::class.java)
 
-
     fun register(userParam: RegisterParam): MutableLiveData<Result<RegisterResponse?>> {
         var result = MutableLiveData<Result<RegisterResponse?>>()
         //result.value = Result.Loading<>

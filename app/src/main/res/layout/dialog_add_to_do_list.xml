@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/dialog_round_edge"
-    tools:context=".features.board.ui.Add_board">
+    tools:context=".features.board.ui.AddBoardDialogFragment">
 
 
     <RelativeLayout
