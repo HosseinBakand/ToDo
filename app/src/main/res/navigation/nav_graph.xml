@@ -33,8 +33,8 @@
         android:label="fragment_dash_board"
         tools:layout="@layout/fragment_dash_board">
         <argument
-            android:name="boardName"
-            app:argType="string" />
+            android:name="boardId"
+            app:argType="integer" />
         <action
             android:id="@+id/action_dashBoardFragment_to_board"
             app:destination="@id/board" />
@@ -43,7 +43,7 @@
             app:destination="@id/profile" />
         <action
             android:id="@+id/action_dashBoardFragment_to_add_board"
-            app:destination="@id/add_board" />
+            app:destination="@id/add_board"></action>
         <action
             android:id="@+id/action_dashBoardFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -62,7 +62,16 @@
         android:label="Board">
         <argument
             android:name="toDoListViewPosition"
-            app:argType="integer"></argument>
+            app:argType="integer" />
+        <argument
+            android:name="boardName"
+            app:argType="string" />
+        <argument
+            android:name="ownerName"
+            app:argType="string" />
+        <argument
+            android:name="boardId"
+            app:argType="integer" />
         <action
             android:id="@+id/action_board_to_edit_board"
             app:destination="@id/edit_board" />
@@ -136,14 +145,20 @@
         <argument
             android:name="fragmentType"
             app:argType="string" />
+        <argument
+            android:name="boardId"
+            app:argType="integer" />
         <action
             android:id="@+id/action_edit_board_to_addMember2"
             app:destination="@id/addMember2" />
+        <action
+            android:id="@+id/action_edit_board_to_board"
+            app:destination="@id/board" />
 
     </dialog>
     <dialog
         android:id="@+id/add_board"
-        android:name="i.part.app.course.todo.features.board.ui.Add_board"
+        android:name="i.part.app.course.todo.features.board.ui.AddBoardDialogFragment"
         android:label="delete_page"
         tools:layout="@layout/dialog_delete_page">
         <argument

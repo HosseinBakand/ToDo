@@ -12,22 +12,26 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
+import i.part.app.course.todo.core.api.Result
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.databinding.DialogAddBoardBinding
 import kotlinx.android.synthetic.main.dialog_add_board.*
 import java.util.*
 
-class Add_board : DialogFragment() {
+class AddBoardDialogFragment : DialogFragment() {
     var avatarManager: RecyclerView.LayoutManager? = null
     var avatarAdapter: RecyclerView.Adapter<*>? = null
+    lateinit var myView: View
     lateinit var binding: DialogAddBoardBinding
-    val boardViewModel by lazy {
+    private val boardViewModel by lazy {
         activity?.let {
             ViewModelProviders.of(activity as FragmentActivity).get(DashBoardViewModel::class.java)
         }
@@ -39,6 +43,8 @@ class Add_board : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_add_board, container, false)
+        myView = binding.root
+
         return binding.root
     }
 
@@ -48,7 +54,6 @@ class Add_board : DialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.setCanceledOnTouchOutside(false)
 
-        super.onActivityCreated(savedInstanceState)
         ib_add_board_close.setOnClickListener {
             this.dismiss()
         }
@@ -59,33 +64,26 @@ class Add_board : DialogFragment() {
         }
 
         btn_add_board_confirm.setOnClickListener {
-            if (et_add_board_name.text.length != 0) {
-                val board = BoardView(
-                    et_add_board_name.text.toString(),
-                    "0",
-                    "0",
-                    "0",
-                    BoardStatusEnum.ToDo,
-                    "https://img.freepik.com/free-vector/colorful-watercolor-background_79603-99.jpg?size=626&ext=jpg"
-                )
+            val boardName = et_add_board_name.text.toString()
+            if (boardName.isNotEmpty()) {
+                val board = BoardView(title = boardName)
                 boardViewModel?.addBoard(board)
-                this.dismiss()
+                observeAddBoard()
             } else {
                 Toast.makeText(context, "Board should have name", Toast.LENGTH_SHORT).show()
             }
         }
-
         //recycle
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()
 
-        rv_avatars.let { it.setHasFixedSize(true) }
-        val overlap: OverlapDecoration = OverlapDecoration()
+        rv_avatars.setHasFixedSize(true)
+        val overlap = OverlapDecoration()
         rv_avatars.addItemDecoration(overlap)
         avatarManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
-        rv_avatars.let { it.layoutManager = avatarManager }
+        rv_avatars.layoutManager = avatarManager
 
         //start generating fake data
-        val fakeLink: String =
+        val fakeLink =
             "https://www.shareicon.net/download/2016/05/24/770136_man_512x512.png"
         myAvatarViews.add(AvatarView(fakeLink))
         myAvatarViews.add(AvatarView(fakeLink))
@@ -98,16 +96,46 @@ class Add_board : DialogFragment() {
         context?.let { avatarAdapter = AvatarRecyclerAdapter(myAvatarViews, picasso, true) }
 
 
-        var addBoardViewModel = AddBoardView(
+        val addBoardViewModel = AddBoardView(
             "Vahid Safari",
             "https://img.freepik.com/free-vector/colorful-watercolor-background_79603-99.jpg?size=626&ext=jpg",
             "vahidImage.jpg"
         )
         binding.newBoardDetail = addBoardViewModel
+        rv_avatars.adapter = avatarAdapter
+        super.onActivityCreated(savedInstanceState)
+    }
 
+    private fun observeAddBoard() {
+        boardViewModel?.addBoardLiveData?.observe(this, Observer {
+            when (it) {
+                is Result.Success -> {
+                    this.dismiss()
+                    boardViewModel?.updateBoardStatus()
+                }
+                is Result.Error -> {
+                    this.dismiss()
+                    showSnackBar(
+                        myView,
+                        it.message,
+                        Snackbar.LENGTH_INDEFINITE,
+                        "ERROR"
+                    )
+                }
+                is Result.Loading -> {
+                    Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
 
-        rv_avatars.let { it.adapter = avatarAdapter }
-
+    private fun showSnackBar(view: View, message: String, duration: Int, type: String) {
+        val snackBar = Snackbar.make(view, message, duration)
+        snackBar.setActionTextColor(Color.YELLOW)
+        snackBar.setAction("Refresh") {
+            boardViewModel?.getBoards()
+        }
+        snackBar.show()
     }
 
 }

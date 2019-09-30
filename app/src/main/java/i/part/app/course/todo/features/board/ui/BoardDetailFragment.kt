@@ -29,12 +29,18 @@ import kotlinx.android.synthetic.main.dialog_add_to_do_list.*
 import kotlinx.android.synthetic.main.dialog_edit_todolist_name.*
 import kotlinx.android.synthetic.main.fragment_board.*
 
-
 class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallback {
-
     lateinit var dialog: Dialog
-    val boardId = 311
-    private val todoListViews: ArrayList<TodoListView> = ArrayList()
+    lateinit var boardOwner: String
+    private var boardId: Int = 0
+    private val boardViewModel by lazy {
+        activity?.let {
+            ViewModelProviders.of(activity as FragmentActivity).get(DashBoardViewModel::class.java)
+        }
+    }
+
+
+    val todoListViews: ArrayList<TodoListView> = ArrayList()
     private val viewModel by lazy {
         activity?.let {
             ViewModelProviders.of(activity as FragmentActivity)[TodoListViewModel::class.java]
@@ -57,6 +63,32 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mt_board.title = arguments?.getString("boardName")
+        boardId = arguments?.getInt("boardId") ?: -1
+        mt_board.title = ""
+        boardId.let {
+            boardViewModel?.getBoardById(boardId)
+            boardViewModel?.getBoardByIdLiveData?.observe(this, Observer {
+                when (it) {
+                    is Result.Success -> {
+                        mt_board.title = it.data?.result?.get(0)?.title
+                        boardOwner = it.data?.result?.get(0)?.owner_name ?: ""
+                    }
+                    is Result.Error -> {
+                        showSnackBar(
+                            inflatedView,
+                            it.message,
+                            Snackbar.LENGTH_INDEFINITE,
+                            "ERROR"
+                        )
+                    }
+                    is Result.Loading -> {
+                        Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+
+        }
+
         viewModel?.getTodoLists(boardId)
         adapter = TodoListRecyclerAdapter(this)
         rv_board_fragment.adapter = adapter
@@ -83,11 +115,10 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
                 popup.show()
             }
         }
-
         sr_todo_list.setOnRefreshListener {
             viewModel?.getTodoLists(boardId)
             val handler = Handler()
-            handler.postDelayed(Runnable {
+            handler.postDelayed({
                 if (sr_todo_list.isRefreshing) {
                     sr_todo_list.isRefreshing = false
                 }
@@ -97,7 +128,11 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
 
         iv_edit_board_button?.let {
             it.setOnClickListener {
-                inflatedView.findNavController().navigate(R.id.action_board_to_edit_board)
+                val myBundle = Bundle()
+                myBundle.putString("boardName", mt_board.title.toString())
+                myBundle.putString("ownerName", boardOwner)
+                myBundle.putInt("boardId", boardId)
+                inflatedView.findNavController().navigate(R.id.action_board_to_edit_board, myBundle)
 
             }
         }
@@ -120,6 +155,16 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         mt_board.setNavigationOnClickListener {
             this.findNavController().navigate(R.id.action_board_to_dashBoardFragment)
         }
+        super.onActivityCreated(savedInstanceState)
+    }
+
+    private fun showSnackBar(view: View, message: String, duration: Int, type: String) {
+        val snackBar = Snackbar.make(view, message, duration)
+        snackBar.setActionTextColor(Color.YELLOW)
+        snackBar.setAction("Refresh") {
+            boardViewModel?.getBoards()
+        }
+        snackBar.show()
     }
 
     override fun addTodoList() {
@@ -164,7 +209,7 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         dialog.et_edit_todolist_name.setText(todoListView.todoListName)
         dialog.et_edit_todolist_name.setSelectAllOnFocus(true)
         dialog.et_edit_todolist_name.setTextColor(resources.getColor(R.color.black))
-        dialog.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         val okButton = dialog.findViewById<MaterialButton>(R.id.btn_edit_todolist_confirm)
         okButton?.setOnClickListener {
             viewModel?.editToDoListName(

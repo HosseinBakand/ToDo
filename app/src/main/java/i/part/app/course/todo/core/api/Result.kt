@@ -9,7 +9,6 @@ sealed class Result<out T> {
     @Keep
     data class Success<out T>(val data: T) : Result<T>()
 
-
     @Keep
     data class Error<out T>(val message: String, val data: T? = null) : Result<T>()
 
