@@ -66,19 +66,19 @@ class BoardRepository {
     }
 
 
-    fun getTasks(todoListId: Int): MutableLiveData<Result<List<TaskResponse>?>> {
-        var result = MutableLiveData<Result<List<TaskResponse>?>>()
+    fun getTasks(todoListId: Int): MutableLiveData<Result<List<TaskEntity>?>> {
+        var result = MutableLiveData<Result<List<TaskEntity>?>>()
         //result.value = Result.Loading<>
-        val call: Call<List<TaskResponse>>? =
-            boardServices?.getTasks(id = todoListId)//TODO board id shoud be give
-        call?.enqueue(object : Callback<List<TaskResponse>> {
-            override fun onFailure(call: Call<List<TaskResponse>>, t: Throwable) {
+        val call: Call<List<TaskEntity>>? =
+            boardServices?.getTasks(id = todoListId)
+        call?.enqueue(object : Callback<List<TaskEntity>> {
+            override fun onFailure(call: Call<List<TaskEntity>>, t: Throwable) {
                 result.value = Result.Error("ConnectionError", null)
             }
 
             override fun onResponse(
-                call: Call<List<TaskResponse>>,
-                response: Response<List<TaskResponse>>
+                call: Call<List<TaskEntity>>,
+                response: Response<List<TaskEntity>>
             ) {
                 if (response.isSuccessful) {
                     result.value = Result.Success(response.body())

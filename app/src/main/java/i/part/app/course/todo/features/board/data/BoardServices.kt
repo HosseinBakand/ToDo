@@ -21,7 +21,7 @@ interface BoardServices {
     fun getTasks(
         @Path("id") id: Int,
         @Header("Authorization") token: String = MyApplication.TOKEN as String
-    ): Call<List<TaskResponse>>
+    ): Call<List<TaskEntity>>
 
     @POST("todo/{boardID}")
     fun createTodoList(
@@ -41,13 +41,13 @@ interface BoardServices {
     fun deleteTodoList(
         @Path("id") id: Int,
         @Header("Authorization") token: String = MyApplication.TOKEN as String
-    ): Call<List<TaskResponse>>
+    ): Call<List<TaskEntity>>
 
     @GET("todo/{id}")
     fun getTodoList(
         @Path("id") id: Int,
         @Header("Authorization") token: String = MyApplication.TOKEN as String
-    ): Call<List<TaskResponse>>
+    ): Call<List<TaskEntity>>
 
     @POST("tasks/{todoID}")
     fun addTask(
