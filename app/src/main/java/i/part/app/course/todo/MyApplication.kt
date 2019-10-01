@@ -2,6 +2,7 @@ package i.part.app.course.todo
 
 import android.app.Application
 import android.content.Context
+import i.part.app.course.todo.core.db.TodoDatabase
 
 
 class MyApplication : Application() {
@@ -12,6 +13,7 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         getToken()
+        TodoDatabase.init(this)
     }
 
 

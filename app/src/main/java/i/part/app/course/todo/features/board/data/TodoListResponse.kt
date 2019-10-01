@@ -5,8 +5,8 @@ import i.part.app.course.todo.features.board.ui.TodoListType
 import i.part.app.course.todo.features.board.ui.TodoListView
 
 data class TodoListResponse(
-    val todo: TodoResponse,
-    val tasks: List<TaskResponse>
+    val todo: TodoEntity,
+    val tasks: List<TaskEntity>
 ) {
     fun toTodoListView() = TodoListView(
         id = todo.id,

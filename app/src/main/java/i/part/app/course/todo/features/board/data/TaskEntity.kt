@@ -1,8 +1,12 @@
 package i.part.app.course.todo.features.board.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import i.part.app.course.todo.features.board.ui.SubTaskView
 
-data class TaskResponse(
+@Entity
+data class TaskEntity(
+    @PrimaryKey
     val id: Int,
     val description: String,
     val done: Boolean,
