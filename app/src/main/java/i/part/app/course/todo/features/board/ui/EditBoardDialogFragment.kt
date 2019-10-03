@@ -66,6 +66,11 @@ class EditBoardDialogFragment : DialogFragment() {
         ib_edit_board_plus.setOnClickListener {
             val fragmentType: String? = "edit_board"
             val myBundle = bundleOf("fragmentType" to fragmentType)
+            arguments?.let {
+                myBundle.putInt("boardID", it.getInt("boardID"))
+                myBundle.putString("boardName", arguments?.getString("boardName"))
+            }
+
             this.findNavController().navigate(R.id.action_edit_board_to_addMember2, myBundle)
         }
 
@@ -73,7 +78,7 @@ class EditBoardDialogFragment : DialogFragment() {
             if (et_edit_board_name != null && et_edit_board_name.text.isNotEmpty()) {
                 boardViewModel?.updateBoardTitle(
                     BoardView(
-                        id = arguments?.getInt("boardId") ?: -1,
+                        id = arguments?.getInt("boardID") ?: -1,
                         title = et_edit_board_name.text.toString()
                     )
                 )
@@ -81,13 +86,13 @@ class EditBoardDialogFragment : DialogFragment() {
                     when (it) {
                         is Result.Success -> {
                             val myBundle = Bundle()
-                            myBundle.putInt("boardId", arguments?.getInt("boardId") ?: -1)
+                            myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
                             this.findNavController()
                                 .navigate(R.id.action_edit_board_to_board, myBundle)
                         }
                         is Result.Error -> {
                             val myBundle = Bundle()
-                            myBundle.putInt("boardId", arguments?.getInt("boardId") ?: -1)
+                            myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
                             this.findNavController()
                                 .navigate(R.id.action_edit_board_to_board, myBundle)
                             showSnackBar(

@@ -16,21 +16,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.api.Result
-import i.part.app.course.todo.features.board.data.AddUserParam
 import i.part.app.course.todo.features.board.data.BoardMemberResponse
 import kotlinx.android.synthetic.main.dialog_select_member.*
 
-class SelectMemberDialogFragment : DialogFragment() {
+class SelectMemberForTaskDialogFragment : DialogFragment(), ClickCallBack {
     lateinit var layoutManager: RecyclerView.LayoutManager
-    lateinit var list: ArrayList<SelectMemberView>
-    val tempView: MutableList<SelectMemberView> = mutableListOf()
     var boardId = 0
-    private lateinit var mAdapter: SelectMemberAdapter
+    val tempView: MutableList<SelectMemberView> = mutableListOf()
+    private lateinit var mAdapter: SelectSingleMemberAdapter
     private val addMemberViewModel by lazy {
         activity?.let {
             ViewModelProviders.of(activity as FragmentActivity).get(AddMemberViewModel::class.java)
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,14 +48,14 @@ class SelectMemberDialogFragment : DialogFragment() {
         arguments?.let {
             boardId = it.getInt("boardID")
         }
-
-        addMemberViewModel?.loadAllusers()
-        mAdapter = SelectMemberAdapter()
-        addMemberViewModel?.allUsers?.observe(viewLifecycleOwner, Observer {
+        //addMemberViewModel?.loadBoardMember(boardId)
+        mAdapter = SelectSingleMemberAdapter(this)
+///
+        addMemberViewModel?.contactList2?.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Result.Success -> {
                     it.data
-                    val templist: List<BoardMemberResponse>? = it.data?.toList()
+                    val templist: List<BoardMemberResponse>? = it.data?.result
                     templist?.let {
                         for (i in 0..templist.size - 1) {
                             tempView.add(
@@ -73,38 +72,39 @@ class SelectMemberDialogFragment : DialogFragment() {
                 }
             }
 
-
-
         })
         rv_add_member_3.adapter = mAdapter
         ib_add_member_3_close.setOnClickListener {
-            this.findNavController().navigate(R.id.action_addMember3Fragment_to_addMember2)
+            activity?.onBackPressed()
+            // this.findNavController().navigate(R.id.action_selectMemberForTaskDialogFragment_to_addTaskFragment)
         }
         btn_select_member_confirm.setOnClickListener {
-            var myCheckedList: MutableList<String> = mutableListOf()
-            for (myItem in mAdapter.getItems()) {
-                myCheckedList.add(myItem.name)
-            }
-            var addUserParam = AddUserParam(myCheckedList)
-            addMemberViewModel?.addUsersToBoard(boardId, addUserParam)
-            addMemberViewModel?.addUserToBoardResponse?.observe(viewLifecycleOwner, Observer {
-                when (it) {
-                    is Result.Success -> {
-                        if (it.data?.message.equals("added member")) {
-                            val myBundle = Bundle()
-                            myBundle.putInt("boardID", boardId)
-                            addMemberViewModel?.updateMemberStatus()
-                            this.findNavController()
-                                .navigate(R.id.action_addMember3Fragment_to_addMember2, myBundle)
-                        }
-                    }
-                    is Result.Error -> {
-                    }
-                }
-            })
-
             //addMemberViewModel?.setMembers(mAdapter.getItems())
-
+            for (i in 0..tempView.size - 1) {
+                if (tempView.get(i).ischeck == true) {
+                    val bundle = Bundle()
+                    bundle.putString("todoListName", arguments?.get("todoListName") as String)
+                    bundle.putString("userName", tempView.get(i).name)
+                    bundle.putInt("boardID", arguments?.get("boardID") as Int)
+                    bundle.putInt("TaskID", arguments?.get("TaskID") as Int)
+                    bundle.putString("userImageUrl", tempView.get(i).imageUrl)
+                    this.findNavController().navigate(
+                        R.id.action_selectMemberForTaskDialogFragment_to_addTaskFragment,
+                        bundle
+                    )
+                }
+            }
         }
     }
+
+    override fun getList(list: List<SelectMemberView>) {
+        mAdapter.submitList(list)
+        mAdapter.notifyDataSetChanged()
+    }
+
+
+    override fun getBoardMember() {
+        //addMemberViewModel?.getMembers()
+    }
+
 }

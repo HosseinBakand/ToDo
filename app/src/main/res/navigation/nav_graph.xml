@@ -33,7 +33,7 @@
         android:label="fragment_dash_board"
         tools:layout="@layout/fragment_dash_board">
         <argument
-            android:name="boardId"
+            android:name="boardID"
             app:argType="integer" />
         <action
             android:id="@+id/action_dashBoardFragment_to_board"
@@ -70,7 +70,7 @@
             android:name="ownerName"
             app:argType="string" />
         <argument
-            android:name="boardId"
+            android:name="boardID"
             app:argType="integer" />
         <action
             android:id="@+id/action_board_to_edit_board"
@@ -133,8 +133,11 @@
             android:name="fragmentType"
             app:argType="string" />
         <action
-            android:id="@+id/action_addTaskFragment_to_addMember2"
-            app:destination="@id/addMember2" />
+            android:id="@+id/action_addTaskFragment_to_selectMemberForTaskDialogFragment"
+            app:destination="@id/selectMemberForTaskDialogFragment" />
+        <action
+            android:id="@+id/action_addTaskFragment_to_board"
+            app:popUpTo="@+id/board" />
 
     </dialog>
     <dialog
@@ -146,7 +149,7 @@
             android:name="fragmentType"
             app:argType="string" />
         <argument
-            android:name="boardId"
+            android:name="boardID"
             app:argType="integer" />
         <action
             android:id="@+id/action_edit_board_to_addMember2"
@@ -168,5 +171,15 @@
             android:id="@+id/action_add_board_to_addMember2"
             app:destination="@id/addMember2" />
 
+    </dialog>
+    <dialog
+        android:id="@+id/selectMemberForTaskDialogFragment"
+        android:name="i.part.app.course.todo.features.board.ui.SelectMemberForTaskDialogFragment"
+        android:label="SelectMemberForTaskDialogFragment">
+        <action
+            android:id="@+id/action_selectMemberForTaskDialogFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment"
+            app:popUpTo="@+id/addTaskFragment"
+            app:popUpToInclusive="true" />
     </dialog>
 </navigation>

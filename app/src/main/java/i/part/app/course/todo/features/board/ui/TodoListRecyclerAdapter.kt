@@ -145,7 +145,7 @@ class TodoListRecyclerAdapter(
 
 
             holder.addTaskButton.setOnClickListener {
-                callback.addTask(getItem(position).id)
+                callback.addTask(getItem(position).id, getItem(position).boardId)
             }
         }
         else if(holder is AddToDoListButtonViewHolder){
@@ -168,7 +168,7 @@ class TodoListRecyclerAdapter(
     }
 
     interface MyTodoListCallback {
-        fun addTask(id: Int)
+        fun addTask(id: Int, boardID: Int)
         fun editTodoListName(todoListView: TodoListView)
         fun addTodoList()
         fun checkTask(taskId: Int, state: Boolean, description: String)

@@ -15,7 +15,6 @@
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/colorAccent"
             android:fontFamily="sans-serif"
-
             android:letterSpacing="0.01"
             android:textColor="@color/primaryText"
             android:textSize="18sp"
