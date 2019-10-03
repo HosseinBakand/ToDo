@@ -1,5 +1,6 @@
 package i.part.app.course.todo.core.api
 
+import i.part.app.course.todo.MyApplication
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,24 +11,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitFactory {
     companion object {
         private var retrofit: Retrofit? = null
-        fun getRetrofit(): Retrofit? {
-            if (retrofit == null) {
-                val intercepter = HttpLoggingInterceptor()
-                intercepter.level = HttpLoggingInterceptor.Level.BODY
-                val okHttpClient = OkHttpClient.Builder()
-                    .addInterceptor { chain ->
-                        val request: Request = chain
-                            .request()
-                            .newBuilder()
-//                            .addHeader("Authorization", "Bearer ${MainActivity.tokenLiveData.value}")
-                            .build()
-                        chain.proceed(request)
-                    }
-                    .addInterceptor(intercepter)
+
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val request: Request = chain
+                    .request()
+                    .newBuilder()
+                    .addHeader("Authorization", "Bearer ${MyApplication.TOKEN}")
                     .build()
+                chain.proceed(request)
+            }
+            .build()
+
+        fun getRetrofit(): Retrofit? {
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+            if (retrofit == null) {
                 retrofit = Builder()
-                    .client(okHttpClient)
                     .baseUrl("http://cadet.todo.partdp.ir/api/")
+                    .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
             }

@@ -13,19 +13,17 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.databinding.DialogAddTaskBinding
 import i.part.app.course.todo.features.board.data.AddTaskParam
 import kotlinx.android.synthetic.main.dialog_add_task.*
-import java.util.*
 
 class AddTaskFragment : DialogFragment() {
     var avatarManager: RecyclerView.LayoutManager? = null
     var avatarAdapter: RecyclerView.Adapter<*>? = null
+    var selectedUserName: String = ""
     lateinit var binding: DialogAddTaskBinding
 
     override fun onCreateView(
@@ -44,24 +42,40 @@ class AddTaskFragment : DialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         binding.lifecycleOwner = this
-        //taskViewModel.getTask()
-        //binding.ownerName = taskViewModel.task.value
-        //taskViewModel.task.observe(this, androidx.lifecycle.Observer { binding.ownerName = it })
-
         dialog?.setTitle("Add BoardDetailFragment")
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.setCanceledOnTouchOutside(false)
         super.onActivityCreated(savedInstanceState)
+        //iv_add_task_avatar
+        arguments?.let {
+            if (it.get("userName") != null) {
+                selectedUserName = it.get("userName") as String
+                dialog?.et_add_task_task_name?.setText(it.get("todoListName") as String)
+                iv_add_task_avatar.visibility = View.VISIBLE
+                Picasso.get().load(it.get("userImageUrl") as String).error(R.drawable.person_empty)
+                    .fit().into(iv_add_task_avatar)
+            }
+        }
 
-        ib_add_task_close.setOnClickListener { this.dismiss() }
+
+        //taskViewModel.getTask()
+        //binding.ownerName = taskViewModel.task.value
+        //taskViewModel.task.observe(this, androidx.lifecycle.Observer { binding.ownerName = it })
+        ib_add_task_close.setOnClickListener {
+            this.findNavController().navigate(R.id.action_addTaskFragment_to_board)
+        }
 
         btn_add_task_confirm.setOnClickListener {
 
             arguments?.let {
                 taskViewModel.addTask(
                     it.getInt("TaskID"),
-                    AddTaskParam(description = dialog?.et_add_task_task_name?.text.toString())
+                    AddTaskParam(
+                        done = false,
+                        description = dialog?.et_add_task_task_name?.text.toString(),
+                        assignee = selectedUserName
+                    )
                 )
                 taskViewModel.addTaskChanged.value = true
             }
@@ -73,28 +87,21 @@ class AddTaskFragment : DialogFragment() {
         ib_add_task_plus.setOnClickListener {
             val fragmentType: String? = "add_task"
             val myBundle = bundleOf("fragmentType" to fragmentType)
+            arguments?.let {
+                myBundle.putInt("boardID", it.getInt("boardID"))
+                myBundle.putInt("TaskID", it.getInt("TaskID"))
+                myBundle.putString("todoListName", dialog?.et_add_task_task_name?.text.toString())
+            }
+
             this.findNavController()
-                .navigate(R.id.action_addTaskFragment_to_addMember2, myBundle)
+                .navigate(
+                    R.id.action_addTaskFragment_to_selectMemberForTaskDialogFragment,
+                    myBundle
+                )
         }
-
-        val myAvatarViews: ArrayList<AvatarView> = ArrayList()
-        rv_add_task_avatars.setHasFixedSize(true)
-        val overlap: OverlapDecoration = OverlapDecoration()
-        rv_add_task_avatars.addItemDecoration(overlap)
-        avatarManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
-        rv_add_task_avatars.layoutManager = avatarManager
-
         val fakeLink: String =
             "https://www.shareicon.net/download/2016/05/24/770136_man_512x512.png"
-        myAvatarViews.add(AvatarView(fakeLink))
-        myAvatarViews.add(AvatarView(fakeLink))
-        myAvatarViews.add(AvatarView(fakeLink))
-        myAvatarViews.add(AvatarView(fakeLink))
-        myAvatarViews.add(AvatarView(fakeLink))
-        myAvatarViews.add(AvatarView(fakeLink))
         val picasso = Picasso.get()
-        context?.let { avatarAdapter = AvatarRecyclerAdapter(myAvatarViews, picasso, true) }
-        rv_add_task_avatars.let { it.adapter = avatarAdapter }
         val mohammad: TaskView = TaskView("Mohammad bahadori")
         binding.ownerName = mohammad
     }

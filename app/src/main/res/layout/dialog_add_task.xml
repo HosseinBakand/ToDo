@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,9 +10,7 @@
             type="i.part.app.course.todo.features.board.ui.TaskView" />
     </data>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_round_edge"
@@ -160,28 +160,26 @@
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:layout_marginLeft="7dp"
-                            android:layout_marginRight="7dp"
                             android:orientation="horizontal"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/ib_add_task_plus"
                             app:layout_constraintStart_toEndOf="@id/tv_add_task_assign_to"
-                            tools:ignore="MissingConstraints">
+                            tools:ignore="MissingConstraints"
+                            tools:layout_editor_absoluteY="0dp">
 
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rv_add_task_avatars"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
+                            <ImageView
+                                android:id="@+id/iv_add_task_avatar"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:visibility="gone"></ImageView>
                         </LinearLayout>
 
                         <ImageButton
                             android:id="@+id/ib_add_task_plus"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
+                            android:layout_marginStart="6dp"
                             android:background="@color/transparent"
                             android:src="@drawable/ic_outline_indeterminate_check_box_24"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_add_task_assign_to"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toEndOf="@+id/ll_add_task_assignees"
                             app:layout_constraintTop_toTopOf="@id/tv_add_task_assign_to"
                             tools:ignore="MissingConstraints" />

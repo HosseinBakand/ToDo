@@ -24,7 +24,6 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.api.Result
-import i.part.app.course.todo.features.board.data.AddTaskParam
 import kotlinx.android.synthetic.main.dialog_add_to_do_list.*
 import kotlinx.android.synthetic.main.dialog_edit_todolist_name.*
 import kotlinx.android.synthetic.main.fragment_board.*
@@ -63,7 +62,7 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mt_board.title = arguments?.getString("boardName")
-        boardId = arguments?.getInt("boardId") ?: -1
+        boardId = arguments?.getInt("boardID") ?: -1
         mt_board.title = ""
         boardId.let {
             boardViewModel?.getBoardById(boardId)
@@ -108,6 +107,7 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
                 popup.setOnMenuItemClickListener {
                     val fragmentType: String? = "board_detail"
                     val myBundle = bundleOf("fragmentType" to fragmentType)
+                    myBundle.putInt("boardID", boardId)
                     inflatedView.findNavController()
                         .navigate(R.id.action_board_to_addMember2, myBundle)
                     true
@@ -131,7 +131,7 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
                 val myBundle = Bundle()
                 myBundle.putString("boardName", mt_board.title.toString())
                 myBundle.putString("ownerName", boardOwner)
-                myBundle.putInt("boardId", boardId)
+                myBundle.putInt("boardID", boardId)
                 inflatedView.findNavController().navigate(R.id.action_board_to_edit_board, myBundle)
 
             }
@@ -188,16 +188,17 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         dialog.show() //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun addTask(id: Int) {
+    override fun addTask(id: Int, boardId: Int) {
         //inflatedView.findNavController().navigate(R.id.action_board_to_addTaskFragment)
         val myBundle = Bundle()
         myBundle.putInt("TaskID", id)
+        myBundle.putInt("boardID", boardId)
         inflatedView.findNavController().navigate(R.id.action_board_to_addTaskFragment, myBundle)
     }
 
     override fun checkTask(taskId: Int, state: Boolean, description: String) {
         //inflatedView.findNavController().navigate(R.id.action_board_to_addTaskFragment)
-        viewModel?.editTask(taskId, AddTaskParam(state, description))
+        //viewModel?.editTask(taskId, AddTaskParam(state, description))
     }
 
     override fun editTodoListName(todoListView: TodoListView) {

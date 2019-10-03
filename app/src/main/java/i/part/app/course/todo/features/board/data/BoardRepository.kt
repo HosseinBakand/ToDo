@@ -1,6 +1,7 @@
 package i.part.app.course.todo.features.board.data
 
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import i.part.app.course.todo.core.api.Result
 import i.part.app.course.todo.core.api.RetrofitFactory
@@ -11,7 +12,9 @@ import retrofit2.Response
 
 class BoardRepository {
     private val retrofit = RetrofitFactory.getRetrofit()
-    private val boardServices = retrofit?.create(BoardServices::class.java)
+    val boardServices = retrofit?.create(BoardServices::class.java)
+
+
 
 
     fun addTodoList(
@@ -58,6 +61,33 @@ class BoardRepository {
             ) {
                 if (response.isSuccessful) {
                     result.value = Result.Success(response.body())
+                }
+            }
+
+        })
+        return result
+    }
+
+    fun setUserToBoard(
+        boardID: Int,
+        addUserParam: AddUserParam
+    ): MutableLiveData<Result<AddUserResponse?>> {
+        val result = MutableLiveData<Result<AddUserResponse?>>()
+        var call: Call<AddUserResponse>? =
+            boardServices?.addUserToBoard(boardID = boardID, addUserParam = addUserParam)
+        call?.enqueue(object : Callback<AddUserResponse> {
+            override fun onFailure(call: Call<AddUserResponse>, t: Throwable) {
+                result.value = Result.Error("ConnectionError", null)
+            }
+
+            override fun onResponse(
+                call: Call<AddUserResponse>,
+                response: Response<AddUserResponse>
+            ) {
+                if (response.isSuccessful) {
+                    result.value = Result.Success(response.body())
+                } else {
+
                 }
             }
 
@@ -138,6 +168,8 @@ class BoardRepository {
             ) {
                 if (response.isSuccessful) {
                     result.value = Result.Success(response.body())
+                } else {
+                    Log.e("a", "a")
                 }
             }
 
@@ -172,6 +204,52 @@ class BoardRepository {
         })
         return result
     }
+
+    fun getBoardMembers(boardID: Int): MutableLiveData<Result<ListResponse<BoardMemberResponse>?>> {
+        val result = MutableLiveData<Result<ListResponse<BoardMemberResponse>?>>()
+        val call: Call<ListResponse<BoardMemberResponse>>? = boardServices?.getBoardMembers(boardID)
+        call?.enqueue(object : Callback<ListResponse<BoardMemberResponse>> {
+            override fun onFailure(call: Call<ListResponse<BoardMemberResponse>>, t: Throwable) {
+                result.value = Result.Error("ConnectionError", null)
+            }
+
+            override fun onResponse(
+                call: Call<ListResponse<BoardMemberResponse>>,
+                response: Response<ListResponse<BoardMemberResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    result.value = Result.Success(response.body())
+                }
+
+            }
+
+        })
+        return result
+    }
+
+
+    fun getAllUsers(): MutableLiveData<Result<List<BoardMemberResponse>?>> {
+        val result = MutableLiveData<Result<List<BoardMemberResponse>?>>()
+        val call: Call<List<BoardMemberResponse>>? = boardServices?.getAllUsers()
+        call?.enqueue(object : Callback<List<BoardMemberResponse>> {
+            override fun onFailure(call: Call<List<BoardMemberResponse>>, t: Throwable) {
+                result.value = Result.Error("ConnectionError", null)
+            }
+
+            override fun onResponse(
+                call: Call<List<BoardMemberResponse>>,
+                response: Response<List<BoardMemberResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    result.value = Result.Success(response.body())
+                }
+
+            }
+
+        })
+        return result
+    }
+
 
     fun getBoards(): MutableLiveData<Result<List<BoardResponse>?>> {
         val result = MutableLiveData<Result<List<BoardResponse>?>>()
