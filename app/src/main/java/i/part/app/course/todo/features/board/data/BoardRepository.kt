@@ -178,13 +178,13 @@ class BoardRepository {
     }
 
     fun editTask(
-        addTaskParam: AddTaskParam,
+        updateTaskParam: UpdateTaskParam,
         id: Int
     ): MutableLiveData<Result<EditTaskResponse?>> {
         val result = MutableLiveData<Result<EditTaskResponse?>>()
         //result.value = Result.Loading<>
         val call: Call<EditTaskResponse>? =
-            boardServices?.editTask(id = id, addTask = addTaskParam)
+            boardServices?.editTask(id = id, updateTaskParam = updateTaskParam)
         call?.enqueue(object : Callback<EditTaskResponse> {
             override fun onFailure(call: Call<EditTaskResponse>, t: Throwable) {
                 result.value = Result.Error("ConnectionError", null)
@@ -254,6 +254,7 @@ class BoardRepository {
     fun getBoards(): MutableLiveData<Result<List<BoardResponse>?>> {
         val result = MutableLiveData<Result<List<BoardResponse>?>>()
         val call: Call<List<BoardResponse>>? = boardServices?.getBoards()
+        result.value = Result.Loading(null)
         call?.enqueue(object : Callback<List<BoardResponse>> {
             override fun onFailure(call: Call<List<BoardResponse>>, t: Throwable) {
                 result.value = Result.Error("Connection error")

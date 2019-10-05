@@ -18,10 +18,10 @@ import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import i.part.app.course.todo.MyApplication
 import i.part.app.course.todo.R
+import i.part.app.course.todo.core.api.Result
 import i.part.app.course.todo.features.user.data.LoginParam
 import kotlinx.android.synthetic.main.dialog_login_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_login.*
-
 
 class LoginFragment : Fragment() {
     lateinit var myView: View
@@ -73,46 +73,46 @@ class LoginFragment : Fragment() {
 
                 //TODO:remove this section for final version
                 //start
-                progressLoginDialog.dismiss()
-                myView.findNavController()
-                    .navigate(R.id.action_loginFragment_to_dashBoardFragment)
+//                progressLoginDialog.dismiss()
+//                myView.findNavController()
+//                    .navigate(R.id.action_loginFragment_to_dashBoardFragment)
                 //end
 
 
                 //TODO:Uncomment this section for final version
                 //start
-//                when (it) {
-//                    is Result.Success -> {
-//                        progressLoginDialog.dismiss()
-//                        myView.findNavController()
-//                            .navigate(R.id.action_loginFragment_to_dashBoardFragment)
-//                        it.data?.let { itdata->
-//                            itdata.token.let { itdatatoken->
-//                                saveToken(itdatatoken)
-//                            }
-//                        }
-//
-//                    }
-//                    is Result.Error -> {
-//                        if (it.message == "Password Not Verified") {
-//                            progressLoginDialog.dismiss()
-//                            showSnackbar(
-//                                myView,
-//                                "Check your password",
-//                                Snackbar.LENGTH_INDEFINITE
-//                            )
-//                        } else if (it.message == "Not Found") {
-//                            progressLoginDialog.dismiss()
-//                            showSnackbar(myView, "User not found!", Snackbar.LENGTH_LONG)
-//                        }else if(it.message=="ConnectionError"){
-//                            progressLoginDialog.dismiss()
-//                            showSnackbar(myView, "Check your network", Snackbar.LENGTH_LONG)
-//                        }
-//                    }
-//                    is Result.Loading -> {
-//
-//                    }
-//              }
+                when (it) {
+                    is Result.Success -> {
+                        progressLoginDialog.dismiss()
+                        myView.findNavController()
+                            .navigate(R.id.action_loginFragment_to_dashBoardFragment)
+                        it.data?.let { itdata ->
+                            itdata.token.let { itdatatoken ->
+                                saveToken(itdatatoken)
+                            }
+                        }
+
+                    }
+                    is Result.Error -> {
+                        if (it.message == "Password Not Verified") {
+                            progressLoginDialog.dismiss()
+                            showSnackbar(
+                                myView,
+                                "Check your password",
+                                Snackbar.LENGTH_LONG
+                            )
+                        } else if (it.message == "Not Found") {
+                            progressLoginDialog.dismiss()
+                            showSnackbar(myView, "User not found!", Snackbar.LENGTH_LONG)
+                        } else if (it.message == "ConnectionError") {
+                            progressLoginDialog.dismiss()
+                            showSnackbar(myView, "Check your network", Snackbar.LENGTH_LONG)
+                        }
+                    }
+                    is Result.Loading -> {
+
+                    }
+                }
 
                 //end
 

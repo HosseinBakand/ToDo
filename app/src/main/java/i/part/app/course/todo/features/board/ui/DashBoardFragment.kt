@@ -131,12 +131,11 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
                     showSnackBar(
                         myView,
                         boardList.message,
-                        Snackbar.LENGTH_INDEFINITE,
+                        Snackbar.LENGTH_LONG,
                         "Connection"
                     )
                 }
                 is Result.Loading -> {
-                    Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -160,12 +159,11 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
                         showSnackBar(
                             myView,
                             it.message,
-                            Snackbar.LENGTH_INDEFINITE,
+                            Snackbar.LENGTH_LONG,
                             "ERROR"
                         )
                     }
                     is Result.Loading -> {
-                        Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
                     }
                 }
             })

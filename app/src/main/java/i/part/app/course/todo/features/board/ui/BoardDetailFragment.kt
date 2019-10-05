@@ -1,6 +1,7 @@
 package i.part.app.course.todo.features.board.ui
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -20,10 +22,15 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
+import com.github.razir.progressbutton.attachTextChangeAnimator
+import com.github.razir.progressbutton.bindProgressButton
+import com.github.razir.progressbutton.showDrawable
+import com.github.razir.progressbutton.showProgress
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.api.Result
+import i.part.app.course.todo.features.board.data.UpdateTaskParam
 import kotlinx.android.synthetic.main.dialog_add_to_do_list.*
 import kotlinx.android.synthetic.main.dialog_edit_todolist_name.*
 import kotlinx.android.synthetic.main.fragment_board.*
@@ -76,12 +83,11 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
                         showSnackBar(
                             inflatedView,
                             it.message,
-                            Snackbar.LENGTH_INDEFINITE,
+                            Snackbar.LENGTH_LONG,
                             "ERROR"
                         )
                     }
                     is Result.Loading -> {
-                        Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
                     }
                 }
             })
@@ -175,9 +181,34 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         dialog.setCanceledOnTouchOutside(false)
         val confirmButton = dialog.findViewById<MaterialButton>(R.id.btn_add_todolist_confirm)
         confirmButton?.setOnClickListener {
-            viewModel?.addTodoList(dialog.et_add_todolist_name.text.toString(), boardId)
-            observeTodoAdd()
-            dialog.dismiss()
+            val btn = dialog.findViewById<MaterialButton>(R.id.btn_add_todolist_confirm)
+            bindProgressButton(btn)
+            btn.showProgress {
+                progressColor = Color.BLACK
+            }
+
+            Handler().postDelayed({
+
+                context?.let {
+                    val animatedDrawable =
+                        ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
+                    animatedDrawable?.setBounds(0, 0, 75, 75)
+                    animatedDrawable?.let { drawable ->
+                        btn.showDrawable(drawable)
+                    }
+                }
+
+                btn.attachTextChangeAnimator {
+                    fadeOutMills = 100
+                    fadeInMills = 100
+                }
+                val h = Handler()
+                h.postDelayed({
+                    viewModel?.addTodoList(dialog.et_add_todolist_name.text.toString(), boardId)
+                    observeTodoAdd()
+                    dialog.dismiss()
+                }, 600)
+            }, 1200)
         }
         confirmButton.onEditorAction(EditorInfo.IME_ACTION_DONE)
         val closeButton = dialog.findViewById<ImageButton>(R.id.ib_add_todolist_close)
@@ -198,7 +229,7 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
 
     override fun checkTask(taskId: Int, state: Boolean, description: String) {
         //inflatedView.findNavController().navigate(R.id.action_board_to_addTaskFragment)
-        //viewModel?.editTask(taskId, AddTaskParam(state, description))
+        viewModel?.editTask(taskId, UpdateTaskParam(state, description))
     }
 
     override fun editTodoListName(todoListView: TodoListView) {

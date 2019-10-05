@@ -1,13 +1,15 @@
 package i.part.app.course.todo.features.board.ui
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -17,6 +19,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.razir.progressbutton.attachTextChangeAnimator
+import com.github.razir.progressbutton.bindProgressButton
+import com.github.razir.progressbutton.showDrawable
+import com.github.razir.progressbutton.showProgress
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
@@ -75,39 +82,64 @@ class EditBoardDialogFragment : DialogFragment() {
         }
 
         btn_edit_board_confirm.setOnClickListener {
-            if (et_edit_board_name != null && et_edit_board_name.text.isNotEmpty()) {
-                boardViewModel?.updateBoardTitle(
-                    BoardView(
-                        id = arguments?.getInt("boardID") ?: -1,
-                        title = et_edit_board_name.text.toString()
-                    )
-                )
-                boardViewModel?.updateBoardTitleLivaData?.observe(this, Observer {
-                    when (it) {
-                        is Result.Success -> {
-                            val myBundle = Bundle()
-                            myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
-                            this.findNavController()
-                                .navigate(R.id.action_edit_board_to_board, myBundle)
-                        }
-                        is Result.Error -> {
-                            val myBundle = Bundle()
-                            myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
-                            this.findNavController()
-                                .navigate(R.id.action_edit_board_to_board, myBundle)
-                            showSnackBar(
-                                myView,
-                                it.message,
-                                Snackbar.LENGTH_INDEFINITE,
-                                "ERROR"
-                            )
-                        }
-                        is Result.Loading -> {
-                            Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                })
+            val btn = myView.findViewById<MaterialButton>(R.id.btn_edit_board_confirm)
+            bindProgressButton(btn)
+            btn.showProgress {
+                progressColor = Color.BLACK
             }
+
+            Handler().postDelayed({
+
+                context?.let {
+                    val animatedDrawable =
+                        ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
+                    animatedDrawable?.setBounds(0, 0, 75, 75)
+                    animatedDrawable?.let { drawable ->
+                        btn.showDrawable(drawable)
+                    }
+                }
+
+                btn.attachTextChangeAnimator {
+                    fadeOutMills = 100
+                    fadeInMills = 100
+                }
+                val h = Handler()
+                h.postDelayed({
+                    if (et_edit_board_name != null && et_edit_board_name.text.isNotEmpty()) {
+                        boardViewModel?.updateBoardTitle(
+                            BoardView(
+                                id = arguments?.getInt("boardID") ?: -1,
+                                title = et_edit_board_name.text.toString()
+                            )
+                        )
+                        boardViewModel?.updateBoardTitleLivaData?.observe(this, Observer {
+                            when (it) {
+                                is Result.Success -> {
+                                    val myBundle = Bundle()
+                                    myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
+                                    this.findNavController()
+                                        .navigate(R.id.action_edit_board_to_board, myBundle)
+                                }
+                                is Result.Error -> {
+                                    val myBundle = Bundle()
+                                    myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
+                                    this.findNavController()
+                                        .navigate(R.id.action_edit_board_to_board, myBundle)
+                                    showSnackBar(
+                                        myView,
+                                        it.message,
+                                        Snackbar.LENGTH_LONG,
+                                        "ERROR"
+                                    )
+                                }
+                                is Result.Loading -> {
+                                }
+                            }
+                        })
+                    }
+                    this.dismiss()
+                }, 600)
+            }, 1200)
         }
 
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()

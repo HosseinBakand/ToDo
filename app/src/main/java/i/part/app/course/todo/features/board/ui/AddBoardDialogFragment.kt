@@ -1,13 +1,16 @@
 package i.part.app.course.todo.features.board.ui
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -17,6 +20,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.razir.progressbutton.attachTextChangeAnimator
+import com.github.razir.progressbutton.bindProgressButton
+import com.github.razir.progressbutton.showDrawable
+import com.github.razir.progressbutton.showProgress
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
@@ -110,20 +118,46 @@ class AddBoardDialogFragment : DialogFragment() {
         boardViewModel?.addBoardLiveData?.observe(this, Observer {
             when (it) {
                 is Result.Success -> {
-                    this.dismiss()
-                    boardViewModel?.updateBoardStatus()
+                    val btn = myView.findViewById<MaterialButton>(R.id.btn_add_board_confirm)
+                    bindProgressButton(btn)
+                    btn.showProgress {
+                        progressColor = Color.BLACK
+                    }
+
+                    Handler().postDelayed({
+
+                        context?.let {
+                            val animatedDrawable = ContextCompat.getDrawable(
+                                context as Context,
+                                R.drawable.animated_check
+                            )
+                            animatedDrawable?.setBounds(0, 0, 75, 75)
+                            animatedDrawable?.let { drawable ->
+                                btn.showDrawable(drawable)
+                            }
+                        }
+
+                        btn.attachTextChangeAnimator {
+                            fadeOutMills = 100
+                            fadeInMills = 100
+                        }
+                        val h = Handler()
+                        h.postDelayed({
+                            this.dismiss()
+                            boardViewModel?.updateBoardStatus()
+                        }, 600)
+                    }, 1200)
                 }
                 is Result.Error -> {
                     this.dismiss()
                     showSnackBar(
                         myView,
                         it.message,
-                        Snackbar.LENGTH_INDEFINITE,
+                        Snackbar.LENGTH_LONG,
                         "ERROR"
                     )
                 }
                 is Result.Loading -> {
-                    Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
                 }
             }
         })

@@ -141,7 +141,7 @@ class RegisterFragment : Fragment() {
                             showSnackbar(
                                 myView,
                                 "Please Check your network",
-                                Snackbar.LENGTH_INDEFINITE,
+                                Snackbar.LENGTH_LONG,
                                 "Connection"
                             )
                         } else if (it.message == "Exist") {
