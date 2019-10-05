@@ -99,4 +99,10 @@ interface BoardServices {
     fun deleteBoardById(
         @Path("id") id: Int
     ): Call<DeleteBoardResponse>
+
+
+    @DELETE("boards/removeMember/{boardID}-{username}")
+    fun removeMemberfromBoard(
+        @Path("boardID") boardID: Int, @Path("username") username: String
+    ): Call<RemoveMemberResponse>
 }

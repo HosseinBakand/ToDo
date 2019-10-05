@@ -15,8 +15,6 @@ class BoardRepository {
     val boardServices = retrofit?.create(BoardServices::class.java)
 
 
-
-
     fun addTodoList(
         todoListName: String,
         boardId: Int
@@ -75,6 +73,7 @@ class BoardRepository {
         val result = MutableLiveData<Result<AddUserResponse?>>()
         var call: Call<AddUserResponse>? =
             boardServices?.addUserToBoard(boardID = boardID, addUserParam = addUserParam)
+        result.value = Result.Error(" before request")
         call?.enqueue(object : Callback<AddUserResponse> {
             override fun onFailure(call: Call<AddUserResponse>, t: Throwable) {
                 result.value = Result.Error("ConnectionError", null)
@@ -84,10 +83,9 @@ class BoardRepository {
                 call: Call<AddUserResponse>,
                 response: Response<AddUserResponse>
             ) {
-                if (response.isSuccessful) {
-                    result.value = Result.Success(response.body())
-                } else {
-
+                when {
+                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    else -> result.value = Result.Error("Invalid request")
                 }
             }
 
@@ -388,6 +386,32 @@ class BoardRepository {
                     else -> result.value = Result.Error("Invalid request")
                 }
             }
+        })
+        return result
+    }
+
+    fun removeMemberFromBoard(
+        boardID: Int,
+        userName: String
+    ): MutableLiveData<Result<RemoveMemberResponse?>> {
+        val result = MutableLiveData<Result<RemoveMemberResponse?>>()
+        val call: Call<RemoveMemberResponse>? =
+            boardServices?.removeMemberfromBoard(boardID = boardID, username = userName)
+        call?.enqueue(object : Callback<RemoveMemberResponse> {
+            override fun onFailure(call: Call<RemoveMemberResponse>, t: Throwable) {
+                result.value = Result.Error("ConnectionError", null)
+            }
+
+            override fun onResponse(
+                call: Call<RemoveMemberResponse>,
+                response: Response<RemoveMemberResponse>
+            ) {
+                when {
+                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    else -> result.value = Result.Error("Invalid request")
+                }
+            }
+
         })
         return result
     }

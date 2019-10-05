@@ -2,6 +2,7 @@ package i.part.app.course.todo.features.board.ui
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,15 +73,50 @@ class AddMember : Fragment() {
 //
 //        })
         mAdapter = AddMemberAdapter { addMemberView ->
-            addMemberViewModel?.removeMember(addMemberView)
+            addMemberViewModel?.removeMember(boardID, addMemberView)
+            addMemberViewModel?.removeMemberFromBoardResponse?.observe(
+                viewLifecycleOwner,
+                Observer {
+                    when (it) {
+                        is Result.Success -> {
+                            addMemberViewModel?.loadBoardMember(boardID)
+                            addMemberViewModel?.contactList2?.observe(viewLifecycleOwner, Observer {
+                                when (it) {
+                                    is Result.Success -> {
+                                        it.data
+                                        val templist: List<BoardMemberResponse>? = it.data?.result
+                                        templist?.let {
+                                            tempView = mutableListOf()
+                                            for (i in 0..templist.size - 1) {
+                                                tempView.add(
+                                                    AddMemberView(
+                                                        templist[i].profile_pic,
+                                                        templist[i].name
+                                                    )
+                                                )
+                                            }
+                                            mAdapter.submitList(tempView)
+                                            //mAdapter.notifyDataSetChanged()
+                                        }
+                                    }
+                                }
+
+                            })
+                        }
+                        is Result.Error -> {
+                            Log.e("", "")
+                        }
+                    }
+                })
         }
+
+
         recyclerView.adapter = mAdapter
         addMemberViewModel?.isMembersUpdated?.observe(viewLifecycleOwner, Observer {
             addMemberViewModel?.loadBoardMember(boardID)
             addMemberViewModel?.contactList2?.observe(viewLifecycleOwner, Observer {
                 when (it) {
                     is Result.Success -> {
-                        it.data
                         val templist: List<BoardMemberResponse>? = it.data?.result
                         templist?.let {
                             tempView = mutableListOf()
@@ -104,7 +140,7 @@ class AddMember : Fragment() {
             mAdapter.submitList(it)
         })
         btn_add_member.setOnClickListener {
-            addMemberViewModel?.setChosenContacts()
+            //TODO: addMemberViewModel?.setChosenContacts()
             val myBundle = Bundle()
             arguments?.let {
                 myBundle.putInt("boardID", it.getInt("boardID"))
@@ -135,6 +171,7 @@ class AddMember : Fragment() {
                 )
             }
         }
+
     }
 
 }

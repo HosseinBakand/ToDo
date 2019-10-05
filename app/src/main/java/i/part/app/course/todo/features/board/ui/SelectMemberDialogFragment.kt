@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.dialog_select_member.*
 class SelectMemberDialogFragment : DialogFragment() {
     lateinit var layoutManager: RecyclerView.LayoutManager
     lateinit var list: ArrayList<SelectMemberView>
-    val tempView: MutableList<SelectMemberView> = mutableListOf()
+    var tempView: MutableList<SelectMemberView> = mutableListOf()
     var boardId = 0
     private lateinit var mAdapter: SelectMemberAdapter
     private val addMemberViewModel by lazy {
@@ -58,6 +58,7 @@ class SelectMemberDialogFragment : DialogFragment() {
                     it.data
                     val templist: List<BoardMemberResponse>? = it.data?.toList()
                     templist?.let {
+                        tempView = mutableListOf()
                         for (i in 0..templist.size - 1) {
                             tempView.add(
                                 SelectMemberView(
@@ -72,9 +73,6 @@ class SelectMemberDialogFragment : DialogFragment() {
                     }
                 }
             }
-
-
-
         })
         rv_add_member_3.adapter = mAdapter
         ib_add_member_3_close.setOnClickListener {
@@ -102,6 +100,7 @@ class SelectMemberDialogFragment : DialogFragment() {
                     }
                 }
             })
+
 
             //addMemberViewModel?.setMembers(mAdapter.getItems())
 
