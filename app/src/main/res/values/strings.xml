@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Todo</string>
+    <string name="app_name">Pie</string>
     <string name="add_member_title_text">Add Member</string>
     <string name="addBoardConfirmButton">Confirm</string>
     <string name="addBoardBrowseButton">Browse</string>

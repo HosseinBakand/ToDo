@@ -52,8 +52,8 @@ class TodoListViewModel : ViewModel() {
         }
     }
 
-    fun editTask(id: Int, addTaskParam: AddTaskParam) {
-        repository.editTask(id = id, addTaskParam = addTaskParam)
+    fun editTask(id: Int, updateTaskParam: UpdateTaskParam) {
+        repository.editTask(id = id, updateTaskParam = updateTaskParam)
 
     }
 

@@ -1,28 +1,40 @@
 package i.part.app.course.todo.features.board.ui
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.razir.progressbutton.attachTextChangeAnimator
+import com.github.razir.progressbutton.bindProgressButton
+import com.github.razir.progressbutton.showDrawable
+import com.github.razir.progressbutton.showProgress
+import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
+import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.databinding.DialogAddTaskBinding
 import i.part.app.course.todo.features.board.data.AddTaskParam
 import kotlinx.android.synthetic.main.dialog_add_task.*
+import java.util.*
 
 class AddTaskFragment : DialogFragment() {
     var avatarManager: RecyclerView.LayoutManager? = null
     var avatarAdapter: RecyclerView.Adapter<*>? = null
+    private lateinit var myView: View
     var selectedUserName: String = ""
     lateinit var binding: DialogAddTaskBinding
 
@@ -31,6 +43,7 @@ class AddTaskFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_add_task, container, false)
+        myView = binding.root
         return binding.root
     }
 
@@ -68,19 +81,43 @@ class AddTaskFragment : DialogFragment() {
 
         btn_add_task_confirm.setOnClickListener {
 
-            arguments?.let {
-                taskViewModel.addTask(
-                    it.getInt("TaskID"),
-                    AddTaskParam(
-                        done = false,
-                        description = dialog?.et_add_task_task_name?.text.toString(),
-                        assignee = selectedUserName
-                    )
-                )
-                taskViewModel.addTaskChanged.value = true
+            val btn = myView.findViewById<MaterialButton>(R.id.btn_add_task_confirm)
+            bindProgressButton(btn)
+            btn.showProgress {
+                progressColor = Color.BLACK
             }
-            //TODO complete this part
-            this.dismiss()
+
+            Handler().postDelayed({
+
+                context?.let {
+                    val animatedDrawable =
+                        ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
+                    animatedDrawable?.setBounds(0, 0, 75, 75)
+                    animatedDrawable?.let { drawable ->
+                        btn.showDrawable(drawable)
+                    }
+                }
+
+                btn.attachTextChangeAnimator {
+                    fadeOutMills = 100
+                    fadeInMills = 100
+                }
+                val h = Handler()
+                h.postDelayed({
+                    arguments?.let {
+                        taskViewModel.addTask(
+                            it.getInt("TaskID"),
+                            AddTaskParam(
+                                done = false,
+                                description = dialog?.et_add_task_task_name?.text.toString(),
+                                assignee = selectedUserName
+                            )
+                        )
+                        taskViewModel.addTaskChanged.value = true
+                    }
+                    this.dismiss()
+                }, 600)
+            }, 1200)
         }
 
 

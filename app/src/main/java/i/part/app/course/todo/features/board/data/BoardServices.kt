@@ -52,7 +52,7 @@ interface BoardServices {
     @PUT("tasks/{id}")
     fun editTask(
         @Path("id") id: Int,
-        @Body addTask: AddTaskParam
+        @Body updateTaskParam: UpdateTaskParam
     ): Call<EditTaskResponse>
 
     @GET("tasks/assignee/{memberID}")
