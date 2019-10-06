@@ -155,7 +155,6 @@ class LoginFragment : Fragment() {
         snackbar.setAction("Try againg") {
             //try to recconect
         }
-
         snackbar.show()
     }
 

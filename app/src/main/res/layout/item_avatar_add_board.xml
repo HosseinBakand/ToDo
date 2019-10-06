@@ -17,6 +17,7 @@
             android:id="@+id/im_avatar"
             imageUrlForCircular="@{myAvatar.image_url}"
             android:layout_width="30dp"
+            android:src="@drawable/person_empty"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

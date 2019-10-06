@@ -1,7 +1,6 @@
 package i.part.app.course.todo.features.board.data
 
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import i.part.app.course.todo.core.api.Result
 import i.part.app.course.todo.core.api.RetrofitFactory
@@ -20,7 +19,6 @@ class BoardRepository {
         boardId: Int
     ): MutableLiveData<Result<AddTodoListResponse?>> {
         val result = MutableLiveData<Result<AddTodoListResponse?>>()
-        //result.value = Result.Loading<>
         val call: Call<AddTodoListResponse>? = boardServices?.createTodoList(
             boardID = boardId,
             title = AddTodoListParam(todoListName)
@@ -34,9 +32,9 @@ class BoardRepository {
                 call: Call<AddTodoListResponse>,
                 response: Response<AddTodoListResponse>
             ) {
-                if (response.isSuccessful) {
-                    result.value = Result.Success(response.body())
-//                    (result.value as Result.Success).data?.todoListName = todoListName
+                when {
+                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    else -> result.value = Result.Error("Invalid request")
                 }
             }
 
@@ -57,8 +55,9 @@ class BoardRepository {
                 call: Call<ThisBoardTodoListResponse>,
                 response: Response<ThisBoardTodoListResponse?>
             ) {
-                if (response.isSuccessful) {
-                    result.value = Result.Success(response.body())
+                when {
+                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    else -> result.value = Result.Error("Invalid request")
                 }
             }
 
@@ -108,8 +107,9 @@ class BoardRepository {
                 call: Call<List<TaskEntity>>,
                 response: Response<List<TaskEntity>>
             ) {
-                if (response.isSuccessful) {
-                    result.value = Result.Success(response.body())
+                when {
+                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    else -> result.value = Result.Error("Invalid request")
                 }
             }
 
@@ -136,10 +136,9 @@ class BoardRepository {
                 call: Call<EditTodoListResponse>,
                 response: Response<EditTodoListResponse>
             ) {
-                if (response.isSuccessful) {
-                    result.value = Result.Success(response.body())
-                } else if (response.code() == 500) {
-                    result.value = Result.Error("ServerError")
+                when {
+                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    else -> result.value = Result.Error("Invalid request")
                 }
             }
 
@@ -164,10 +163,9 @@ class BoardRepository {
                 call: Call<AddTaskResponse>,
                 response: Response<AddTaskResponse>
             ) {
-                if (response.isSuccessful) {
-                    result.value = Result.Success(response.body())
-                } else {
-                    Log.e("a", "a")
+                when {
+                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    else -> result.value = Result.Error("Invalid request")
                 }
             }
 
@@ -192,10 +190,9 @@ class BoardRepository {
                 call: Call<EditTaskResponse>,
                 response: Response<EditTaskResponse>
             ) {
-                if (response.isSuccessful) {
-                    result.value = Result.Success(response.body())
-                } else if (response.code() == 500) {
-                    result.value = Result.Error("ServerError")
+                when {
+                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    else -> result.value = Result.Error("Invalid request")
                 }
             }
 
@@ -215,8 +212,9 @@ class BoardRepository {
                 call: Call<ListResponse<BoardMemberResponse>>,
                 response: Response<ListResponse<BoardMemberResponse>>
             ) {
-                if (response.isSuccessful) {
-                    result.value = Result.Success(response.body())
+                when {
+                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    else -> result.value = Result.Error("Invalid request")
                 }
 
             }
@@ -238,8 +236,9 @@ class BoardRepository {
                 call: Call<List<BoardMemberResponse>>,
                 response: Response<List<BoardMemberResponse>>
             ) {
-                if (response.isSuccessful) {
-                    result.value = Result.Success(response.body())
+                when {
+                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    else -> result.value = Result.Error("Invalid request")
                 }
 
             }

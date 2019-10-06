@@ -34,10 +34,16 @@ class AddMemberViewModel:ViewModel() {
         get() = _removeMemberFromBoardResponse
 
 
+    private var _selectedMembers = MutableLiveData<List<String>>()
+    val selectedMembers: LiveData<List<String>>
+        get() = _selectedMembers
+
 
     private var _isMembersUpdated = MutableLiveData<Boolean>()
     val isMembersUpdated: LiveData<Boolean>
         get() = _isMembersUpdated
+
+    val alreadMember = mutableListOf<BoardMemberResponse>()
 
 
     fun updateMemberStatus() {
@@ -49,7 +55,16 @@ class AddMemberViewModel:ViewModel() {
         _removeMemberFromBoardResponse = repository.removeMemberFromBoard(boardID, member.name)
     }
 
-fun addUsersToBoard(boardID: Int, addUserParam: AddUserParam) {
+    fun reSet() {
+        _selectedMembers = MutableLiveData<List<String>>()
+    }
+
+
+    fun setSelectedMembers(myList: List<String>) {
+        _selectedMembers.value = myList
+    }
+
+    fun addUsersToBoard(boardID: Int, addUserParam: AddUserParam) {
     _addUserToBoardResponse = repository.setUserToBoard(boardID, addUserParam)
 }
 //    fun setChosenContacts() {

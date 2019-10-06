@@ -54,87 +54,16 @@ class AddMember : Fragment() {
             }
         }
         //View Model
-        //addMemberViewModel?.loadBoardMember(boardID)
-
-
-//        addMemberViewModel?.contactList2?.observe(viewLifecycleOwner, Observer {
-//            when (it) {
-//                is Result.Success -> {
-//                    it.data
-//                    val templist: List<BoardMemberResponse>? = it.data?.result
-//                    templist?.let {
-//                        for (i in 0..templist.size - 1) {
-//                            tempView.add(AddMemberView(templist[i].profile_pic, templist[i].name))
-//                        }
-//                        mAdapter.submitList(tempView)
-//                    }
-//                }
-//            }
-//
-//        })
+        addMemberViewModel?.loadBoardMember(boardID)
+        observeContactList2()
         mAdapter = AddMemberAdapter { addMemberView ->
             addMemberViewModel?.removeMember(boardID, addMemberView)
-            addMemberViewModel?.removeMemberFromBoardResponse?.observe(
-                viewLifecycleOwner,
-                Observer {
-                    when (it) {
-                        is Result.Success -> {
-                            addMemberViewModel?.loadBoardMember(boardID)
-                            addMemberViewModel?.contactList2?.observe(viewLifecycleOwner, Observer {
-                                when (it) {
-                                    is Result.Success -> {
-                                        it.data
-                                        val templist: List<BoardMemberResponse>? = it.data?.result
-                                        templist?.let {
-                                            tempView = mutableListOf()
-                                            for (i in 0..templist.size - 1) {
-                                                tempView.add(
-                                                    AddMemberView(
-                                                        templist[i].profile_pic,
-                                                        templist[i].name
-                                                    )
-                                                )
-                                            }
-                                            mAdapter.submitList(tempView)
-                                            //mAdapter.notifyDataSetChanged()
-                                        }
-                                    }
-                                }
-
-                            })
-                        }
-                        is Result.Error -> {
-                            Log.e("", "")
-                        }
-                    }
-                })
+            observeRemoveMemberResponse()
         }
-
-
         recyclerView.adapter = mAdapter
-        addMemberViewModel?.isMembersUpdated?.observe(viewLifecycleOwner, Observer {
-            addMemberViewModel?.loadBoardMember(boardID)
-            addMemberViewModel?.contactList2?.observe(viewLifecycleOwner, Observer {
-                when (it) {
-                    is Result.Success -> {
-                        val templist: List<BoardMemberResponse>? = it.data?.result
-                        templist?.let {
-                            tempView = mutableListOf()
-                            for (i in 0..templist.size - 1) {
-                                tempView.add(
-                                    AddMemberView(
-                                        templist[i].profile_pic,
-                                        templist[i].name
-                                    )
-                                )
-                            }
-                            mAdapter.submitList(tempView)
-                        }
-                    }
-                }
+        observeSelectedMembers()
 
-            })
-        })
+        observeIsMemberUpdated()
 
         addMemberViewModel?.memberList?.observe(this, Observer {
             mAdapter.submitList(it)
@@ -143,7 +72,12 @@ class AddMember : Fragment() {
             //TODO: addMemberViewModel?.setChosenContacts()
             val myBundle = Bundle()
             arguments?.let {
-                myBundle.putInt("boardID", it.getInt("boardID"))
+                myBundle.putString("boardName", boardName)
+                if (it.getInt("boardID") != 0) {
+                    myBundle.putInt("boardID", it.getInt("boardID"))
+                } else {
+                    myBundle.putBoolean("newBoard", true)
+                }
             }
             this.findNavController()
                 .navigate(R.id.action_addMember2_to_addMember3Fragment, myBundle)
@@ -151,16 +85,20 @@ class AddMember : Fragment() {
         }
         mt_add_member_2.setNavigationOnClickListener {
             when (arguments?.getString("fragmentType")) {
-                "add_board" -> this.findNavController().navigate(
-                    R.id.action_addMember2_to_add_board
-                )
+                //addmember to addboardFragment
+                "add_board" -> {
+                    val myBundle = Bundle()
+                    myBundle.putString("boardName", boardName)
+                    this.findNavController().navigate(
+                        R.id.action_addMember2_to_add_board, myBundle
+                    )
+                }
                 "edit_board" -> {
                     val myBundle = Bundle()
                     myBundle.putString("boardName", boardName)
                     myBundle.putInt("boardID", boardID)
                     this.findNavController().navigate(
-                        R.id.action_addMember2_to_edit_board
-                        , myBundle
+                        R.id.action_addMember2_to_edit_board, myBundle
                     )
                 }
                 "add_task" -> this.findNavController().navigate(
@@ -172,6 +110,94 @@ class AddMember : Fragment() {
             }
         }
 
+    }
+
+    private fun observeSelectedMembers() {
+        addMemberViewModel?.selectedMembers?.observe(viewLifecycleOwner, Observer {
+            val fakeLink =
+                "https://www.shareicon.net/download/2016/05/24/770136_man_512x512.png"
+            tempView = mutableListOf()
+            for (i in it) {
+                tempView.add(
+                    AddMemberView(
+                        fakeLink,
+                        i
+                    )
+                )
+            }
+            if (arguments?.getString("fragmentType").equals("add_board")) {
+                mAdapter.submitList(tempView)
+            }
+
+        })
+    }
+
+    private fun observeContactList2() {
+        addMemberViewModel?.contactList2?.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Result.Success -> {
+                    it.data
+                    val templist: List<BoardMemberResponse>? = it.data?.result
+                    templist?.let {
+                        tempView = mutableListOf()
+                        addMemberViewModel?.alreadMember?.clear()
+                        for (i in 0..templist.size - 1) {
+                            addMemberViewModel?.alreadMember?.add(templist[i])
+                            tempView.add(AddMemberView(templist[i].profile_pic, templist[i].name))
+                        }
+
+                        mAdapter.submitList(tempView)
+                    }
+                }
+            }
+
+        })
+    }
+
+    private fun observeIsMemberUpdated() {
+        addMemberViewModel?.isMembersUpdated?.observe(viewLifecycleOwner, Observer {
+            addMemberViewModel?.loadBoardMember(boardID)
+            observeContactList2()
+        })
+    }
+
+    private fun observeRemoveMemberResponse() {
+        addMemberViewModel?.removeMemberFromBoardResponse?.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it) {
+                    is Result.Success -> {
+                        addMemberViewModel?.loadBoardMember(boardID)
+                        addMemberViewModel?.alreadMember?.clear()
+                        addMemberViewModel?.contactList2?.observe(viewLifecycleOwner, Observer {
+                            when (it) {
+                                is Result.Success -> {
+                                    it.data
+                                    val templist: List<BoardMemberResponse>? = it.data?.result
+                                    templist?.let {
+                                        tempView = mutableListOf()
+                                        for (i in 0..templist.size - 1) {
+                                            addMemberViewModel?.alreadMember?.add(templist[i])
+                                            tempView.add(
+                                                AddMemberView(
+                                                    templist[i].profile_pic,
+                                                    templist[i].name
+                                                )
+                                            )
+                                        }
+                                        mAdapter.submitList(tempView)
+                                        //mAdapter.notifyDataSetChanged()
+                                    }
+                                }
+                            }
+
+                        })
+                    }
+                    is Result.Error -> {
+                        Log.e("", "")
+                    }
+                }
+            })
     }
 
 }
