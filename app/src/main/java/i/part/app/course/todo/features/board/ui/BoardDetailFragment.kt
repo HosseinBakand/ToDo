@@ -199,7 +199,7 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
                     context?.let {
                         val animatedDrawable =
                             ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
-                        animatedDrawable?.setBounds(0, 0, 50, 50)
+                        animatedDrawable?.setBounds(0, 0, 75, 75)
                         animatedDrawable?.let { drawable ->
                             btn.showDrawable(drawable)
                         }

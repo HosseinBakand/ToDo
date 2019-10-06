@@ -70,7 +70,7 @@ class BoardRecyclerAdapter(
         }
         holder.itemView.setOnClickListener { view ->
             val myBundle = Bundle()
-            myBundle.putInt("boardID", getItem(position).id)
+            myBundle.putInt("boardID", item.id)
             view.findNavController().navigate(R.id.action_dashBoardFragment_to_board, myBundle)
         }
         val overlap: OverlapDecoration = OverlapDecoration()
