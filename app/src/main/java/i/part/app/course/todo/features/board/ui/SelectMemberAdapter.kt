@@ -23,7 +23,6 @@ private object SelectMemberAdapterCallback : DiffUtil.ItemCallback<SelectMemberV
 
 class SelectMemberAdapter
     : ListAdapter<SelectMemberView, SelectMemberAdapter.ViewHolder>(SelectMemberAdapterCallback) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)

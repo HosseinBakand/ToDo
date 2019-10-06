@@ -112,32 +112,10 @@ class EditBoardDialogFragment : DialogFragment() {
                                 title = et_edit_board_name.text.toString()
                             )
                         )
-                        boardViewModel?.updateBoardTitleLivaData?.observe(this, Observer {
-                            when (it) {
-                                is Result.Success -> {
-                                    val myBundle = Bundle()
-                                    myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
-                                    this.findNavController()
-                                        .navigate(R.id.action_edit_board_to_board, myBundle)
-                                }
-                                is Result.Error -> {
-                                    val myBundle = Bundle()
-                                    myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
-                                    this.findNavController()
-                                        .navigate(R.id.action_edit_board_to_board, myBundle)
-                                    showSnackBar(
-                                        myView,
-                                        it.message,
-                                        Snackbar.LENGTH_LONG,
-                                        "ERROR"
-                                    )
-                                }
-                                is Result.Loading -> {
-                                }
-                            }
-                        })
+
                     }
                     this.dismiss()
+                    observeBoardTitle()
                 }, 600)
             }, 1200)
         }
@@ -164,6 +142,33 @@ class EditBoardDialogFragment : DialogFragment() {
         context?.let { avatarAdapter = AvatarRecyclerAdapter(myAvatarViews, picasso, true) }
         rv_edit_board_avatars?.let { it.adapter = avatarAdapter }
         super.onActivityCreated(savedInstanceState)
+    }
+
+    private fun observeBoardTitle() {
+        boardViewModel?.updateBoardTitleLivaData?.observe(this, Observer {
+            when (it) {
+                is Result.Success -> {
+                    val myBundle = Bundle()
+                    myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
+                    this.findNavController()
+                        .navigate(R.id.action_edit_board_to_board, myBundle)
+                }
+                is Result.Error -> {
+                    val myBundle = Bundle()
+                    myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
+                    this.findNavController()
+                        .navigate(R.id.action_edit_board_to_board, myBundle)
+                    showSnackBar(
+                        myView,
+                        it.message,
+                        Snackbar.LENGTH_LONG,
+                        "ERROR"
+                    )
+                }
+                is Result.Loading -> {
+                }
+            }
+        })
     }
 
     private fun showSnackBar(view: View, message: String, duration: Int, type: String) {

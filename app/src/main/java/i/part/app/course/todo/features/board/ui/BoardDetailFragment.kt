@@ -73,24 +73,7 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         mt_board.title = ""
         boardId.let {
             boardViewModel?.getBoardById(boardId)
-            boardViewModel?.getBoardByIdLiveData?.observe(this, Observer {
-                when (it) {
-                    is Result.Success -> {
-                        mt_board.title = it.data?.result?.get(0)?.title
-                        boardOwner = it.data?.result?.get(0)?.owner_name ?: ""
-                    }
-                    is Result.Error -> {
-                        showSnackBar(
-                            inflatedView,
-                            it.message,
-                            Snackbar.LENGTH_LONG,
-                            "ERROR"
-                        )
-                    }
-                    is Result.Loading -> {
-                    }
-                }
-            })
+            observeGetBoard()
 
         }
 
@@ -162,6 +145,27 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
             this.findNavController().navigate(R.id.action_board_to_dashBoardFragment)
         }
         super.onActivityCreated(savedInstanceState)
+    }
+
+    private fun observeGetBoard() {
+        boardViewModel?.getBoardByIdLiveData?.observe(this, Observer {
+            when (it) {
+                is Result.Success -> {
+                    mt_board.title = it.data?.result?.get(0)?.title
+                    boardOwner = it.data?.result?.get(0)?.owner_name ?: ""
+                }
+                is Result.Error -> {
+                    showSnackBar(
+                        inflatedView,
+                        it.message,
+                        Snackbar.LENGTH_LONG,
+                        "ERROR"
+                    )
+                }
+                is Result.Loading -> {
+                }
+            }
+        })
     }
 
     private fun showSnackBar(view: View, message: String, duration: Int, type: String) {

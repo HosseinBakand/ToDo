@@ -25,12 +25,15 @@ class SelectMemberDialogFragment : DialogFragment() {
     lateinit var list: ArrayList<SelectMemberView>
     var tempView: MutableList<SelectMemberView> = mutableListOf()
     var boardId = 0
+    var boardName: String = ""
+    var newBoard = false
     private lateinit var mAdapter: SelectMemberAdapter
     private val addMemberViewModel by lazy {
         activity?.let {
             ViewModelProviders.of(activity as FragmentActivity).get(AddMemberViewModel::class.java)
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,11 +50,68 @@ class SelectMemberDialogFragment : DialogFragment() {
         layoutManager = LinearLayoutManager(context)
         rv_add_member_3.layoutManager = layoutManager
         arguments?.let {
-            boardId = it.getInt("boardID")
+            it.getString("boardName", boardName)
+            if (it.getInt("boardID") != 0) {
+                boardId = it.getInt("boardID")
+            } else {
+                newBoard = it.getBoolean("newBoard")
+            }
         }
-
         addMemberViewModel?.loadAllusers()
         mAdapter = SelectMemberAdapter()
+        observeAllUsers()
+        rv_add_member_3.adapter = mAdapter
+        ib_add_member_3_close.setOnClickListener {
+            this.findNavController().navigate(R.id.action_addMember3Fragment_to_addMember2)
+        }
+        btn_select_member_confirm.setOnClickListener {
+            var myCheckedList: MutableList<String> = mutableListOf()
+            for (myItem in mAdapter.getItems()) {
+                myCheckedList.add(myItem.name)
+            }
+            var addUserParam = AddUserParam(myCheckedList)
+            if (newBoard) {
+                addMemberViewModel?.setSelectedMembers(myCheckedList)
+                //Toast.makeText(context, "Hi", Toast.LENGTH_LONG).show()
+                val myBundle = Bundle()
+                myBundle.putString("boardName", boardName)
+                myBundle.putInt("boardID", boardId)
+                this.findNavController()
+                    .navigate(
+                        R.id.action_addMember3Fragment_to_addMember2,
+                        myBundle
+                    )
+            } else {
+                addMemberViewModel?.addUsersToBoard(boardId, addUserParam)
+                observeAddUserToBoard()
+            }
+            //addMemberViewModel?.setMembers(mAdapter.getItems())
+        }
+    }
+
+    private fun observeAddUserToBoard() {
+        addMemberViewModel?.addUserToBoardResponse?.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Result.Success -> {
+                    if (it.data?.message.equals("added member")) {
+                        val myBundle = Bundle()
+                        myBundle.putString("boardName", boardName)
+                        myBundle.putInt("boardID", boardId)
+                        addMemberViewModel?.updateMemberStatus()
+                        this.findNavController()
+                            .navigate(
+                                R.id.action_addMember3Fragment_to_addMember2,
+                                myBundle
+                            )
+                    }
+                }
+                is Result.Error -> {
+                }
+            }
+        })
+    }
+
+    private fun observeAllUsers() {
         addMemberViewModel?.allUsers?.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Result.Success -> {
@@ -69,41 +129,24 @@ class SelectMemberDialogFragment : DialogFragment() {
                                 )
                             )
                         }
+                        deleteMutalMember()
                         mAdapter.submitList(tempView)
                     }
                 }
             }
         })
-        rv_add_member_3.adapter = mAdapter
-        ib_add_member_3_close.setOnClickListener {
-            this.findNavController().navigate(R.id.action_addMember3Fragment_to_addMember2)
-        }
-        btn_select_member_confirm.setOnClickListener {
-            var myCheckedList: MutableList<String> = mutableListOf()
-            for (myItem in mAdapter.getItems()) {
-                myCheckedList.add(myItem.name)
-            }
-            var addUserParam = AddUserParam(myCheckedList)
-            addMemberViewModel?.addUsersToBoard(boardId, addUserParam)
-            addMemberViewModel?.addUserToBoardResponse?.observe(viewLifecycleOwner, Observer {
-                when (it) {
-                    is Result.Success -> {
-                        if (it.data?.message.equals("added member")) {
-                            val myBundle = Bundle()
-                            myBundle.putInt("boardID", boardId)
-                            addMemberViewModel?.updateMemberStatus()
-                            this.findNavController()
-                                .navigate(R.id.action_addMember3Fragment_to_addMember2, myBundle)
-                        }
-                    }
-                    is Result.Error -> {
+    }
+
+    private fun deleteMutalMember() {
+        addMemberViewModel?.let {
+            for (alreadyMember in it.alreadMember) {
+                for (newMembers in tempView) {
+                    if (alreadyMember.id == newMembers.id && alreadyMember.name == newMembers.name) {
+                        tempView.remove(newMembers)
+                        break
                     }
                 }
-            })
-
-
-            //addMemberViewModel?.setMembers(mAdapter.getItems())
-
+            }
         }
     }
 }

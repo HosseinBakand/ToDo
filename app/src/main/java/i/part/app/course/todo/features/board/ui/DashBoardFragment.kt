@@ -33,6 +33,11 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
             ViewModelProviders.of(activity as FragmentActivity).get(DashBoardViewModel::class.java)
         }
     }
+    private val addMemberViewModel by lazy {
+        activity?.let {
+            ViewModelProviders.of(activity as FragmentActivity).get(AddMemberViewModel::class.java)
+        }
+    }
 
     lateinit var mAdapter: BoardRecyclerAdapter
     var layoutManager: RecyclerView.LayoutManager? = null
@@ -93,9 +98,14 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
         val floatingActionButton =
             myView.findViewById<FloatingActionButton>(R.id.fab_dash_board_fragment)
         floatingActionButton.setOnClickListener {
+            addMemberViewModel?.reSet()
             myView.findNavController().navigate(R.id.action_dashBoardFragment_to_add_board)
         }
+        observUpdated()
+        super.onActivityCreated(savedInstanceState)
+    }
 
+    private fun observUpdated() {
         boardViewModel?.isBoardUpdated?.observe(this, Observer {
             boardViewModel?.getBoards()
             observeList()
@@ -110,7 +120,6 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
                 observeList()
             }, 500)
         }
-        super.onActivityCreated(savedInstanceState)
     }
 
     private fun observeList() {
