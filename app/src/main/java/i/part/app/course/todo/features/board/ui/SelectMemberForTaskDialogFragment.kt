@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.dialog_select_member.*
 class SelectMemberForTaskDialogFragment : DialogFragment(), ClickCallBack {
     lateinit var layoutManager: RecyclerView.LayoutManager
     var boardId = 0
-    val tempView: MutableList<SelectMemberView> = mutableListOf()
+    var tempView: MutableList<SelectMemberView> = mutableListOf()
     private lateinit var mAdapter: SelectSingleMemberAdapter
     private val addMemberViewModel by lazy {
         activity?.let {
@@ -50,7 +50,7 @@ class SelectMemberForTaskDialogFragment : DialogFragment(), ClickCallBack {
         arguments?.let {
             boardId = it.getInt("boardID")
         }
-        //addMemberViewModel?.loadBoardMember(boardId)
+        addMemberViewModel?.loadBoardMember(boardId)
         mAdapter = SelectSingleMemberAdapter(this)
 ///
         addMemberViewModel?.contactList2?.observe(viewLifecycleOwner, Observer {
@@ -59,6 +59,7 @@ class SelectMemberForTaskDialogFragment : DialogFragment(), ClickCallBack {
                     it.data
                     val templist: List<BoardMemberResponse>? = it.data?.result
                     templist?.let {
+                        tempView = mutableListOf()
                         for (i in 0..templist.size - 1) {
                             tempView.add(
                                 SelectMemberView(
@@ -94,6 +95,7 @@ class SelectMemberForTaskDialogFragment : DialogFragment(), ClickCallBack {
                         R.id.action_selectMemberForTaskDialogFragment_to_addTaskFragment,
                         bundle
                     )
+                    break
                 }
             }
         }
@@ -118,7 +120,7 @@ class SelectMemberForTaskDialogFragment : DialogFragment(), ClickCallBack {
 
     override fun getList(list: List<SelectMemberView>) {
         mAdapter.submitList(list)
-        mAdapter.notifyDataSetChanged()
+        //mAdapter.notifyDataSetChanged()
     }
 
 
