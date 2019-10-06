@@ -12,7 +12,7 @@ import i.part.app.course.todo.databinding.ItemSelectMemberBinding
 
 private object SelectSingleMemberAdapterCallback : DiffUtil.ItemCallback<SelectMemberView>() {
     override fun areItemsTheSame(oldItem: SelectMemberView, newItem: SelectMemberView): Boolean {
-        return (oldItem.name == newItem.name)
+        return (oldItem.hashCode() == newItem.hashCode() && oldItem.name == newItem.name)
     }
 
     override fun areContentsTheSame(oldItem: SelectMemberView, newItem: SelectMemberView): Boolean {
@@ -36,18 +36,27 @@ class SelectSingleMemberAdapter(val clickCallBack: ClickCallBack) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.binding.allMember = item
-        holder.binding.cbAddMember3.setOnCheckedChangeListener { _, checked ->
-            //            if (prevPos==-1){
-//                prevPos=position
-//                getItem(position).ischeck=false
-//            }else{
-//                getItem(prevPos).ischeck=false
-//                getItem(position).ischeck=true
-//            }
-            for (i in 0..itemCount - 1)
-                getItem(i).ischeck = i == position
-            notifyDataSetChanged()
+        holder.binding.cbAddMember3.setOnClickListener {
+            val tempList: MutableList<SelectMemberView> = mutableListOf()
+            for (i in 0..itemCount - 1) {
+                getItem(i).ischeck = (i == position)
+                tempList.add(
+                    SelectMemberView(
+                        getItem(i).imageUrl,
+                        getItem(i).name,
+                        getItem(i).ischeck,
+                        getItem(i).id
+                    )
+                )
+            }
+            clickCallBack.getList(tempList)
         }
+//        holder.binding.cbAddMember3.setOnTouchListener { view, motionEvent ->
+//
+//          return@setOnTouchListener true
+//        }
+
+
         holder.itemView.setOnClickListener {
             holder.binding.cbAddMember3.performClick()
 
