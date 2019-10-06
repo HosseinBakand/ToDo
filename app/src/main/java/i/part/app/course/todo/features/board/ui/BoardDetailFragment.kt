@@ -185,34 +185,39 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         dialog.setCanceledOnTouchOutside(false)
         val confirmButton = dialog.findViewById<MaterialButton>(R.id.btn_add_todolist_confirm)
         confirmButton?.setOnClickListener {
-            val btn = dialog.findViewById<MaterialButton>(R.id.btn_add_todolist_confirm)
-            bindProgressButton(btn)
-            btn.showProgress {
-                progressColor = Color.BLACK
-            }
+            if (dialog.et_add_todolist_name.text.toString() == "") {
+                Toast.makeText(context, "your task should have name", Toast.LENGTH_SHORT).show()
 
-            Handler().postDelayed({
+            } else {
+                val btn = dialog.findViewById<MaterialButton>(R.id.btn_add_todolist_confirm)
+                bindProgressButton(btn)
+                btn.showProgress {
+                    progressColor = Color.BLACK
+                }
 
-                context?.let {
-                    val animatedDrawable =
-                        ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
-                    animatedDrawable?.setBounds(0, 0, 75, 75)
-                    animatedDrawable?.let { drawable ->
-                        btn.showDrawable(drawable)
+                Handler().postDelayed({
+
+                    context?.let {
+                        val animatedDrawable =
+                            ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
+                        animatedDrawable?.setBounds(0, 0, 75, 75)
+                        animatedDrawable?.let { drawable ->
+                            btn.showDrawable(drawable)
+                        }
                     }
-                }
 
-                btn.attachTextChangeAnimator {
-                    fadeOutMills = 100
-                    fadeInMills = 100
-                }
-                val h = Handler()
-                h.postDelayed({
-                    viewModel?.addTodoList(dialog.et_add_todolist_name.text.toString(), boardId)
-                    observeTodoAdd()
-                    dialog.dismiss()
-                }, 600)
-            }, 1200)
+                    btn.attachTextChangeAnimator {
+                        fadeOutMills = 100
+                        fadeInMills = 100
+                    }
+                    val h = Handler()
+                    h.postDelayed({
+                        viewModel?.addTodoList(dialog.et_add_todolist_name.text.toString(), boardId)
+                        observeTodoAdd()
+                        dialog.dismiss()
+                    }, 600)
+                }, 1200)
+            }
         }
         confirmButton.onEditorAction(EditorInfo.IME_ACTION_DONE)
         val closeButton = dialog.findViewById<ImageButton>(R.id.ib_add_todolist_close)
