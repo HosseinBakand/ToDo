@@ -68,8 +68,10 @@ class SelectMemberDialogFragment : DialogFragment() {
         }
         btn_select_member_confirm.setOnClickListener {
             var myCheckedList: MutableList<String> = mutableListOf()
-            for (myItem in mAdapter.getItems()) {
-                myCheckedList.add(myItem.name)
+            for (myItem in tempView) {
+                if (myItem.ischeck)
+                    myCheckedList.add(myItem.name)
+                //myCheckedList.add(myItem.name)
             }
             var addUserParam = AddUserParam(myCheckedList)
             if (newBoard) {
