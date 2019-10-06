@@ -41,6 +41,8 @@
     <string name="delete_board">Delete Board</string>
      <string name="edit_board_title_String">Edit Board</string>
     <string name="edit_board_assign_to">Assign to : </string>
+    <string name="edit_todolist_name_default_name">Todolist1</string>
+    <string name="edit_todolist_name_default_owner_name">none</string>
     <string name="edit_member_owner">Owner : </string>
     <string name="editBoardBackground_picture_text">Background picture:</string>
 
@@ -63,6 +65,9 @@
     <string name="default_owner_add_to_do_list">none</string>
     <string name="msg_please_wait">Please wait...</string>
     <string name="msg_loging_in">Logging in</string>
+    <string name="tiet_defualt_username">pie@test.com</string>
+    <string name="tiet_default_password">Aa123456</string>
+    <string name="tv_item_board_done_text">Done</string>
 
 
 </resources>

@@ -17,7 +17,7 @@
             android:fontFamily="sans-serif"
             android:letterSpacing="0.01"
             android:textColor="@color/primaryText"
-            android:textSize="18sp"
+            android:textSize="@dimen/very_big_font_size"
             android:textStyle="bold"
             android:theme="@style/Widget.AppCompat.ActionBar"
             app:layout_constraintBottom_toTopOf="@id/rv_add_member_2_new_members"
@@ -53,7 +53,7 @@
             android:text="@string/add_member_2_bottom_button"
             android:textAllCaps="false"
             android:textColor="@color/almost_black"
-            android:textSize="16sp"
+            android:textSize="@dimen/big_font_size"
             android:textStyle="bold"
 
             app:layout_constraintBottom_toBottomOf="parent"

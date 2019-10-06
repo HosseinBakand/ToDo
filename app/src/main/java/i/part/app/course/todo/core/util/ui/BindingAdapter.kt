@@ -15,7 +15,8 @@ fun loadRoundCornerImage(view: ImageView, imageUrl: String) {
     Picasso.get()
         .load(imageUrl)
         .transform(transformation)
-        .fit()
+        .fit().placeholder(R.drawable.no_task_image)
+        .error(R.drawable.no_task_image)
         .into(view)
 }
 

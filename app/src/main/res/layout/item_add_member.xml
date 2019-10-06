@@ -18,16 +18,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="11dp"
-            android:layout_marginRight="11dp"
-            android:layout_marginBottom="11dp">
+            android:layout_marginStart="@dimen/standard_margin_start"
+            android:layout_marginEnd="@dimen/bt_margin_end">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_add_member_2_items_image"
                 imageUrlForCircular="@{inputItem.imageUrl}"
-                android:layout_width="29dp"
-                android:layout_height="29dp"
+                android:layout_width="@dimen/ll_avatar_height"
+                android:layout_height="@dimen/ll_avatar_height"
                 android:src="@drawable/person_empty"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_add_member_2_items_name"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -38,13 +36,13 @@
                 android:id="@+id/tv_add_member_2_items_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="22dp"
-                android:layout_marginRight="22dp"
+                android:layout_marginLeft="@dimen/ll_middle_item_margin"
+                android:layout_marginRight="@dimen/ll_middle_item_margin"
                 android:fontFamily="sans-serif"
                 android:letterSpacing="0.01"
                 android:text="@{inputItem.name}"
                 android:textColor="@color/primaryText"
-                android:textSize="14sp"
+                android:textSize="@dimen/normal_font_size"
                 android:textStyle="normal"
 
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -54,8 +52,9 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_add_member_2_items_minus"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/standard_icon_size"
+                android:layout_height="@dimen/standard_icon_size"
+                android:padding="@dimen/standard_padding_for_touch_target"
                 android:background="@color/transparent"
                 android:src="@drawable/ic_minus_check_box_18dp"
                 app:layout_constraintBottom_toBottomOf="parent"

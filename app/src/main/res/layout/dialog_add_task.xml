@@ -31,18 +31,17 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_add_task_title"
                     android:layout_width="match_parent"
-                    android:layout_height="47dp"
+                    android:layout_height="@dimen/cl_add_task_height"
                     android:background="@drawable/dialog_title_round_up">
 
                     <TextView
                         android:id="@+id/tv_add_task_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:paddingTop="4dp"
+                        android:layout_marginStart="@dimen/tv_add_board_margin_start"
                         android:text="@string/addTaskTitle"
                         android:textColor="@color/primaryText"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/huge_font_size"
                         android:textStyle="bold"
                         android:typeface="sans"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,11 +53,12 @@
                         android:id="@+id/ib_add_task_close"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="24dp"
+                        android:layout_marginEnd="@dimen/tv_add_board_margin_end"
                         android:background="@color/white_gray"
                         android:src="@drawable/ic_close_black_24dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_add_task_title"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -66,7 +66,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="24dp"
+                    android:layout_margin="@dimen/tv_add_board_margin_start"
                     android:orientation="vertical"
 
                     >
@@ -75,7 +75,7 @@
                         android:id="@+id/et_add_task_task_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginBottom="@dimen/et_dialog_margin_bottom"
                         android:backgroundTint="@color/warm_grey"
                         android:ems="10"
                         android:fontFamily="sans-serif-medium"
@@ -83,7 +83,7 @@
                         android:inputType="textPersonName"
                         android:letterSpacing="0.01"
                         android:textColor="@color/primaryText"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/big_font_size"
                         android:textStyle="normal" />
 
 
@@ -91,8 +91,8 @@
                         android:id="@+id/cl_add_task_owner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp">
+                        android:layout_marginTop="@dimen/cl_dialog_margin_top"
+                        android:layout_marginBottom="@dimen/cl_dialog_margin_bottom">
 
                         <TextView
                             android:id="@+id/tv_add_task_owner"
@@ -102,7 +102,7 @@
                             android:letterSpacing="0.01"
                             android:text="@string/addTaskOwner"
                             android:textColor="@color/black_87_two"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/big_font_size"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/tv_add_task_owner_name"
@@ -119,7 +119,7 @@
                             android:letterSpacing="0.01"
                             android:text="@{ownerName.owner}"
                             android:textColor="@color/black_87_two"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/big_font_size"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -133,8 +133,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="32dp"
+                        android:layout_marginTop="@dimen/cl_dialog_margin_top"
+                        android:layout_marginBottom="@dimen/cl_dialog_margin_bottom_to_button"
                         tools:layout_editor_absoluteX="111dp"
                         tools:layout_editor_absoluteY="45dp">
 
@@ -147,7 +147,7 @@
                             android:letterSpacing="0.01"
                             android:text="@string/addTaskAssignTo"
                             android:textColor="@color/black_87_two"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/big_font_size"
                             android:textStyle="normal"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -158,8 +158,8 @@
                         <LinearLayout
                             android:id="@+id/ll_add_task_assignees"
                             android:layout_width="0dp"
-                            android:layout_height="30dp"
-                            android:layout_marginLeft="7dp"
+                            android:layout_height="@dimen/ll_avatar_height"
+                            android:layout_marginLeft="@dimen/ll_middle_item_margin"
                             android:orientation="horizontal"
                             app:layout_constraintStart_toEndOf="@id/tv_add_task_assign_to"
                             tools:ignore="MissingConstraints"
@@ -167,16 +167,16 @@
 
                             <ImageView
                                 android:id="@+id/iv_add_task_avatar"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
+                                android:layout_width="@dimen/ll_avatar_height"
+                                android:layout_height="@dimen/ll_avatar_height"
                                 android:visibility="gone"></ImageView>
                         </LinearLayout>
 
                         <ImageButton
                             android:id="@+id/ib_add_task_plus"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_marginStart="6dp"
+                            android:layout_width="@dimen/ib_plus_icon_size"
+                            android:layout_height="@dimen/ib_plus_icon_size"
+                            android:layout_marginStart="@dimen/ll_middle_item_margin"
                             android:background="@color/transparent"
                             android:src="@drawable/ic_outline_indeterminate_check_box_24"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_add_task_assign_to"
@@ -196,11 +196,11 @@
                     android:gravity="center"
                     android:insetBottom="0dp"
                     android:letterSpacing="0.01"
-                    android:padding="10dp"
+                    android:padding="@dimen/mb_confirm_padding"
                     android:text="@string/addBoardConfirmButton"
                     android:textAllCaps="false"
                     android:textColor="@color/almost_black"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/huge_font_size"
                     android:textStyle="bold" />
             </LinearLayout>
         </RelativeLayout>

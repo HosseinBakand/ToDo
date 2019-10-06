@@ -52,7 +52,7 @@
                 android:letterSpacing="0.01"
                 android:textAlignment="center"
                 android:textColor="@color/textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="@dimen/normal_font_size"
                 android:textStyle="bold"
                 android:id="@+id/tv_item_subtask_description"
                 android:text="@{subtask.subTaskDescription}"
