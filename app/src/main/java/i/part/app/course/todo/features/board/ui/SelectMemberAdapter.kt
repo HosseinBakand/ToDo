@@ -55,6 +55,13 @@ class SelectMemberAdapter
                 list.add(AddMemberView(getItem(i).imageUrl, getItem(i).name))
         return list
     }
+
+    fun getItemsSelect(): List<SelectMemberView> {
+        val list = mutableListOf<SelectMemberView>()
+        for (i in 0 until itemCount)
+            list.add(getItem(i))
+        return list
+    }
 }
 
 

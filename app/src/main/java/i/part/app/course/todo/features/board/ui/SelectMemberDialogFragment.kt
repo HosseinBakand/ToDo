@@ -3,6 +3,8 @@ package i.part.app.course.todo.features.board.ui
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,6 +89,23 @@ class SelectMemberDialogFragment : DialogFragment() {
             }
             //addMemberViewModel?.setMembers(mAdapter.getItems())
         }
+        tiet_search_member.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                val start = tiet_search_member.text.toString()
+                val list = tempView
+                val newList = mutableListOf<SelectMemberView>()
+                list.forEach {
+                    if(it.name.startsWith(start,true)){
+                        newList.add(it)
+                    }
+                }
+                mAdapter.submitList(newList)
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        })
     }
 
     private fun observeAddUserToBoard() {
@@ -116,7 +135,7 @@ class SelectMemberDialogFragment : DialogFragment() {
             when (it) {
                 is Result.Success -> {
                     it.data
-                    val templist: List<BoardMemberResponse>? = it.data?.toList()
+                    val templist : List<BoardMemberResponse>? = it.data?.toList()
                     templist?.let {
                         tempView = mutableListOf()
                         for (i in 0..templist.size - 1) {
