@@ -97,5 +97,4 @@ dependencies {
 
     //Progress button
     implementation 'com.github.razir.progressbutton:progressbutton:1.0.3'
-    implementation "androidx.navigation:navigation-fragment-ktx:2.2.0-alpha03"
 }
