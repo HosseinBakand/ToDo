@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -16,7 +17,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.razir.progressbutton.attachTextChangeAnimator
 import com.github.razir.progressbutton.bindProgressButton
@@ -25,11 +25,9 @@ import com.github.razir.progressbutton.showProgress
 import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
-import i.part.app.course.todo.core.util.ui.OverlapDecoration
 import i.part.app.course.todo.databinding.DialogAddTaskBinding
 import i.part.app.course.todo.features.board.data.AddTaskParam
 import kotlinx.android.synthetic.main.dialog_add_task.*
-import java.util.*
 
 class AddTaskFragment : DialogFragment() {
     var avatarManager: RecyclerView.LayoutManager? = null
@@ -80,44 +78,51 @@ class AddTaskFragment : DialogFragment() {
         }
 
         btn_add_task_confirm.setOnClickListener {
+            if (dialog?.et_add_task_task_name?.text.toString() == "") {
+                Toast.makeText(context, "your task should have name", Toast.LENGTH_SHORT).show()
 
-            val btn = myView.findViewById<MaterialButton>(R.id.btn_add_task_confirm)
-            bindProgressButton(btn)
-            btn.showProgress {
-                progressColor = Color.BLACK
-            }
+            } else if (selectedUserName == "") {
+                Toast.makeText(context, "your task should have assignee", Toast.LENGTH_SHORT).show()
 
-            Handler().postDelayed({
+            } else {
+                val btn = myView.findViewById<MaterialButton>(R.id.btn_add_task_confirm)
+                bindProgressButton(btn)
+                btn.showProgress {
+                    progressColor = Color.BLACK
+                }
 
-                context?.let {
-                    val animatedDrawable =
-                        ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
-                    animatedDrawable?.setBounds(0, 0, 75, 75)
-                    animatedDrawable?.let { drawable ->
-                        btn.showDrawable(drawable)
+                Handler().postDelayed({
+
+                    context?.let {
+                        val animatedDrawable =
+                            ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
+                        animatedDrawable?.setBounds(0, 0, 75, 75)
+                        animatedDrawable?.let { drawable ->
+                            btn.showDrawable(drawable)
+                        }
                     }
-                }
 
-                btn.attachTextChangeAnimator {
-                    fadeOutMills = 100
-                    fadeInMills = 100
-                }
-                val h = Handler()
-                h.postDelayed({
-                    arguments?.let {
-                        taskViewModel.addTask(
-                            it.getInt("TaskID"),
-                            AddTaskParam(
-                                done = false,
-                                description = dialog?.et_add_task_task_name?.text.toString(),
-                                assignee = selectedUserName
+                    btn.attachTextChangeAnimator {
+                        fadeOutMills = 100
+                        fadeInMills = 100
+                    }
+                    val h = Handler()
+                    h.postDelayed({
+                        arguments?.let {
+                            taskViewModel.addTask(
+                                it.getInt("TaskID"),
+                                AddTaskParam(
+                                    done = false,
+                                    description = dialog?.et_add_task_task_name?.text.toString(),
+                                    assignee = selectedUserName
+                                )
                             )
-                        )
-                        taskViewModel.addTaskChanged.value = true
-                    }
-                    this.dismiss()
-                }, 600)
-            }, 1200)
+                            taskViewModel.addTaskChanged.value = true
+                        }
+                        this.dismiss()
+                    }, 600)
+                }, 1200)
+            }
         }
 
 
