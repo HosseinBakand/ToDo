@@ -117,7 +117,7 @@
                     android:lineSpacingExtra="4sp"
                     android:text="@{userView.name}"
                     android:textColor="@color/primaryText"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/huge_font_size"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -132,7 +132,7 @@
                     android:letterSpacing="0.01"
                     android:text="@string/profile_information"
                     android:textColor="@color/primaryText"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/big_font_size"
                     android:textStyle="normal" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -160,7 +160,7 @@
                         android:inputType="textEmailAddress"
                         android:letterSpacing="0.01"
                         android:textColor="@color/edit_text_color"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/normal_font_size"
                         android:textStyle="normal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -191,7 +191,7 @@
                         android:inputType="phone"
                         android:letterSpacing="0.01"
                         android:textColor="@color/edit_text_color"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/normal_font_size"
                         android:textStyle="normal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -206,7 +206,7 @@
                     android:letterSpacing="0.01"
                     android:text="@string/profile_change_password"
                     android:textColor="@color/primaryText"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/big_font_size"
                     android:textStyle="normal" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -231,7 +231,7 @@
                         android:inputType="textPassword"
                         android:letterSpacing="0.01"
                         android:textColor="@color/primaryText"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/normal_font_size"
                         android:textStyle="normal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -259,7 +259,7 @@
                         android:inputType="textPassword"
                         android:letterSpacing="0.01"
                         android:textColor="@color/primaryText"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/normal_font_size"
                         android:textStyle="normal"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -277,7 +277,7 @@
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="@color/primaryText"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/normal_font_size"
                     android:textStyle="normal" />
 
 

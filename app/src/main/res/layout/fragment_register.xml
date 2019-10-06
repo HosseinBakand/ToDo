@@ -38,7 +38,7 @@
                     android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:text="@string/login_page_main_title"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/huge_font_size"
                     android:textStyle="bold" />
 
                 <androidx.core.widget.NestedScrollView
@@ -84,7 +84,7 @@
                                 android:letterSpacing="0.01"
                                 android:nextFocusDown="@+id/tiet_register_phone"
                                 android:textColor="@color/primaryText"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/normal_font_size"
                                 android:textStyle="normal" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,7 +116,7 @@
                                 android:letterSpacing="0.01"
                                 android:nextFocusDown="@+id/tiet_register_password"
                                 android:textColor="@color/primaryText"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/normal_font_size"
                                 android:textStyle="normal" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,7 +144,7 @@
                                 android:inputType="textPassword"
                                 android:letterSpacing="0.01"
                                 android:textColor="@color/primaryText"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/normal_font_size"
                                 android:textStyle="normal" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -175,7 +175,7 @@
                                 android:inputType="textPassword"
                                 android:letterSpacing="0.01"
                                 android:textColor="@color/primaryText"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/normal_font_size"
                                 android:textStyle="normal" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -194,7 +194,7 @@
                             android:textAlignment="center"
                             android:textAllCaps="false"
                             android:textColor="@color/primaryText"
-                            android:textSize="14sp"
+                            android:textSize="@dimen/normal_font_size"
                             android:textStyle="normal" />
 
 

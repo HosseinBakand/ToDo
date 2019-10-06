@@ -30,11 +30,10 @@
                     android:id="@+id/tv_add_todolist_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:paddingTop="4dp"
+                    android:layout_marginStart="@dimen/tv_add_board_margin_start"
                     android:text="@string/add_todolist_title"
                     android:textColor="@color/primaryText"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/huge_font_size"
                     android:textStyle="bold"
                     android:typeface="sans"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -46,11 +45,12 @@
                     android:id="@+id/ib_add_todolist_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="24dp"
+                    android:layout_marginRight="@dimen/tv_add_board_margin_end"
                     android:background="@color/white_gray"
                     android:src="@drawable/ic_close_black_24dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_add_todolist_title"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -65,7 +65,7 @@
                     android:id="@+id/et_add_todolist_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="@dimen/et_dialog_margin_bottom"
                     android:backgroundTint="@color/warm_grey"
                     android:ems="10"
                     android:fontFamily="sans-serif-medium"
@@ -73,7 +73,7 @@
                     android:inputType="textPersonName"
                     android:letterSpacing="0.01"
                     android:textColor="@color/primaryText"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/big_font_size"
                     android:textStyle="normal" />
 
 
@@ -81,7 +81,7 @@
                     android:id="@+id/cl_add_todolist_owner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="@dimen/cl_dialog_margin_top"
                     android:layout_marginBottom="15dp">
 
                     <TextView
@@ -92,7 +92,7 @@
                         android:letterSpacing="0.01"
                         android:text="@string/addBoardOwner"
                         android:textColor="@color/black_87_two"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/big_font_size"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/tv_add_todolist_owner_name"
@@ -109,7 +109,7 @@
                         android:letterSpacing="0.01"
                         android:text="@string/default_owner_add_to_do_list"
                         android:textColor="@color/black_87_two"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/big_font_size"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -130,11 +130,11 @@
                 android:gravity="center"
                 android:insetBottom="0dp"
                 android:letterSpacing="0.01"
-                android:padding="10dp"
+                android:padding="@dimen/mb_confirm_padding"
                 android:text="@string/addBoardConfirmButton"
                 android:textAllCaps="false"
                 android:textColor="@color/almost_black"
-                android:textSize="20sp"
+                android:textSize="@dimen/huge_font_size"
                 android:textStyle="bold" />
         </LinearLayout>
     </RelativeLayout>

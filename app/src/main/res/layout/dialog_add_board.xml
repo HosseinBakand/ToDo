@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,9 +10,7 @@
             type="i.part.app.course.todo.features.board.ui.AddBoardView" />
     </data>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_round_edge"
@@ -38,11 +38,11 @@
                         android:id="@+id/tv_add_board_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:paddingTop="4dp"
+                        android:layout_marginStart="@dimen/tv_add_board_margin_start"
+
                         android:text="@string/addBoardTitle"
                         android:textColor="@color/primaryText"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/huge_font_size"
                         android:textStyle="bold"
                         android:typeface="sans"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,11 +54,12 @@
                         android:id="@+id/ib_add_board_close"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="24dp"
+                        android:layout_marginEnd="@dimen/tv_add_board_margin_end"
                         android:background="@color/white_gray"
                         android:src="@drawable/ic_close_black_24dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_add_board_title"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -66,7 +67,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="24dp"
+                    android:layout_margin="@dimen/tv_add_board_margin_start"
                     android:orientation="vertical"
 
                     >
@@ -75,7 +76,7 @@
                         android:id="@+id/et_add_board_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginBottom="@dimen/et_dialog_margin_bottom"
                         android:backgroundTint="@color/warm_grey"
                         android:ems="10"
                         android:fontFamily="sans-serif-medium"
@@ -83,7 +84,7 @@
                         android:inputType="textPersonName"
                         android:letterSpacing="0.01"
                         android:textColor="@color/primaryText"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/big_font_size"
                         android:textStyle="normal" />
 
 
@@ -91,7 +92,7 @@
                         android:id="@+id/cl_add_board_owner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="@dimen/cl_dialog_margin_top"
                         android:layout_marginBottom="15dp">
 
                         <TextView
@@ -102,7 +103,7 @@
                             android:letterSpacing="0.01"
                             android:text="@string/addBoardOwner"
                             android:textColor="@color/black_87_two"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/big_font_size"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/tv_add_board_owner_name"
@@ -119,7 +120,7 @@
                             android:letterSpacing="0.01"
                             android:text="@{newBoardDetail.ownerName}"
                             android:textColor="@color/black_87_two"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/big_font_size"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -133,7 +134,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="@dimen/cl_dialog_margin_top"
                         android:layout_marginBottom="32dp"
                         tools:layout_editor_absoluteX="111dp"
                         tools:layout_editor_absoluteY="45dp">
@@ -147,7 +148,7 @@
                             android:letterSpacing="0.01"
                             android:text="@string/addBoardAssignTo"
                             android:textColor="@color/black_87_two"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/big_font_size"
                             android:textStyle="normal"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -158,9 +159,9 @@
                         <LinearLayout
                             android:id="@+id/ll_assignees"
                             android:layout_width="0dp"
-                            android:layout_height="30dp"
-                            android:layout_marginLeft="7dp"
-                            android:layout_marginRight="7dp"
+                            android:layout_height="@dimen/ll_avatar_height"
+                            android:layout_marginLeft="@dimen/ll_middle_item_margin"
+                            android:layout_marginRight="@dimen/ll_middle_item_margin"
                             android:orientation="horizontal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/ib_add_board_plus"
@@ -175,8 +176,8 @@
 
                         <ImageButton
                             android:id="@+id/ib_add_board_plus"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/ib_plus_icon_size"
+                            android:layout_height="@dimen/ib_plus_icon_size"
                             android:background="@color/white"
                             android:src="@drawable/ic_outline_indeterminate_check_box_24"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_assign_to"
@@ -190,8 +191,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp">
+                    android:layout_marginTop="@dimen/cl_dialog_margin_top"
+                    android:layout_marginBottom="@dimen/cl_dialog_margin_bottom">
 
                     <TextView
                         android:id="@+id/tv_background_picture"
@@ -201,7 +202,7 @@
                         android:letterSpacing="0.01"
                         android:text="@string/addBoardBackground_picture_text"
                         android:textColor="#4b4848"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/big_font_size"
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/btn_browse"
@@ -222,7 +223,7 @@
                         android:text="@string/addBoardBrowseButton"
                         android:textAllCaps="false"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/big_font_size"
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -238,13 +239,13 @@
                         android:id="@+id/cl_background"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp">
+                        android:layout_marginTop="@dimen/cl_dialog_margin_top">
 
 
                         <ImageButton
                             android:id="@+id/ib_add_board_minus"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/ib_plus_icon_size"
+                            android:layout_height="@dimen/ib_plus_icon_size"
                             android:background="@color/white"
                             android:src="@drawable/ic_minus_check_box"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_add_board_background_picture_name"
@@ -259,13 +260,13 @@
                             android:id="@+id/tv_add_board_background_picture_name"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="19dp"
-                            android:layout_marginRight="19dp"
+                            android:layout_marginLeft="@dimen/tv_odd_margin_dim"
+                            android:layout_marginRight="@dimen/tv_odd_margin_dim"
                             android:fontFamily="sans-serif-medium"
                             android:letterSpacing="0.01"
                             android:text="@{newBoardDetail.backgroundImageName}"
                             android:textColor="@color/greyish_brown"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/big_font_size"
                             android:textStyle="normal"
                             app:layout_constraintBottom_toBottomOf="@+id/iv_add_board_preview"
                             app:layout_constraintEnd_toStartOf="@+id/ib_add_board_minus"
@@ -277,8 +278,8 @@
                         <ImageView
                             android:id="@+id/iv_add_board_preview"
                             imageUrlForRoundCorner="@{newBoardDetail.backgroundImageUrl}"
-                            android:layout_width="59dp"
-                            android:layout_height="59dp"
+                            android:layout_width="@dimen/iv_add_board_preview_size"
+                            android:layout_height="@dimen/iv_add_board_preview_size"
                             app:layout_constraintEnd_toStartOf="@+id/tv_add_board_background_picture_name"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
@@ -300,11 +301,11 @@
                     android:gravity="center"
                     android:insetBottom="0dp"
                     android:letterSpacing="0.01"
-                    android:padding="10dp"
+                    android:padding="@dimen/mb_confirm_padding"
                     android:text="@string/addBoardConfirmButton"
                     android:textAllCaps="false"
                     android:textColor="@color/almost_black"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/huge_font_size"
                     android:textStyle="bold" />
             </LinearLayout>
         </RelativeLayout>

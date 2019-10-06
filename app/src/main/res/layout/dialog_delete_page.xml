@@ -22,18 +22,17 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_delete_board_title"
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
+                android:layout_height="@dimen/cl_add_task_height"
                 android:background="@drawable/dialog_title_round_up">
 
                 <TextView
                     android:id="@+id/tv_delete_board_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:paddingTop="4dp"
+                    android:layout_marginStart="@dimen/tv_add_board_margin_start"
                     android:text="@string/delete_board"
                     android:textColor="@color/primaryText"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/huge_font_size"
                     android:textStyle="bold"
                     android:typeface="sans"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +43,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="24dp"
+                android:layout_margin="@dimen/tv_add_board_margin_start"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,7 +61,7 @@
                         android:letterSpacing="0.01"
                         android:text="@string/are_you_sure"
                         android:textColor="@color/black_87_two"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/big_font_size"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/tv_edit_todolist_owner_name"
@@ -83,12 +82,12 @@
                     android:id="@+id/tv_ok_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="@dimen/tv_add_board_margin_end"
+                    android:layout_marginBottom="@dimen/tv_margin_bottom_cancel"
                     android:padding="10dp"
                     android:text="@string/ok_button"
                     android:textColor="@color/seafoam_blue"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/big_font_size"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
@@ -98,12 +97,12 @@
                     android:id="@+id/tv_cancel_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="@dimen/tv_add_board_margin_start"
+                    android:layout_marginBottom="@dimen/tv_margin_bottom_cancel"
                     android:padding="10dp"
                     android:text="@string/cancel_button"
                     android:textColor="@color/seafoam_blue"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/big_font_size"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

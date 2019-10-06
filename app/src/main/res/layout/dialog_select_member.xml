@@ -29,7 +29,7 @@
                     android:letterSpacing="0.01"
                     android:text="@string/add_member_3_title"
                     android:textColor="@color/primaryText"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/huge_font_size"
                     android:textStyle="normal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/ib_add_member_3_close"
@@ -51,7 +51,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/cl_add_member_title"
-
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
@@ -107,7 +106,7 @@
         android:text="@string/addBoardConfirmButton"
         android:textAllCaps="false"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
+        android:textSize="@dimen/huge_font_size"
         android:textStyle="bold" />
 
 </FrameLayout>

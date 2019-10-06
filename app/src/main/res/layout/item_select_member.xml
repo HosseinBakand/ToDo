@@ -39,11 +39,10 @@
                 android:layout_marginLeft="22dp"
                 android:layout_marginRight="22dp"
                 android:fontFamily="sans-serif"
-
                 android:letterSpacing="0.01"
                 android:text="@{allMember.name}"
                 android:textColor="@color/primaryText"
-                android:textSize="14sp"
+                android:textSize="@dimen/normal_font_size"
                 android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/iv_add_member_3_items_image"
