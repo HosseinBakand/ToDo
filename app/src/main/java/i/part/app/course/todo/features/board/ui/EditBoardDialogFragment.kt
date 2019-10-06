@@ -67,7 +67,7 @@ class EditBoardDialogFragment : DialogFragment() {
         binding.boardEditing = editBoardViewModel
 
         ib_edit_board_close.setOnClickListener {
-            this.dismiss()
+            this.findNavController().navigateUp()
         }
 
         ib_edit_board_plus.setOnClickListener {
@@ -89,22 +89,6 @@ class EditBoardDialogFragment : DialogFragment() {
             }
 
             Handler().postDelayed({
-
-                context?.let {
-                    val animatedDrawable =
-                        ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
-                    animatedDrawable?.setBounds(0, 0, 75, 75)
-                    animatedDrawable?.let { drawable ->
-                        btn.showDrawable(drawable)
-                    }
-                }
-
-                btn.attachTextChangeAnimator {
-                    fadeOutMills = 100
-                    fadeInMills = 100
-                }
-                val h = Handler()
-                h.postDelayed({
                     if (et_edit_board_name != null && et_edit_board_name.text.isNotEmpty()) {
                         boardViewModel?.updateBoardTitle(
                             BoardView(
@@ -112,12 +96,55 @@ class EditBoardDialogFragment : DialogFragment() {
                                 title = et_edit_board_name.text.toString()
                             )
                         )
+                        boardViewModel?.updateBoardTitleLivaData?.observe(this, Observer {
+                            when (it) {
+                                is Result.Success -> {
+                                    context?.let {
+                                        val animatedDrawable =
+                                            ContextCompat.getDrawable(
+                                                context as Context,
+                                                R.drawable.animated_check
+                                            )
+                                        animatedDrawable?.setBounds(0, 0, 50, 50)
+                                        animatedDrawable?.let { drawable ->
+                                            btn.showDrawable(drawable)
+                                        }
+                                    }
 
+                                    btn.attachTextChangeAnimator {
+                                        fadeOutMills = 100
+                                        fadeInMills = 100
+                                    }
+
+                                    val ha = Handler()
+                                    ha.postDelayed({
+                                        val myBundle = Bundle()
+                                        myBundle.putInt(
+                                            "boardID",
+                                            arguments?.getInt("boardID") ?: -1
+                                        )
+                                        this.findNavController()
+                                            .navigate(R.id.action_edit_board_to_board, myBundle)
+                                    }, 400)
+                                }
+                                is Result.Error -> {
+                                    val myBundle = Bundle()
+                                    myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
+                                    this.findNavController()
+                                        .navigate(R.id.action_edit_board_to_board, myBundle)
+                                    showSnackBar(
+                                        myView,
+                                        it.message,
+                                        Snackbar.LENGTH_LONG,
+                                        "ERROR"
+                                    )
+                                }
+                                is Result.Loading -> {
+                                }
+                            }
+                        })
                     }
-                    this.dismiss()
-                    observeBoardTitle()
-                }, 600)
-            }, 1200)
+            }, 1000)
         }
 
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()
@@ -142,33 +169,6 @@ class EditBoardDialogFragment : DialogFragment() {
         context?.let { avatarAdapter = AvatarRecyclerAdapter(myAvatarViews, picasso, true) }
         rv_edit_board_avatars?.let { it.adapter = avatarAdapter }
         super.onActivityCreated(savedInstanceState)
-    }
-
-    private fun observeBoardTitle() {
-        boardViewModel?.updateBoardTitleLivaData?.observe(this, Observer {
-            when (it) {
-                is Result.Success -> {
-                    val myBundle = Bundle()
-                    myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
-                    this.findNavController()
-                        .navigate(R.id.action_edit_board_to_board, myBundle)
-                }
-                is Result.Error -> {
-                    val myBundle = Bundle()
-                    myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
-                    this.findNavController()
-                        .navigate(R.id.action_edit_board_to_board, myBundle)
-                    showSnackBar(
-                        myView,
-                        it.message,
-                        Snackbar.LENGTH_LONG,
-                        "ERROR"
-                    )
-                }
-                is Result.Loading -> {
-                }
-            }
-        })
     }
 
     private fun showSnackBar(view: View, message: String, duration: Int, type: String) {

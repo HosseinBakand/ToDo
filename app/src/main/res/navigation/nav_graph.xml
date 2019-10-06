@@ -162,7 +162,9 @@
             app:destination="@id/addMember2" />
         <action
             android:id="@+id/action_edit_board_to_board"
-            app:destination="@id/board" />
+            app:destination="@id/board"
+            app:popUpTo="@+id/board"
+            app:popUpToInclusive="true" />
 
     </dialog>
     <dialog
