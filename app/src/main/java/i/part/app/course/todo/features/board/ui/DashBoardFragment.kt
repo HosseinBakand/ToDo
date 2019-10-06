@@ -154,7 +154,10 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
         val dialog = Dialog(context)
         dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val mes = "Are you sure you want to delete ${item.title}?"
         dialog.setContentView(R.layout.dialog_delete_page)
+        val dbm = dialog.findViewById<TextView>(R.id.tv_delete_board_message)
+        dbm.text = mes
         dialog.setCanceledOnTouchOutside(false)
         val okButton = dialog.findViewById<TextView>(R.id.tv_ok_button)
         okButton.setOnClickListener {
@@ -163,8 +166,10 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
                 when (it) {
                     is Result.Success -> {
                         boardViewModel?.updateBoardStatus()
+                        dialog.dismiss()
                     }
                     is Result.Error -> {
+                        dialog.dismiss()
                         showSnackBar(
                             myView,
                             it.message,
@@ -176,7 +181,6 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
                     }
                 }
             })
-            dialog.dismiss()
         }
         val closeButton = dialog.findViewById<TextView>(R.id.tv_cancel_button)
         closeButton.setOnClickListener {

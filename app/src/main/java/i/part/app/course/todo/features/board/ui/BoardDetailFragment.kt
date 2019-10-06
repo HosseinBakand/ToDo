@@ -122,7 +122,6 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
                 myBundle.putString("ownerName", boardOwner)
                 myBundle.putInt("boardID", boardId)
                 inflatedView.findNavController().navigate(R.id.action_board_to_edit_board, myBundle)
-
             }
         }
         viewModel?.addTaskChanged?.observe(this, Observer {
@@ -200,7 +199,7 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
                     context?.let {
                         val animatedDrawable =
                             ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
-                        animatedDrawable?.setBounds(0, 0, 75, 75)
+                        animatedDrawable?.setBounds(0, 0, 50, 50)
                         animatedDrawable?.let { drawable ->
                             btn.showDrawable(drawable)
                         }
@@ -215,8 +214,8 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
                         viewModel?.addTodoList(dialog.et_add_todolist_name.text.toString(), boardId)
                         observeTodoAdd()
                         dialog.dismiss()
-                    }, 600)
-                }, 1200)
+                    }, 400)
+                }, 1000)
             }
         }
         confirmButton.onEditorAction(EditorInfo.IME_ACTION_DONE)

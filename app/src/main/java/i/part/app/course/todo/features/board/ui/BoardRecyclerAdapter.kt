@@ -62,13 +62,11 @@ class BoardRecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val myAvatarViews: ArrayList<AvatarView> = ArrayList()
         holder.itemView.tag = getItem(position)
-        val t = getItem(position)
-        holder.holderBinding.myBoard = t
+        val item = getItem(position)
+        holder.holderBinding.myBoard = item
         holder.rv_avatar.let { it.setHasFixedSize(true) }
         holder.iV_delete.setOnClickListener {
-            callback.deleteBoard(t)
-
-
+            callback.deleteBoard(item)
         }
         holder.itemView.setOnClickListener { view ->
             val myBundle = Bundle()
@@ -93,6 +91,11 @@ class BoardRecyclerAdapter(
         holder.rv_avatar.let { it.adapter = avatarAdapter }
 
 
+    }
+
+    override fun submitList(list: MutableList<BoardView>?) {
+        list?.sortBy { it.id }
+        super.submitList(list)
     }
 
     inner class ViewHolder(binding: ItemBoardBinding) : RecyclerView.ViewHolder(binding.root) {

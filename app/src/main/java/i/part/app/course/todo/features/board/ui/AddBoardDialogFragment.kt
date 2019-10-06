@@ -164,7 +164,7 @@ class AddBoardDialogFragment : DialogFragment() {
                                 context as Context,
                                 R.drawable.animated_check
                             )
-                            animatedDrawable?.setBounds(0, 0, 75, 75)
+                            animatedDrawable?.setBounds(0, 0, 50, 50)
                             animatedDrawable?.let { drawable ->
                                 btn.showDrawable(drawable)
                             }
@@ -178,8 +178,8 @@ class AddBoardDialogFragment : DialogFragment() {
                         h.postDelayed({
                             this.dismiss()
                             boardViewModel?.updateBoardStatus()
-                        }, 600)
-                    }, 1200)
+                        }, 400)
+                    }, 1000)
                 }
                 is Result.Error -> {
                     this.dismiss()
