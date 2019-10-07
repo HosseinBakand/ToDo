@@ -57,7 +57,11 @@ class AddMember : Fragment() {
         addMemberViewModel?.loadBoardMember(boardID)
         observeContactList2()
         mAdapter = AddMemberAdapter { addMemberView ->
-            addMemberViewModel?.removeMember(boardID, addMemberView)
+            if (boardID != 0) {
+                addMemberViewModel?.removeMember(boardID, addMemberView)
+            } else {
+                addMemberViewModel?.removeTempMember(addMemberView)
+            }
             observeRemoveMemberResponse()
         }
         recyclerView.adapter = mAdapter

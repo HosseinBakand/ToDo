@@ -55,6 +55,10 @@ class AddMemberViewModel:ViewModel() {
         _removeMemberFromBoardResponse = repository.removeMemberFromBoard(boardID, member.name)
     }
 
+    fun removeTempMember(member: AddMemberView) {
+        _selectedMembers.value = _selectedMembers.value?.minus(member.name)
+    }
+
     fun reSet() {
         _selectedMembers = MutableLiveData<List<String>>()
     }
@@ -108,6 +112,7 @@ class AddMemberViewModel:ViewModel() {
     fun loadAllusers() {
         _allUsers = repository.getAllUsers()
     }
+
 //
 //    private fun loadMembers(boardID: Int):MutableList<AddMemberView>{
 //        //_memberList.value=repository.getBoardMembers(boardID = boardID)
