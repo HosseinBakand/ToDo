@@ -1,6 +1,7 @@
 package i.part.app.course.todo.features.board.data
 
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import i.part.app.course.todo.core.api.Result
 import i.part.app.course.todo.core.api.RetrofitFactory
@@ -11,8 +12,8 @@ import retrofit2.Response
 
 class BoardRepository {
     private val retrofit = RetrofitFactory.getRetrofit()
-    val boardServices = retrofit?.create(BoardServices::class.java)
-
+    private val boardServices = retrofit?.create(BoardServices::class.java)
+    private var localDataSource = LocalDataSource()
 
     fun addTodoList(
         todoListName: String,
@@ -42,8 +43,13 @@ class BoardRepository {
         return result
     }
 
-    fun loadTodoLists(boardID: Int): MutableLiveData<Result<ThisBoardTodoListResponse?>> {
-        var result = MutableLiveData<Result<ThisBoardTodoListResponse?>>()
+    fun getTodos(boardID: Int): LiveData<List<TodoListDto>>? {
+
+        return localDataSource.getTodoLists(boardID)
+    }
+
+    fun loadTodoLists(boardID: Int): MutableLiveData<Result<String?>> {
+        var result = MutableLiveData<Result<String?>>()
 //        result.value = Result.Loading()
         val call: Call<ThisBoardTodoListResponse>? = boardServices?.getAllTodoList(boardID)
         call?.enqueue(object : Callback<ThisBoardTodoListResponse> {
@@ -53,11 +59,14 @@ class BoardRepository {
 
             override fun onResponse(
                 call: Call<ThisBoardTodoListResponse>,
-                response: Response<ThisBoardTodoListResponse?>
+                entity: Response<ThisBoardTodoListResponse?>
             ) {
-                when {
-                    response.isSuccessful -> result.value = Result.Success(response.body())
-                    else -> result.value = Result.Error("Invalid request")
+                if (entity.isSuccessful) {
+
+                    entity.body()?.let {
+                        localDataSource.insertTodoLists(it)
+                        result.value = Result.Success("Success")
+                    }
                 }
             }
 
@@ -89,6 +98,7 @@ class BoardRepository {
             }
 
         })
+
         return result
     }
 

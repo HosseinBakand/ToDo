@@ -77,15 +77,23 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
 
         }
 
+        observeTodoList()
+
         viewModel?.getTodoLists(boardId)
+        viewModel?.todoListDataBase?.observe(this, Observer { todoListDto ->
+            adapter.submitList(todoListDto.map { it.toTodoListView() } as MutableList<TodoListView>)
+//            if (scrollToFirst) {
+//                rv_board_fragment.smoothScrollToPosition(0)
+//                scrollToFirst = false
+//            }
+        })
         adapter = TodoListRecyclerAdapter(this)
         rv_board_fragment.adapter = adapter
 
-        observeTodoList()
         rv_board_fragment.let {
             it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             todoListViews.clear()
-            viewModel?.getTodoLists(boardId)
+            observeTodoList()
             rv_board_fragment.adapter = it.adapter
         }
         iv_board_custom_menu_button?.setOnClickListener {
@@ -105,7 +113,6 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
             }
         }
         sr_todo_list.setOnRefreshListener {
-            viewModel?.getTodoLists(boardId)
             val handler = Handler()
             handler.postDelayed({
                 if (sr_todo_list.isRefreshing) {
@@ -268,17 +275,11 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
     }
 
     private fun observeTodoList() {
+        viewModel?.loadTodoList(boardId)
         sr_todo_list.isRefreshing = true
         viewModel?.todoLists?.observe(this, Observer {
             when (it) {
                 is Result.Success -> {
-                    val list = it.data?.result?.map { item -> item.toTodoListView() }
-                    adapter.submitList(list as MutableList<TodoListView>)
-//                    adapter.notifyDataSetChanged()
-                    if (scrollToFirst) {
-                        rv_board_fragment.smoothScrollToPosition(0)
-                        scrollToFirst = false
-                    }
                     sr_todo_list.isRefreshing = false
                 }
                 is Result.Error -> {
@@ -288,13 +289,13 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
             }
 
         })
+
     }
 
     private fun observeTodoAdd() {
         viewModel?.addTodoListResponse?.observe(this, Observer { result ->
             when (result) {
                 is Result.Success -> {
-                    viewModel?.getTodoLists(boardId)
                     observeTodoList()
                 }
                 is Result.Error -> {
@@ -308,7 +309,6 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         viewModel?.editTodoListResponse?.observe(this, Observer { result ->
             when (result) {
                 is Result.Success -> {
-                    viewModel?.getTodoLists(boardId)
                     observeTodoList()
                 }
                 is Result.Error -> {
@@ -323,7 +323,6 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         viewModel?.addTask?.observe(this, Observer { result ->
             when (result) {
                 is Result.Success -> {
-                    viewModel?.getTodoLists(boardId)
                     observeTodoList()
                 }
                 is Result.Error -> {
@@ -341,7 +340,7 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         snackbar.setAction("Try againg") {
             //try to reconnect
             sr_todo_list.performClick()
-            viewModel?.getTodoLists(boardId)
+            observeTodoList()
         }
         snackbar.show()
 

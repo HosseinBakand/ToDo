@@ -23,12 +23,12 @@ import i.part.app.course.todo.R
 import i.part.app.course.todo.databinding.ItemTodoListBinding
 
 private object TodoListRecyclerAdapterCallback : DiffUtil.ItemCallback<TodoListView>() {
-    override fun areContentsTheSame(oldItem: TodoListView, newItem: TodoListView): Boolean {
-        return (oldItem.todoListName == newItem.todoListName && oldItem.subtasks == newItem.subtasks)
+    override fun areItemsTheSame(oldItem: TodoListView, newItem: TodoListView): Boolean {
+        return (oldItem.id == newItem.id)
     }
 
-    override fun areItemsTheSame(oldItem: TodoListView, newItem: TodoListView): Boolean {
-        return (oldItem.hashCode() == newItem.hashCode())
+    override fun areContentsTheSame(oldItem: TodoListView, newItem: TodoListView): Boolean {
+        return (oldItem.subtasks.size == newItem.subtasks.size && oldItem.todoListName == newItem.todoListName)
     }
 }
 

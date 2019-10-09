@@ -14,7 +14,6 @@ import i.part.app.course.todo.features.board.data.TodoEntity
 )
 abstract class TodoDatabase : RoomDatabase() {
 
-    //    abstract fun getUserDao():UserDao
     abstract fun getBoardDao(): BoardDao
 
     companion object {

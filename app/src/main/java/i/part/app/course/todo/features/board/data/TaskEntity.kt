@@ -1,16 +1,25 @@
 package i.part.app.course.todo.features.board.data
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.ForeignKey
+import androidx.room.Index
 import i.part.app.course.todo.features.board.ui.SubTaskView
 
-@Entity
+@Entity(
+    indices = [Index("todo_id")],
+    primaryKeys = ["id", "todo_id"],
+    foreignKeys = [ForeignKey(
+        onDelete = ForeignKey.CASCADE,
+        entity = TodoEntity::class,
+        parentColumns = ["id"],
+        childColumns = ["todo_id"]
+    )]
+)
 data class TaskEntity(
-    @PrimaryKey
     val id: Int,
     val description: String,
     val done: Boolean,
-    val assignee: String,
+    val assignee: String? = "",
     val todo_id: Int
 ) {
     fun toSubTaskView() = SubTaskView(
