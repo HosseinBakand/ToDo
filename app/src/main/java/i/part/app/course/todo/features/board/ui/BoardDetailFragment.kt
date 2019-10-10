@@ -192,8 +192,8 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         val confirmButton = dialog.findViewById<MaterialButton>(R.id.btn_add_todolist_confirm)
         confirmButton?.setOnClickListener {
             if (dialog.et_add_todolist_name.text.toString() == "") {
-                Toast.makeText(context, "your task should have name", Toast.LENGTH_SHORT).show()
-
+//                Toast.makeText(context, "your task should have name", Toast.LENGTH_SHORT).show()
+                dialog.et_add_todolist_name.error = "your task should have name"
             } else {
                 val btn = dialog.findViewById<MaterialButton>(R.id.btn_add_todolist_confirm)
                 bindProgressButton(btn)

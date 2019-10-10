@@ -132,7 +132,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/cl_dialog_margin_top"
                         android:layout_marginBottom="@dimen/cl_dialog_margin_bottom_to_button"
                         tools:layout_editor_absoluteX="111dp"
@@ -184,7 +184,18 @@
                             app:layout_constraintTop_toTopOf="@id/tv_add_task_assign_to"
                             tools:ignore="MissingConstraints" />
 
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/tv_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/assignee_error"
+                        android:textColor="#EE0000"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
