@@ -29,6 +29,7 @@ import com.github.razir.progressbutton.showProgress
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import i.part.app.course.todo.MyApplication
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.api.Result
 import i.part.app.course.todo.core.util.ui.OverlapDecoration
@@ -105,13 +106,16 @@ class AddBoardDialogFragment : DialogFragment() {
         val picasso = Picasso.get()
         context?.let { avatarAdapter = AvatarRecyclerAdapter(myAvatarViews, picasso, true) }
 
+        MyApplication.ownerName?.let {
+            val addBoardViewModel = AddBoardView(
+                it,
+                "https://img.freepik.com/free-vector/colorful-watercolor-background_79603-99.jpg?size=626&ext=jpg",
+                "vahidImage.jpg"
+            )
+            binding.newBoardDetail = addBoardViewModel
+        }
 
-        val addBoardViewModel = AddBoardView(
-            "Vahid Safari",
-            "https://img.freepik.com/free-vector/colorful-watercolor-background_79603-99.jpg?size=626&ext=jpg",
-            "vahidImage.jpg"
-        )
-        binding.newBoardDetail = addBoardViewModel
+
         rv_avatars.adapter = avatarAdapter
         super.onActivityCreated(savedInstanceState)
     }

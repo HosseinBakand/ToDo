@@ -77,49 +77,6 @@
                     android:textSize="@dimen/big_font_size"
                     android:textStyle="normal" />
 
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_edit_todolist_owner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/cl_dialog_margin_top"
-                    android:layout_marginBottom="@dimen/cl_dialog_margin_bottom">
-
-                    <TextView
-                        android:id="@+id/tv_edit_todolist_owner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:letterSpacing="0.01"
-                        android:text="@string/addBoardOwner"
-                        android:textColor="@color/black_87_two"
-                        android:textSize="@dimen/big_font_size"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_edit_todolist_owner_name"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintHorizontal_weight="1"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:ignore="MissingConstraints" />
-
-                    <TextView
-                        android:id="@+id/tv_edit_todolist_owner_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:letterSpacing="0.01"
-                        android:text="@string/edit_todolist_name_default_owner_name"
-                        android:textColor="@color/black_87_two"
-                        android:textSize="@dimen/big_font_size"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintHorizontal_weight="2"
-                        app:layout_constraintStart_toEndOf="@+id/tv_edit_todolist_owner"
-                        tools:ignore="MissingConstraints" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton

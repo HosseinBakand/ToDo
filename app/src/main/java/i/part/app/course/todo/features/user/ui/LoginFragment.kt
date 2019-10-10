@@ -90,6 +90,9 @@ class LoginFragment : Fragment() {
                             itdata.token.let { itdatatoken ->
                                 saveToken(itdatatoken)
                             }
+                            itdata.username.let { username ->
+                                saveOwner(username)
+                            }
                         }
 
                     }
@@ -164,5 +167,12 @@ class LoginFragment : Fragment() {
         editor?.putString("myToken", token)
         editor?.apply()
         MyApplication.TOKEN = token
+    }
+
+    fun saveOwner(owner: String) {
+        val editor = context?.getSharedPreferences("myPref", Context.MODE_PRIVATE)?.edit()
+        editor?.putString("myOwner", owner)
+        editor?.apply()
+        MyApplication.ownerName = owner
     }
 }

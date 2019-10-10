@@ -23,6 +23,7 @@ import com.github.razir.progressbutton.bindProgressButton
 import com.github.razir.progressbutton.showDrawable
 import com.github.razir.progressbutton.showProgress
 import com.squareup.picasso.Picasso
+import i.part.app.course.todo.MyApplication
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.api.Result
 import i.part.app.course.todo.databinding.DialogAddTaskBinding
@@ -134,8 +135,11 @@ class AddTaskFragment : DialogFragment() {
         val fakeLink: String =
             "https://www.shareicon.net/download/2016/05/24/770136_man_512x512.png"
         val picasso = Picasso.get()
-        val mohammad: TaskView = TaskView("Mohammad bahadori")
-        binding.ownerName = mohammad
+        MyApplication.ownerName?.let {
+            val owner: TaskView = TaskView(it)
+            binding.ownerName = owner
+        }
+
     }
 
     private fun blink() {

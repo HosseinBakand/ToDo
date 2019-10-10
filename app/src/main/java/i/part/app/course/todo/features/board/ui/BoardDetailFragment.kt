@@ -187,6 +187,7 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setContentView(R.layout.dialog_add_to_do_list)
         dialog.setCanceledOnTouchOutside(false)
+
         val confirmButton =
             dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_add_todolist_confirm)
         confirmButton?.setOnClickListener {
