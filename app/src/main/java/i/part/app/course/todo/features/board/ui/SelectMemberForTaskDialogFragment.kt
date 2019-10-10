@@ -18,7 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.api.Result
-import i.part.app.course.todo.features.board.data.BoardMemberResponse
+import i.part.app.course.todo.features.board.data.BoardMemberEntity
+import i.part.app.course.todo.features.board.data.MemberOfBoardEntity
 import kotlinx.android.synthetic.main.dialog_select_member.*
 
 class SelectMemberForTaskDialogFragment : DialogFragment(), ClickCallBack {
@@ -51,27 +52,55 @@ class SelectMemberForTaskDialogFragment : DialogFragment(), ClickCallBack {
             boardId = it.getInt("boardID")
         }
         addMemberViewModel?.loadBoardMember(boardId)
+
+        addMemberViewModel?.callGetBoardUser(boardId)?.observe(viewLifecycleOwner, Observer {
+            val templist: List<MemberOfBoardEntity>? = it
+            templist?.let {
+                tempView = mutableListOf()
+                addMemberViewModel?.alreadMember?.clear()
+                for (i in 0..templist.size - 1) {
+                    addMemberViewModel?.alreadMember?.add(
+                        BoardMemberEntity(
+                            templist[i].MemberId,
+                            "imge_avr",
+                            "",
+                            "",
+                            ""
+                        )
+                    )
+                    tempView.add(
+                        SelectMemberView(
+                            templist[i].MemberName,
+                            templist[i].MemberName,
+                            false,
+                            templist[i].MemberId
+                        )
+                    )
+                }
+                mAdapter.submitList(tempView)
+            }
+        })
         mAdapter = SelectSingleMemberAdapter(this)
 ///
         addMemberViewModel?.contactList2?.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Result.Success -> {
                     it.data
-                    val templist: List<BoardMemberResponse>? = it.data?.result
-                    templist?.let {
-                        tempView = mutableListOf()
-                        for (i in 0..templist.size - 1) {
-                            tempView.add(
-                                SelectMemberView(
-                                    templist[i].profile_pic,
-                                    templist[i].name,
-                                    false,
-                                    templist[i].id
-                                )
-                            )
-                        }
-                        mAdapter.submitList(tempView)
-                    }
+//                    val templist: List<BoardMemberEntity>? = it.data?.result
+//                    templist?.let {
+//                        tempView = mutableListOf()
+//                        for (i in 0..templist.size - 1) {
+//                            tempView.add(
+//                                SelectMemberView(
+//                                    templist[i].profile_pic,
+//                                    templist[i].name,
+//                                    false,
+//                                    templist[i].id
+//                                )
+//                            )
+//                        }
+//                        mAdapter.submitList(tempView)
+//                    }
                 }
             }
 

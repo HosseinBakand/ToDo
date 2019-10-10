@@ -210,49 +210,59 @@ class BoardRepository {
         return result
     }
 
-    fun getBoardMembers(boardID: Int): MutableLiveData<Result<ListResponse<BoardMemberResponse>?>> {
-        val result = MutableLiveData<Result<ListResponse<BoardMemberResponse>?>>()
-        val call: Call<ListResponse<BoardMemberResponse>>? = boardServices?.getBoardMembers(boardID)
-        call?.enqueue(object : Callback<ListResponse<BoardMemberResponse>> {
-            override fun onFailure(call: Call<ListResponse<BoardMemberResponse>>, t: Throwable) {
+    fun getBoardMembersDB(boardID: Int): LiveData<List<MemberOfBoardEntity>>? {
+        return localDataSource.getBoardUsers(boardID)
+    }
+
+    fun getBoardMembers(boardID: Int): MutableLiveData<Result<String>> {
+        val result = MutableLiveData<Result<String>>()
+        val call: Call<ListResponse<BoardMemberEntity>>? = boardServices?.getBoardMembers(boardID)
+        call?.enqueue(object : Callback<ListResponse<BoardMemberEntity>> {
+            override fun onFailure(call: Call<ListResponse<BoardMemberEntity>>, t: Throwable) {
                 result.value = Result.Error("ConnectionError", null)
             }
 
             override fun onResponse(
-                call: Call<ListResponse<BoardMemberResponse>>,
-                response: Response<ListResponse<BoardMemberResponse>>
+                call: Call<ListResponse<BoardMemberEntity>>,
+                entity: Response<ListResponse<BoardMemberEntity>>
             ) {
                 when {
-                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    entity.isSuccessful -> {
+                        result.value = Result.Success("Success")
+                        localDataSource.insertBoardMember(entity.body()?.result, boardID)
+                    }
                     else -> result.value = Result.Error("Invalid request")
                 }
-
             }
-
         })
         return result
     }
 
+    fun getAllUsersDB(): LiveData<List<BoardMemberEntity>>? {
+        return localDataSource.getAllusers()
+    }
 
-    fun getAllUsers(): MutableLiveData<Result<List<BoardMemberResponse>?>> {
-        val result = MutableLiveData<Result<List<BoardMemberResponse>?>>()
-        val call: Call<List<BoardMemberResponse>>? = boardServices?.getAllUsers()
-        call?.enqueue(object : Callback<List<BoardMemberResponse>> {
-            override fun onFailure(call: Call<List<BoardMemberResponse>>, t: Throwable) {
+
+    fun getAllUsers(): MutableLiveData<Result<String>> {
+        val result = MutableLiveData<Result<String>>()
+        val call: Call<List<BoardMemberEntity>>? = boardServices?.getAllUsers()
+        call?.enqueue(object : Callback<List<BoardMemberEntity>> {
+            override fun onFailure(call: Call<List<BoardMemberEntity>>, t: Throwable) {
                 result.value = Result.Error("ConnectionError", null)
             }
 
             override fun onResponse(
-                call: Call<List<BoardMemberResponse>>,
-                response: Response<List<BoardMemberResponse>>
+                call: Call<List<BoardMemberEntity>>,
+                entity: Response<List<BoardMemberEntity>>
             ) {
                 when {
-                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    entity.isSuccessful -> {
+                        result.value = Result.Success("Success")
+                        localDataSource.insertUser(entity.body())
+                    }
                     else -> result.value = Result.Error("Invalid request")
                 }
-
             }
-
         })
         return result
     }

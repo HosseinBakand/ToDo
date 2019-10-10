@@ -1,10 +1,7 @@
 package i.part.app.course.todo.features.board.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 abstract class BoardDao {
@@ -16,6 +13,7 @@ abstract class BoardDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertTasks(taskLists: List<TaskEntity>)
 
+    @Transaction
     @Query("SELECT * from TodoEntity Where board_id=:boardId")
     abstract fun getAllTodos(boardId: Int): LiveData<List<TodoListDto>>
 
@@ -24,13 +22,21 @@ abstract class BoardDao {
         insertTasks(todo.tasks)
     }
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertUsers(userEntities: List<BoardMemberEntity>?)
 
-//    @Insert
-//    fun insertUser(userEntities: List<UserEntity>)
-//
-//    @Query("SELECT * from UserEntity")
-//    fun getAllUsers(): LiveData<List<UserEntity>>
-//
+    @Query("DELETE from MemberOfBoardEntity where boardID=:boardID")
+    abstract fun cleanAllUsers(boardID: Int)
+
+    @Query("SELECT * from MemberOfBoardEntity where boardID=:boardID")
+    abstract fun getBoardUsers(boardID: Int): LiveData<List<MemberOfBoardEntity>>
+
+    @Query("SELECT * from BoardMemberEntity")
+    abstract fun getAllUsers(): LiveData<List<BoardMemberEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun setBoardMember(memberOfBoardEntity: MemberOfBoardEntity)
+
 //    @Delete
 //    fun deleteUsers(userEntity: UserEntity)
 //
