@@ -37,6 +37,8 @@ class TodoListRecyclerAdapter(
 ) :
     ListAdapter<TodoListView, RecyclerView.ViewHolder>(TodoListRecyclerAdapterCallback),
     SubTaskRecyclerAdapter.MyTaskListCallback {
+
+
     lateinit var view: View
     lateinit var context: Context
     lateinit var recyclerView: RecyclerView

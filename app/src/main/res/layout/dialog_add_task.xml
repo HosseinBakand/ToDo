@@ -198,7 +198,7 @@
                         android:visibility="gone" />
                 </LinearLayout>
 
-                <com.google.android.material.button.MaterialButton
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_add_task_confirm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
