@@ -14,6 +14,7 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -21,9 +22,9 @@ import com.github.razir.progressbutton.attachTextChangeAnimator
 import com.github.razir.progressbutton.bindProgressButton
 import com.github.razir.progressbutton.showDrawable
 import com.github.razir.progressbutton.showProgress
-import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
+import i.part.app.course.todo.core.api.Result
 import i.part.app.course.todo.databinding.DialogAddTaskBinding
 import i.part.app.course.todo.features.board.data.AddTaskParam
 import kotlinx.android.synthetic.main.dialog_add_task.*
@@ -79,6 +80,7 @@ class AddTaskFragment : DialogFragment() {
         }
 
         btn_add_task_confirm.setOnClickListener {
+
             if (dialog?.et_add_task_task_name?.text.toString() == "") {
 //                Toast.makeText(context, "your task should have name", Toast.LENGTH_SHORT).show()
                 dialog?.et_add_task_task_name?.error = "your task should have name"
@@ -89,44 +91,27 @@ class AddTaskFragment : DialogFragment() {
 
             } else {
                 dialog?.tv_error?.visibility = View.GONE
+                btn_add_task_confirm.setBackgroundResource(R.drawable.dialog_button_round_down)
+                arguments?.let {
+                    taskViewModel.addTask(
+                        it.getInt("TaskID"),
+                        AddTaskParam(
+                            done = false,
+                            description = dialog?.et_add_task_task_name?.text.toString(),
+                            assignee = selectedUserName
+                        )
+                    )
+                }
+
                 val btn =
-                    myView.findViewById<MaterialButton>(i.part.app.course.todo.R.id.btn_add_task_confirm)
+                    myView.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_add_task_confirm)
                 bindProgressButton(btn)
                 btn.showProgress {
                     progressColor = Color.BLACK
                 }
-
                 Handler().postDelayed({
-
-                    context?.let {
-                        val animatedDrawable =
-                            ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
-                        animatedDrawable?.setBounds(0, 0, 75, 75)
-                        animatedDrawable?.let { drawable ->
-                            btn.showDrawable(drawable)
-                        }
-                    }
-
-                    btn.attachTextChangeAnimator {
-                        fadeOutMills = 100
-                        fadeInMills = 100
-                    }
-                    val h = Handler()
-                    h.postDelayed({
-                        arguments?.let {
-                            taskViewModel.addTask(
-                                it.getInt("TaskID"),
-                                AddTaskParam(
-                                    done = false,
-                                    description = dialog?.et_add_task_task_name?.text.toString(),
-                                    assignee = selectedUserName
-                                )
-                            )
-                            taskViewModel.addTaskChanged.value = true
-                        }
-                        this.dismiss()
-                    }, 400)
-                }, 1000)
+                    observeAddTask(btn)
+                }, 800)
             }
         }
 
@@ -172,4 +157,47 @@ class AddTaskFragment : DialogFragment() {
             }
         }).start()
     }
+    private fun observeAddTask(btn: androidx.appcompat.widget.AppCompatButton) {
+
+        taskViewModel.addTask.observe(this, Observer { result ->
+            when (result) {
+                is Result.Success -> {
+                    context?.let {
+                        val animatedDrawable =
+                            ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
+                        animatedDrawable?.setBounds(0, 0, 75, 75)
+                        animatedDrawable?.let { drawable ->
+                            btn.showDrawable(drawable)
+                        }
+                    }
+
+                    btn.attachTextChangeAnimator {
+                        fadeOutMills = 100
+                        fadeInMills = 100
+                    }
+                    btn_add_task_confirm.setBackgroundResource(R.drawable.dialog_button_round_down_green)
+                    val h = Handler()
+                    h.postDelayed({
+
+                        this.dismiss()
+                        taskViewModel.addTaskChanged.value = true
+                    }, 600)
+
+                }
+                is Result.Error -> {
+//                    btn.background=R.drawable.dialog_button_round_down_red
+//                    btn.setBackgroundColor(Color.RED)
+                    btn.showProgress {
+                        progressColor = Color.TRANSPARENT
+                    }
+                    btn_add_task_confirm.setBackgroundResource(R.drawable.dialog_button_round_down_red)
+                    btn_add_task_confirm.text = "No Internet"
+//                    Toast.makeText(context, "problem occurred", Toast.LENGTH_SHORT).show()
+                }
+                is Result.Loading -> {
+                }
+            }
+        })
+    }
+
 }

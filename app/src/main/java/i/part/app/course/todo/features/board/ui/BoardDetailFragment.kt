@@ -10,7 +10,6 @@ import android.util.DisplayMetrics
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -26,7 +25,6 @@ import com.github.razir.progressbutton.attachTextChangeAnimator
 import com.github.razir.progressbutton.bindProgressButton
 import com.github.razir.progressbutton.showDrawable
 import com.github.razir.progressbutton.showProgress
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.api.Result
@@ -36,6 +34,7 @@ import kotlinx.android.synthetic.main.dialog_edit_todolist_name.*
 import kotlinx.android.synthetic.main.fragment_board.*
 
 class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallback {
+
     lateinit var dialog: Dialog
     lateinit var boardOwner: String
     private var boardId: Int = 0
@@ -53,7 +52,6 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         }
     }
 
-    var scrollToFirst = false
     private lateinit var inflatedView: View
     private val fakeLink: String =
         "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
@@ -132,8 +130,8 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
             }
         }
         viewModel?.addTaskChanged?.observe(this, Observer {
-            observeAddTask()
-
+            //            observeAddTask()
+            observeTodoList()
         })
         val snapHelper = LinearSnapHelper()
         rv_board_fragment.clipToPadding = false
@@ -189,40 +187,28 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setContentView(R.layout.dialog_add_to_do_list)
         dialog.setCanceledOnTouchOutside(false)
-        val confirmButton = dialog.findViewById<MaterialButton>(R.id.btn_add_todolist_confirm)
+        val confirmButton =
+            dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_add_todolist_confirm)
         confirmButton?.setOnClickListener {
             if (dialog.et_add_todolist_name.text.toString() == "") {
 //                Toast.makeText(context, "your task should have name", Toast.LENGTH_SHORT).show()
                 dialog.et_add_todolist_name.error = "your task should have name"
             } else {
-                val btn = dialog.findViewById<MaterialButton>(R.id.btn_add_todolist_confirm)
+                viewModel?.addTodoList(dialog.et_add_todolist_name.text.toString(), boardId)
+                dialog.btn_add_todolist_confirm.setBackgroundResource(R.drawable.dialog_button_round_down)
+
+                val btn =
+                    dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_add_todolist_confirm)
                 bindProgressButton(btn)
                 btn.showProgress {
                     progressColor = Color.BLACK
                 }
 
                 Handler().postDelayed({
+                    observeTodoAdd(btn, dialog)
 
-                    context?.let {
-                        val animatedDrawable =
-                            ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
-                        animatedDrawable?.setBounds(0, 0, 75, 75)
-                        animatedDrawable?.let { drawable ->
-                            btn.showDrawable(drawable)
-                        }
-                    }
 
-                    btn.attachTextChangeAnimator {
-                        fadeOutMills = 100
-                        fadeInMills = 100
-                    }
-                    val h = Handler()
-                    h.postDelayed({
-                        viewModel?.addTodoList(dialog.et_add_todolist_name.text.toString(), boardId)
-                        observeTodoAdd()
-                        dialog.dismiss()
-                    }, 400)
-                }, 1000)
+                }, 500)
             }
         }
         confirmButton.onEditorAction(EditorInfo.IME_ACTION_DONE)
@@ -257,15 +243,29 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         dialog.et_edit_todolist_name.setSelectAllOnFocus(true)
         dialog.et_edit_todolist_name.setTextColor(resources.getColor(R.color.black))
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-        val okButton = dialog.findViewById<MaterialButton>(R.id.btn_edit_todolist_confirm)
+        val okButton =
+            dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_edit_todolist_confirm)
         okButton?.setOnClickListener {
-            viewModel?.editToDoListName(
-                todoListView.id,
-                dialog.et_edit_todolist_name.text.toString()
-            )
-            observeEditTodoName()
-            dialog.dismiss()
-            if (todoListView == adapter.getItemView(0)) scrollToFirst = true
+            if (dialog.et_edit_todolist_name.text.toString() == "") {
+                dialog.et_edit_todolist_name?.error = "your task should have name"
+
+            } else {
+                dialog.et_edit_todolist_name?.error = null
+                viewModel?.editToDoListName(
+                    todoListView.id,
+                    dialog.et_edit_todolist_name.text.toString()
+                )
+                val btn =
+                    dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_edit_todolist_confirm)
+                bindProgressButton(btn)
+                btn.showProgress {
+                    progressColor = Color.BLACK
+                }
+
+                Handler().postDelayed({
+                    observeEditTodoName(btn)
+                }, 500)
+            }
         }
         val closeButton = dialog.findViewById<ImageButton>(R.id.ib_edit_todolist_close)
         closeButton?.setOnClickListener {
@@ -292,47 +292,82 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
 
     }
 
-    private fun observeTodoAdd() {
+    private fun observeTodoAdd(btn: androidx.appcompat.widget.AppCompatButton, thisDialog: Dialog) {
         viewModel?.addTodoListResponse?.observe(this, Observer { result ->
             when (result) {
                 is Result.Success -> {
-                    observeTodoList()
+                    context?.let {
+                        val animatedDrawable =
+                            ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
+                        animatedDrawable?.setBounds(0, 0, 75, 75)
+                        animatedDrawable?.let { drawable ->
+                            btn.showDrawable(drawable)
+                        }
+                    }
+
+                    btn.attachTextChangeAnimator {
+                        fadeOutMills = 100
+                        fadeInMills = 100
+                    }
+                    btn.setBackgroundResource(R.drawable.dialog_button_round_down_green)
+
+                    val h = Handler()
+                    h.postDelayed({
+
+                        thisDialog.dismiss()
+                        observeTodoList()
+
+                    }, 500)
                 }
                 is Result.Error -> {
-                    Toast.makeText(context, "problem occurred", Toast.LENGTH_SHORT).show()
+                    btn.showProgress {
+                        progressColor = Color.TRANSPARENT
+                    }
+                    btn.setBackgroundResource(R.drawable.dialog_button_round_down_red)
+                    btn.text = "No Internet"
                 }
             }
         })
     }
 
-    private fun observeEditTodoName() {
+    private fun observeEditTodoName(btn: androidx.appcompat.widget.AppCompatButton) {
         viewModel?.editTodoListResponse?.observe(this, Observer { result ->
             when (result) {
                 is Result.Success -> {
-                    observeTodoList()
+                    context?.let {
+                        val animatedDrawable =
+                            ContextCompat.getDrawable(context as Context, R.drawable.animated_check)
+                        animatedDrawable?.setBounds(0, 0, 75, 75)
+                        animatedDrawable?.let { drawable ->
+                            btn.showDrawable(drawable)
+                        }
+                    }
+
+                    btn.attachTextChangeAnimator {
+                        fadeOutMills = 100
+                        fadeInMills = 100
+                    }
+                    btn.setBackgroundResource(R.drawable.dialog_button_round_down_green)
+
+                    val h = Handler()
+                    h.postDelayed({
+
+                        dialog.dismiss()
+                        observeTodoList()
+
+                    }, 500)
                 }
                 is Result.Error -> {
-                    Toast.makeText(context, "problem occurred", Toast.LENGTH_SHORT).show()
+                    btn.showProgress {
+                        progressColor = Color.TRANSPARENT
+                    }
+                    btn.setBackgroundResource(R.drawable.dialog_button_round_down_red)
+                    btn.text = "No Internet"
                 }
             }
         })
     }
 
-    private fun observeAddTask() {
-
-        viewModel?.addTask?.observe(this, Observer { result ->
-            when (result) {
-                is Result.Success -> {
-                    observeTodoList()
-                }
-                is Result.Error -> {
-                    Toast.makeText(context, "problem occurred", Toast.LENGTH_SHORT).show()
-                }
-                is Result.Loading -> {
-                }
-            }
-        })
-    }
 
     private fun showSnackBar(view: View, message: String, duration: Int) {
         val snackbar = Snackbar.make(view, message, duration)
