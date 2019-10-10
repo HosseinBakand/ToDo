@@ -55,6 +55,25 @@ interface BoardServices {
         @Body updateTaskParam: UpdateTaskParam
     ): Call<EditTaskResponse>
 
+    @GET("tasks/assignee/{memberID}")
+    fun getAssignee(@Path("memberID") taskId: Int, @Body userRegister: RegisterParam): Call<RegisterResponse>
+
+    @GET("boards/membersof/{boardID}")
+    fun getBoardMembers(@Path("boardID") boardID: Int): Call<ListResponse<BoardMemberEntity>>
+
+    @POST("boards/addmemberto/{boardID}")
+    fun addUserToBoard(@Path("boardID") boardID: Int, @Body addUserParam: AddUserParam): Call<AddUserResponse>
+
+    @GET("users")
+    fun getAllUsers(): Call<List<BoardMemberEntity>>
+
+
+    @POST("todo/{boardID}")
+    fun addMemberToTas(
+        @Path("boardID") boardID: Int,
+        @Body title: AddTodoListParam
+    ): Call<AddTodoListResponse>
+
 
     @GET("boards")
     fun getBoards(): Call<List<BoardResponse>>
@@ -85,25 +104,4 @@ interface BoardServices {
     fun removeMemberfromBoard(
         @Path("boardID") boardID: Int, @Path("username") username: String
     ): Call<RemoveMemberResponse>
-
-    @GET("tasks/assignee/{memberID}")
-    fun getAssignee(@Path("memberID") taskId: Int, @Body userRegister: RegisterParam): Call<RegisterResponse>
-
-    @GET("boards/membersof/{boardID}")
-    fun getBoardMembers(@Path("boardID") boardID: Int): Call<ListResponse<BoardMemberResponse>>
-
-    @POST("boards/addmemberto/{boardID}")
-    fun addUserToBoard(@Path("boardID") boardID: Int, @Body addUserParam: AddUserParam): Call<AddUserResponse>
-
-    @GET("users")
-    fun getAllUsers(): Call<List<BoardMemberResponse>>
-
-
-    @POST("todo/{boardID}")
-    fun addMemberToTas(
-        @Path("boardID") boardID: Int,
-        @Body title: AddTodoListParam
-    ): Call<AddTodoListResponse>
-
-
 }

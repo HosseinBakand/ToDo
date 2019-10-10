@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -19,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.api.Result
 import i.part.app.course.todo.features.board.data.AddUserParam
-import i.part.app.course.todo.features.board.data.BoardMemberResponse
+import i.part.app.course.todo.features.board.data.BoardMemberEntity
 import kotlinx.android.synthetic.main.dialog_select_member.*
 
 class SelectMemberDialogFragment : DialogFragment() {
@@ -60,6 +61,7 @@ class SelectMemberDialogFragment : DialogFragment() {
             }
         }
         addMemberViewModel?.loadAllusers()
+        observeAllUsersDB(addMemberViewModel?.callGetAllUser())
         mAdapter = SelectMemberAdapter()
         observeAllUsers()
         rv_add_member_3.adapter = mAdapter
@@ -98,7 +100,7 @@ class SelectMemberDialogFragment : DialogFragment() {
                 val list = tempView
                 val newList = mutableListOf<SelectMemberView>()
                 list.forEach {
-                    if(it.name.startsWith(start,true)){
+                    if (it.name.startsWith(start, true)) {
                         newList.add(it)
                     }
                 }
@@ -137,7 +139,7 @@ class SelectMemberDialogFragment : DialogFragment() {
             when (it) {
                 is Result.Success -> {
                     it.data
-                    val templist : List<BoardMemberResponse>? = it.data?.toList()
+                    val templist: List<BoardMemberEntity>? = it.data?.toList()
                     templist?.let {
                         tempView = mutableListOf()
                         for (i in 0..templist.size - 1) {
@@ -158,11 +160,33 @@ class SelectMemberDialogFragment : DialogFragment() {
         })
     }
 
+
+    private fun observeAllUsersDB(liveData: LiveData<List<BoardMemberEntity>>?) {
+        liveData?.observe(viewLifecycleOwner, Observer {
+            val templist: List<BoardMemberEntity>? = liveData.value
+            templist?.let {
+                tempView = mutableListOf()
+                for (i in 0..templist.size - 1) {
+                    tempView.add(
+                        SelectMemberView(
+                            templist[i].profile_pic,
+                            templist[i].name,
+                            false,
+                            templist[i].id
+                        )
+                    )
+                }
+                deleteMutalMember()
+                mAdapter.submitList(tempView)
+            }
+        })
+    }
+
     private fun deleteMutalMember() {
         addMemberViewModel?.let {
             for (alreadyMember in it.alreadMember) {
                 for (newMembers in tempView) {
-                    if (alreadyMember.id == newMembers.id && alreadyMember.name == newMembers.name) {
+                    if (alreadyMember.id == newMembers.id) {
                         tempView.remove(newMembers)
                         break
                     }

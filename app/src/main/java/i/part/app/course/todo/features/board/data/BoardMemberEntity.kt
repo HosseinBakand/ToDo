@@ -1,6 +1,11 @@
 package i.part.app.course.todo.features.board.data
 
-data class BoardMemberResponse(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class BoardMemberEntity(
+    @PrimaryKey
     val id: Int,
     val profile_pic: String,
     val name: String,

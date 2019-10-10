@@ -13,11 +13,11 @@ import i.part.app.course.todo.databinding.ItemSelectMemberBinding
 
 private object SelectMemberAdapterCallback : DiffUtil.ItemCallback<SelectMemberView>(){
     override fun areItemsTheSame(oldItem: SelectMemberView, newItem: SelectMemberView): Boolean {
-        return (oldItem.hashCode() == newItem.hashCode())
+        return (oldItem.id == newItem.id)
     }
 
     override fun areContentsTheSame(oldItem: SelectMemberView, newItem: SelectMemberView): Boolean {
-        return (oldItem.imageUrl == newItem.imageUrl && oldItem.name == newItem.name && oldItem.ischeck == newItem.ischeck)
+        return (oldItem.ischeck != newItem.ischeck)
     }
 }
 

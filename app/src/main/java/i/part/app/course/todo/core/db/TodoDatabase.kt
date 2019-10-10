@@ -4,12 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import i.part.app.course.todo.features.board.data.BoardDao
-import i.part.app.course.todo.features.board.data.TaskEntity
-import i.part.app.course.todo.features.board.data.TodoEntity
+import i.part.app.course.todo.features.board.data.*
 
 @Database(
-    entities = [/*BoardEntity::class, */TaskEntity::class, TodoEntity::class],
+    entities = [/*BoardEntity::class, */TaskEntity::class, TodoEntity::class, BoardMemberEntity::class, MemberOfBoardEntity::class],
     version = 1
 )
 abstract class TodoDatabase : RoomDatabase() {

@@ -15,14 +15,20 @@ class AddMemberViewModel:ViewModel() {
     val contactList: LiveData<List<SelectMemberView>>
         get() = _contactList
 
-    private var _contactList2 = MutableLiveData<Result<ListResponse<BoardMemberResponse>?>>()
-    val contactList2: LiveData<Result<ListResponse<BoardMemberResponse>?>>
+    private var _contactList2 = MutableLiveData<Result<String>>()
+    val contactList2: LiveData<Result<String>>
         get() = _contactList2
 
 
-    private var _allUsers = MutableLiveData<Result<List<BoardMemberResponse>?>>()
-    val allUsers: LiveData<Result<List<BoardMemberResponse>?>>
+    private var _allUsers = MutableLiveData<Result<List<BoardMemberEntity>?>>()
+    val allUsers: LiveData<Result<List<BoardMemberEntity>?>>
         get() = _allUsers
+
+    private var _loadUsersRes = MutableLiveData<Result<String>>()
+    val loadUsersRes: LiveData<Result<String>>
+        get() = _loadUsersRes
+
+
 
     private var _addUserToBoardResponse = MutableLiveData<Result<AddUserResponse?>>()
     val addUserToBoardResponse: LiveData<Result<AddUserResponse?>>
@@ -43,7 +49,7 @@ class AddMemberViewModel:ViewModel() {
     val isMembersUpdated: LiveData<Boolean>
         get() = _isMembersUpdated
 
-    val alreadMember = mutableListOf<BoardMemberResponse>()
+    val alreadMember = mutableListOf<BoardMemberEntity>()
 
 
     fun updateMemberStatus() {
@@ -91,6 +97,19 @@ class AddMemberViewModel:ViewModel() {
 //        _contactList.value = loadContacts()
 //    }
 
+
+    fun callGetAllUser(): LiveData<List<BoardMemberEntity>>? {
+        return repository.getAllUsersDB()
+    }
+
+    fun callSetBoardUser(boardID: Int): LiveData<Result<String>>? {
+        return repository.getBoardMembers(boardID)
+    }
+
+    fun callGetBoardUser(boardID: Int): LiveData<List<MemberOfBoardEntity>>? {
+        return repository.getBoardMembersDB(boardID)
+    }
+
     fun changeContactState(selectMemberView: SelectMemberView) {
         val list = mutableListOf<SelectMemberView>()
         _contactList.value?.let {
@@ -110,7 +129,7 @@ class AddMemberViewModel:ViewModel() {
     }
 
     fun loadAllusers() {
-        _allUsers = repository.getAllUsers()
+        _loadUsersRes = repository.getAllUsers()
     }
 
 //
