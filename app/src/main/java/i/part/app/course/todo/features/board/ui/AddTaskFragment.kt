@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -28,6 +27,7 @@ import i.part.app.course.todo.R
 import i.part.app.course.todo.databinding.DialogAddTaskBinding
 import i.part.app.course.todo.features.board.data.AddTaskParam
 import kotlinx.android.synthetic.main.dialog_add_task.*
+
 
 class AddTaskFragment : DialogFragment() {
     var avatarManager: RecyclerView.LayoutManager? = null
@@ -74,18 +74,23 @@ class AddTaskFragment : DialogFragment() {
         //binding.ownerName = taskViewModel.task.value
         //taskViewModel.task.observe(this, androidx.lifecycle.Observer { binding.ownerName = it })
         ib_add_task_close.setOnClickListener {
-            this.findNavController().navigate(R.id.action_addTaskFragment_to_board)
+            this.findNavController()
+                .navigate(i.part.app.course.todo.R.id.action_addTaskFragment_to_board)
         }
 
         btn_add_task_confirm.setOnClickListener {
             if (dialog?.et_add_task_task_name?.text.toString() == "") {
-                Toast.makeText(context, "your task should have name", Toast.LENGTH_SHORT).show()
-
+//                Toast.makeText(context, "your task should have name", Toast.LENGTH_SHORT).show()
+                dialog?.et_add_task_task_name?.error = "your task should have name"
+                dialog?.tv_error?.visibility = View.GONE
             } else if (selectedUserName == "") {
-                Toast.makeText(context, "your task should have assignee", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "your task should have assignee", Toast.LENGTH_SHORT).show()
+                dialog?.tv_error?.visibility = View.VISIBLE
 
             } else {
-                val btn = myView.findViewById<MaterialButton>(R.id.btn_add_task_confirm)
+                dialog?.tv_error?.visibility = View.GONE
+                val btn =
+                    myView.findViewById<MaterialButton>(i.part.app.course.todo.R.id.btn_add_task_confirm)
                 bindProgressButton(btn)
                 btn.showProgress {
                     progressColor = Color.BLACK
@@ -146,5 +151,25 @@ class AddTaskFragment : DialogFragment() {
         val picasso = Picasso.get()
         val mohammad: TaskView = TaskView("Mohammad bahadori")
         binding.ownerName = mohammad
+    }
+
+    private fun blink() {
+        val handler = Handler()
+        Thread(Runnable {
+            val timeToBlink = 1000    //in milissegunds
+            try {
+                Thread.sleep(timeToBlink.toLong())
+            } catch (e: Exception) {
+            }
+
+            handler.post {
+                if (dialog?.tv_error?.visibility == View.VISIBLE) {
+                    dialog?.tv_error?.visibility = View.INVISIBLE
+                } else {
+                    dialog?.tv_error?.visibility = View.VISIBLE
+                }
+                blink()
+            }
+        }).start()
     }
 }

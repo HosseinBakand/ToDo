@@ -10,6 +10,7 @@ import i.part.app.course.todo.features.board.ui.SubTaskView
     primaryKeys = ["id", "todo_id"],
     foreignKeys = [ForeignKey(
         onDelete = ForeignKey.CASCADE,
+        onUpdate = ForeignKey.CASCADE,
         entity = TodoEntity::class,
         parentColumns = ["id"],
         childColumns = ["todo_id"]
