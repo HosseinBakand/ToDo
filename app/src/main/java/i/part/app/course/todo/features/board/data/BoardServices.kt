@@ -9,7 +9,7 @@ interface BoardServices {
 
     @GET("/api/todo")
     fun getCurrentTodos(
-    ): Call<List<TodoSpecification>>
+    ): Call<List<TodoListDto>>
 
     @GET("/api/boards/todosof/{boardID}")
     fun getAllTodoList(
@@ -76,7 +76,8 @@ interface BoardServices {
 
 
     @GET("boards")
-    fun getBoards(): Call<List<BoardResponse>>
+    fun getBoards(
+    ): Call<List<BoardEntity>>
 
     @POST("boards")
     fun createBoard(

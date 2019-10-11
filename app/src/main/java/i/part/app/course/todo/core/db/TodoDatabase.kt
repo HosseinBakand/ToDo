@@ -6,13 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import i.part.app.course.todo.features.board.data.*
 
-@Database(
-    entities = [/*BoardEntity::class, */TaskEntity::class, TodoEntity::class, BoardMemberEntity::class, MemberOfBoardEntity::class],
-    version = 1
-)
+@Database(entities = [BoardEntity::class,TaskEntity::class, TodoEntity::class, BoardMemberEntity::class, MemberOfBoardEntity::class], version = 1)
 abstract class TodoDatabase : RoomDatabase() {
 
-    abstract fun getBoardDao(): BoardDao
+//    abstract fun getUserDao():UserDao
+abstract fun getBoardDao(): BoardDao
 
     companion object {
         private var db: TodoDatabase? = null

@@ -21,13 +21,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
 import i.part.app.course.todo.core.api.Result
-import i.part.app.course.todo.features.board.data.BoardResponse
-import i.part.app.course.todo.features.board.data.TodoSpecification
+import i.part.app.course.todo.features.board.data.BoardEntity
+import i.part.app.course.todo.features.board.data.TodoListDto
 import kotlinx.android.synthetic.main.fragment_dash_board.*
 
 class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
 
     private lateinit var myView: View
+    private var boardList: List<BoardEntity>? = listOf<BoardEntity>()
     private val boardViewModel by lazy {
         activity?.let {
             ViewModelProviders.of(activity as FragmentActivity).get(DashBoardViewModel::class.java)
@@ -78,6 +79,49 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
         rv_boards.adapter = mAdapter
         boardViewModel?.getBoards()
         observeList()
+        boardViewModel?.getCurrentTodos()
+        boardViewModel?.getCurrentTodosLiveData?.observe(this, Observer {
+            var todoListMap: MutableMap<Int, Triple<Int, Int, Int>>
+            var viewList = mutableListOf<BoardView>()
+            it?.let { responseData ->
+                viewList = mutableListOf()
+                todoListMap =
+                    extractBoardDetails(responseData)
+                boardList?.let { be ->
+                    for (boardResponse in be) {
+                        viewList.add(
+                            BoardView(
+                                id = boardResponse.id ?: -1,
+                                title = boardResponse.title ?: "",
+                                owner_name = boardResponse.owner_name ?: "",
+                                todo =
+                                if (todoListMap[boardResponse.id ?: -1]?.first != null)
+                                    todoListMap[boardResponse.id ?: -1]?.first.toString()
+                                else "0",
+                                totalTasks =
+                                if (todoListMap[boardResponse.id ?: -1]?.second != null)
+                                    todoListMap[boardResponse.id ?: -1]?.second.toString()
+                                else "0",
+                                remainingTasks =
+                                if (todoListMap[boardResponse.id ?: -1]?.third != null)
+                                    todoListMap[boardResponse.id ?: -1]?.third.toString()
+                                else "0",
+                                status =
+                                when {
+                                    todoListMap[boardResponse.id
+                                        ?: -1]?.third == null -> BoardStatusEnum.Done
+                                    todoListMap[boardResponse.id
+                                        ?: -1]?.third != 0 -> BoardStatusEnum.ToDo
+                                    else -> BoardStatusEnum.Done
+                                }
+                            )
+                        )
+                    }
+                }
+            }
+            mAdapter.submitList(viewList)
+        })
+
         iv_dash_board_custom_menu_button.setOnClickListener {
             val wrapper = ContextThemeWrapper(context, R.style.popupmenu)
             val popup = PopupMenu(wrapper, iv_dash_board_anchor_for_menu, Gravity.END)
@@ -101,15 +145,8 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
             addMemberViewModel?.reSet()
             myView.findNavController().navigate(R.id.action_dashBoardFragment_to_add_board)
         }
-        observUpdated()
-        super.onActivityCreated(savedInstanceState)
-    }
+        observeUpdated()
 
-    private fun observUpdated() {
-        boardViewModel?.isBoardUpdated?.observe(this, Observer {
-            boardViewModel?.getBoards()
-            observeList()
-        })
         sr_dashboard.setOnRefreshListener {
             boardViewModel?.getBoards()
             val handler = Handler()
@@ -117,35 +154,48 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
                 if (sr_dashboard.isRefreshing) {
                     sr_dashboard.isRefreshing = false
                 }
-                observeList()
+                observeRemoteResponse()
             }, 500)
         }
+
+        super.onActivityCreated(savedInstanceState)
+    }
+
+    private fun observeUpdated() {
+        boardViewModel?.isBoardUpdated?.observe(this, Observer {
+            boardViewModel?.getBoards()
+        })
+    }
+
+    private fun observeRemoteResponse() {
+        sr_dashboard.isRefreshing = true
+        boardViewModel?.getBoardsFromRemoteLiveData?.observe(this, Observer {
+            when (it) {
+                is Result.Success -> {
+                    sr_dashboard.isRefreshing = false
+                }
+
+                is Result.Error -> {
+                    showSnackBar(myView, it.message, Snackbar.LENGTH_LONG)
+                    sr_dashboard.isRefreshing = false
+                }
+
+                is Result.Loading -> {
+                }
+            }
+        })
     }
 
     private fun observeList() {
-        boardViewModel?.boardList?.observe(this, Observer { boardList ->
+        boardViewModel?.boardList?.observe(this, Observer { bl ->
             val lastNum: Int = mAdapter.itemCount
-            when (boardList) {
-                is Result.Success -> {
-                    boardListToBoardViewList(boardList.data)
-//                    mAdapter.submitList(boardListToBoardViewList(boardList.data))
-                    val listNum = boardList.data?.size
-                    if (listNum == 0) ll_dash_board_empty_state.visibility = View.VISIBLE
-                    else ll_dash_board_empty_state.visibility = View.GONE
-                    if (listNum == lastNum + 1) {
-                        rv_boards.smoothScrollToPosition(lastNum)
-                    }
-                }
-                is Result.Error -> {
-                    showSnackBar(
-                        myView,
-                        boardList.message,
-                        Snackbar.LENGTH_LONG,
-                        "Connection"
-                    )
-                }
-                is Result.Loading -> {
-                }
+            boardList = bl
+            boardViewModel?.getCurrentTodos()
+            val listNum = boardList?.size
+            if (listNum == 0) ll_dash_board_empty_state.visibility = View.VISIBLE
+            else ll_dash_board_empty_state.visibility = View.GONE
+            if (listNum == lastNum + 1) {
+                rv_boards.smoothScrollToPosition(lastNum)
             }
         })
     }
@@ -173,8 +223,7 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
                         showSnackBar(
                             myView,
                             it.message,
-                            Snackbar.LENGTH_LONG,
-                            "ERROR"
+                            Snackbar.LENGTH_LONG
                         )
                     }
                     is Result.Loading -> {
@@ -189,16 +238,16 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
         dialog.show()
     }
 
-    private fun showSnackBar(view: View, message: String, duration: Int, type: String) {
+    private fun showSnackBar(view: View, message: String, duration: Int) {
         val snackBar = Snackbar.make(view, message, duration)
-        snackBar.setActionTextColor(Color.YELLOW)
-        snackBar.setAction("Refresh") {
+        snackBar.setActionTextColor(Color.RED)
+        snackBar.setAction("Try again") {
             boardViewModel?.getBoards()
         }
         snackBar.show()
     }
 
-    private fun extractBoardDetails(list: List<TodoSpecification>): MutableMap<Int, Triple<Int, Int, Int>> {
+    private fun extractBoardDetails(list: List<TodoListDto>): MutableMap<Int, Triple<Int, Int, Int>> {
         val todoListMap = mutableMapOf<Int, Triple<Int, Int, Int>>()
         list.forEach {
             var remainingTasksCount = 0
@@ -207,7 +256,6 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
                     remainingTasksCount++
             }
             if (it.todo.board_id in todoListMap.keys) {
-
                 todoListMap[it.todo.board_id] = Triple(
                     todoListMap[it.todo.board_id]?.first?.plus(1) ?: 0
                     , todoListMap[it.todo.board_id]?.second?.plus(it.tasks.size) ?: 0
@@ -220,54 +268,7 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
         return todoListMap
     }
 
-    private fun boardListToBoardViewList(list: List<BoardResponse>?): MutableList<BoardView> {
-        var todoListMap: MutableMap<Int, Triple<Int, Int, Int>>
-        val viewList = mutableListOf<BoardView>()
-        boardViewModel?.getCurrentTodos()
-        boardViewModel?.getCurrentTodosLiveData?.observe(this, Observer {
-            when (it) {
-                is Result.Success -> {
-                    it.data?.let { responseData ->
-                        todoListMap = extractBoardDetails(responseData)
-                        list?.forEach { boardResponse ->
-                            viewList.add(
-                                BoardView(
-                                    id = boardResponse.id ?: -1,
-                                    title = boardResponse.title ?: "",
-                                    owner_name = boardResponse.owner_name ?: "",
-                                    todo =
-                                    if (todoListMap[boardResponse.id ?: -1]?.first != null)
-                                        todoListMap[boardResponse.id ?: -1]?.first.toString()
-                                    else "0",
-                                    totalTasks =
-                                    if (todoListMap[boardResponse.id ?: -1]?.second != null)
-                                        todoListMap[boardResponse.id ?: -1]?.second.toString()
-                                    else "0",
-                                    remainingTasks =
-                                    if (todoListMap[boardResponse.id ?: -1]?.third != null)
-                                        todoListMap[boardResponse.id ?: -1]?.third.toString()
-                                    else "0",
-                                    status =
-                                    when {
-                                        todoListMap[boardResponse.id
-                                            ?: -1]?.third == null -> BoardStatusEnum.Done
-                                        todoListMap[boardResponse.id
-                                            ?: -1]?.third != 0 -> BoardStatusEnum.ToDo
-                                        else -> BoardStatusEnum.Done
-                                    }
-                                )
-                            )
-                        }
-                    }
-                    mAdapter.submitList(viewList)
-                }
-                is Result.Error -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                }
-                is Result.Loading -> {
-                }
-            }
-        })
-        return viewList
+    private fun boardListToBoardViewList(list: List<BoardEntity>?) {
+
     }
 }

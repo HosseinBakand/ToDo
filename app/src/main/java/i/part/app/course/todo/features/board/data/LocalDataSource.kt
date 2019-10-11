@@ -2,10 +2,10 @@ package i.part.app.course.todo.features.board.data
 
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import i.part.app.course.todo.core.db.TodoDatabase
 
 class LocalDataSource {
-
     private var db: TodoDatabase? = null
 
     init {
@@ -14,20 +14,48 @@ class LocalDataSource {
 
     fun insertTodoLists(list: ThisBoardTodoListResponse) {
         list.result.forEach { db?.getBoardDao()?.insertTodoList(it) }
-
     }
 
     fun getTodoLists(boardId: Int): LiveData<List<TodoListDto>>? {
         return db?.getBoardDao()?.getAllTodos(boardId)
     }
-//
-//    fun insertPets(list:List<PetEntity>){
-//        db?.getUserDao()?.insertPets(list)
-//    }
-//
-//    fun getAllUsers(): LiveData<List<UserPetEntity>>{
-//        return db?.getUserDao()?.getAllUsers() ?: MutableLiveData()
-//    }
+
+    fun insertTodoLists(list: List<TodoListDto>) {
+        Thread { list.forEach { db?.getBoardDao()?.insertTodoList(it) } }.start()
+    }
+
+    fun getAllBoardsTodos(): LiveData<List<TodoListDto>>? {
+        return db?.getBoardDao()?.getAllBoardsTodos()
+    }
+
+    fun getBoards(): LiveData<List<BoardEntity>> {
+        return db?.getBoardDao()?.getBoards() ?: MutableLiveData()
+    }
+
+    fun getBoardCount() = db?.getBoardDao()?.count() ?: 0
+    fun getBoardById(boardId: Int): LiveData<BoardDetailEntity> {
+        return db?.getBoardDao()?.getBoardById(boardId) ?: MutableLiveData()
+    }
+
+    fun insertBoard(boardEntity: BoardEntity) {
+        db?.getBoardDao()?.insertBoard(boardEntity)
+    }
+
+    fun insertBoards(boardEntities: List<BoardEntity>) {
+        db?.getBoardDao()?.insertBoards(boardEntities)
+    }
+
+    fun updateBoardTitle(boardId: Int, boardTitle: String) {
+        db?.getBoardDao()?.updateBoardTitle(boardId, boardTitle)
+    }
+
+    fun deleteBoardById(boardId: Int) {
+        db?.getBoardDao()?.deleteBoardById(boardId)
+    }
+
+    fun deleteAllBoards() {
+        db?.getBoardDao()?.deleteAllBoards()
+    }
 
     fun getAllusers(): LiveData<List<BoardMemberEntity>>? {
         return db?.getBoardDao()?.getAllUsers()
@@ -52,8 +80,4 @@ class LocalDataSource {
             }
         }
     }
-
-
-
-
 }

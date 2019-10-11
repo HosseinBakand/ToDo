@@ -22,11 +22,15 @@ import java.util.*
 
 private object Callback : DiffUtil.ItemCallback<BoardView>() {
     override fun areItemsTheSame(oldItem: BoardView, newItem: BoardView): Boolean {
-        return (oldItem == newItem)
+        return (oldItem.id == newItem.id)
     }
 
     override fun areContentsTheSame(oldItem: BoardView, newItem: BoardView): Boolean {
-        return (oldItem == newItem && oldItem.imageUrl == newItem.imageUrl)
+        return (oldItem.title == newItem.title &&
+                oldItem.owner_name == oldItem.owner_name &&
+                oldItem.status == newItem.status &&
+                oldItem.remainingTasks == newItem.remainingTasks &&
+                oldItem.todo == newItem.todo)
     }
 }
 
@@ -76,7 +80,7 @@ class BoardRecyclerAdapter(
         val overlap: OverlapDecoration = OverlapDecoration()
         holder.rv_avatar.addItemDecoration(overlap)
         avatarManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
-        holder.rv_avatar.let { it.layoutManager = avatarManager }
+        holder.rv_avatar.layoutManager = avatarManager
         //start generating fake data
         val fakeLink: String =
             "https://www.shareicon.net/download/2016/05/24/770136_man_512x512.png"

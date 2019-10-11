@@ -15,7 +15,6 @@ class MyApplication : Application() {
         getToken()
         getOwner()
         TodoDatabase.init(this)
-
     }
 
 
