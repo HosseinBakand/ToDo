@@ -18,13 +18,13 @@ class SubTaskRecyclerAdapter(
     val callBack: MyTaskListCallback
 ) :
     RecyclerView.Adapter<SubTaskRecyclerAdapter.ViewHolder>() {
-    lateinit var view:View
+    lateinit var view: View
     var checkedTasks = 0
 
     lateinit var mBinding: ItemSubtaskBinding
 
 
-    inner class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         internal val checkBox = itemView.findViewById<CheckBox>(R.id.cb_item_subtask)
         internal var assigneeProfilePhoto =
@@ -38,12 +38,12 @@ class SubTaskRecyclerAdapter(
         mBinding = DataBindingUtil.inflate(inflater, R.layout.item_subtask, parent, false)
         val myBindedView = mBinding.root
         return ViewHolder(myBindedView)
-        }
+    }
 
     override fun getItemCount() = subtasks.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        mBinding.subtask =subtasks[position]
+        mBinding.subtask = subtasks[position]
         holder.checkBox.setOnCheckedChangeListener { _, _ ->
             if (holder.checkBox.isChecked) {
                 checkedTasks++

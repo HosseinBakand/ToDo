@@ -60,7 +60,8 @@
         android:label="Profile" >
         <action
             android:id="@+id/action_profile_to_dashBoardFragment"
-            app:destination="@id/dashBoardFragment" />
+            app:popUpTo="@id/profile"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/board"

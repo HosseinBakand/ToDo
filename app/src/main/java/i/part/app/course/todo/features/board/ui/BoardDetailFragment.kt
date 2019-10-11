@@ -113,9 +113,6 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
         sr_todo_list.setOnRefreshListener {
             val handler = Handler()
             handler.postDelayed({
-                if (sr_todo_list.isRefreshing) {
-                    sr_todo_list.isRefreshing = false
-                }
                 observeTodoList()
             }, 500)
         }
