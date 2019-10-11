@@ -49,9 +49,6 @@ class TodoListViewModel : ViewModel() {
         _todoListDataBase = liveData<List<TodoListDto>>(Dispatchers.IO) {
             repository.getTodos(boardID)?.let { emitSource(it) }
         }
-
-
-
     }
 
     fun editToDoListName(id: Int, newName: String) {
@@ -68,10 +65,10 @@ class TodoListViewModel : ViewModel() {
     fun editTask(id: Int, updateTaskParam: UpdateTaskParam) {
         repository.editTask(id = id, updateTaskParam = updateTaskParam)
     }
+
     fun loadTodoList(boardId: Int) {
         _todoListsResponse = repository.loadTodoLists(boardId)
     }
-
 
     fun addTodoList(name: String, boardId: Int) {
         _addTodoListResponse = repository.addTodoList(name, boardId)

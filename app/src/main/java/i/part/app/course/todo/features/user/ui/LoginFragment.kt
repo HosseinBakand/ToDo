@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -68,58 +69,63 @@ class LoginFragment : Fragment() {
             val myLoginParam =
                 LoginParam(tiet_login_email.text.toString(), tiet_login_password.text.toString())
             loginViewModel.login(myLoginParam)
-            loginViewModel.loginResult.observe(this, Observer {
+            val h = Handler()
+            h.postDelayed({
 
 
-                //TODO:remove this section for final version
-                //start
+                loginViewModel.loginResult.observe(this, Observer {
+
+
+                    //TODO:remove this section for final version
+                    //start
 //                progressLoginDialog.dismiss()
 //                myView.findNavController()
 //                    .navigate(R.id.action_loginFragment_to_dashBoardFragment)
-                //end
+                    //end
 
 
-                //TODO:Uncomment this section for final version
-                //start
-                when (it) {
-                    is Result.Success -> {
-                        progressLoginDialog.dismiss()
-                        myView.findNavController()
-                            .navigate(R.id.action_loginFragment_to_dashBoardFragment)
-                        it.data?.let { itdata ->
-                            itdata.token.let { itdatatoken ->
-                                saveToken(itdatatoken)
+                    //TODO:Uncomment this section for final version
+                    //start
+                    when (it) {
+                        is Result.Success -> {
+                            progressLoginDialog.dismiss()
+                            myView.findNavController()
+                                .navigate(R.id.action_loginFragment_to_dashBoardFragment)
+                            it.data?.let { itdata ->
+                                itdata.token.let { itdatatoken ->
+                                    saveToken(itdatatoken)
+                                }
+                                itdata.username.let { username ->
+                                    saveOwner(username)
+                                }
                             }
-                            itdata.username.let { username ->
-                                saveOwner(username)
+
+                        }
+                        is Result.Error -> {
+                            if (it.message == "Password Not Verified") {
+                                progressLoginDialog.dismiss()
+                                showSnackbar(
+                                    myView,
+                                    "Check your password",
+                                    Snackbar.LENGTH_LONG
+                                )
+                            } else if (it.message == "Not Found") {
+                                progressLoginDialog.dismiss()
+                                showSnackbar(myView, "User not found!", Snackbar.LENGTH_LONG)
+                            } else if (it.message == "ConnectionError") {
+                                progressLoginDialog.dismiss()
+                                showSnackbar(myView, "Check your network", Snackbar.LENGTH_LONG)
                             }
                         }
+                        is Result.Loading -> {
 
-                    }
-                    is Result.Error -> {
-                        if (it.message == "Password Not Verified") {
-                            progressLoginDialog.dismiss()
-                            showSnackbar(
-                                myView,
-                                "Check your password",
-                                Snackbar.LENGTH_LONG
-                            )
-                        } else if (it.message == "Not Found") {
-                            progressLoginDialog.dismiss()
-                            showSnackbar(myView, "User not found!", Snackbar.LENGTH_LONG)
-                        } else if (it.message == "ConnectionError") {
-                            progressLoginDialog.dismiss()
-                            showSnackbar(myView, "Check your network", Snackbar.LENGTH_LONG)
                         }
                     }
-                    is Result.Loading -> {
 
-                    }
-                }
+                    //end
 
-                //end
-
-            })
+                })
+            }, 1000)
         }
         tiet_login_email.setOnFocusChangeListener { _, _ ->
             loginViewModel.onDataChanged(

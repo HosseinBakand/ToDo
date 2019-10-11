@@ -3,6 +3,7 @@ package i.part.app.course.todo.features.board.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import i.part.app.course.todo.MyApplication
 import i.part.app.course.todo.core.api.Result
 import i.part.app.course.todo.core.api.RetrofitFactory
 import retrofit2.Call
@@ -13,7 +14,9 @@ import retrofit2.Response
 class BoardRepository {
     private val retrofit = RetrofitFactory.getRetrofit()
     private val boardServices = retrofit?.create(BoardServices::class.java)
-    private var localDataSource = LocalDataSource()
+    private val localDataSource = LocalDataSource()
+    val boards = localDataSource.getBoards()
+    val currentTodos = localDataSource.getAllBoardsTodos()
 
     fun addTodoList(
         todoListName: String,
@@ -44,7 +47,6 @@ class BoardRepository {
     }
 
     fun getTodos(boardID: Int): LiveData<List<TodoListDto>>? {
-
         return localDataSource.getTodoLists(boardID)
     }
 
@@ -62,7 +64,6 @@ class BoardRepository {
                 entity: Response<ThisBoardTodoListResponse?>
             ) {
                 if (entity.isSuccessful) {
-
                     entity.body()?.let {
                         localDataSource.insertTodoLists(it)
                         result.value = Result.Success("Success")
@@ -98,7 +99,6 @@ class BoardRepository {
             }
 
         })
-
         return result
     }
 
@@ -267,26 +267,32 @@ class BoardRepository {
         return result
     }
 
-
-    fun getBoards(): MutableLiveData<Result<List<BoardResponse>?>> {
-        val result = MutableLiveData<Result<List<BoardResponse>?>>()
-        val call: Call<List<BoardResponse>>? = boardServices?.getBoards()
-        result.value = Result.Loading(null)
-        call?.enqueue(object : Callback<List<BoardResponse>> {
-            override fun onFailure(call: Call<List<BoardResponse>>, t: Throwable) {
-                result.value = Result.Error("Connection error")
-            }
-
-            override fun onResponse(
-                call: Call<List<BoardResponse>>,
-                response: Response<List<BoardResponse>>
-            ) {
-                when {
-                    response.isSuccessful -> result.value = Result.Success(response.body())
-                    response.code() == 401 -> result.value = Result.Error("Unauthorized")
+    fun getBoardsFromRemoteDataSource(): MutableLiveData<Result<String>> {
+        val result = MutableLiveData<Result<String>>()
+        if (MyApplication.isConnectedToNetwork) {
+            val call: Call<List<BoardEntity>>? = boardServices?.getBoards()
+            call?.enqueue(object : Callback<List<BoardEntity>> {
+                override fun onFailure(call: Call<List<BoardEntity>>, t: Throwable) {
+                    result.value = Result.Error("Connection error")
                 }
-            }
-        })
+
+                override fun onResponse(
+                    call: Call<List<BoardEntity>>,
+                    response: Response<List<BoardEntity>>
+                ) {
+                    when {
+                        response.isSuccessful -> {
+                            localDataSource.deleteAllBoards()
+                            localDataSource.insertBoards(response.body() ?: mutableListOf())
+                            result.value = Result.Success("Success")
+                        }
+                        response.code() == 401 -> result.value = Result.Error("Unauthorized")
+                    }
+                }
+            })
+        } else {
+            result.value = Result.Error("No Internet connection")
+        }
         return result
     }
 
@@ -304,7 +310,16 @@ class BoardRepository {
                 response: Response<NewBoardResponse>
             ) {
                 when {
-                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    response.isSuccessful -> {
+                        localDataSource.insertBoard(
+                            BoardEntity(
+                                response.body()?.data?.boardId,
+                                newBoardParam.title,
+                                newBoardParam.owner_name
+                            )
+                        )
+                        result.value = Result.Success(response.body())
+                    }
                     response.code() == 400 -> result.value =
                         Result.Error(response.body()?.message ?: "invalid request")
                     response.code() == 401 -> result.value =
@@ -315,28 +330,8 @@ class BoardRepository {
         return result
     }
 
-    fun getBoardById(id: Int): MutableLiveData<Result<BoardDetailResponse?>> {
-        val result = MutableLiveData<Result<BoardDetailResponse?>>()
-        val call: Call<BoardDetailResponse>? = boardServices?.getBoardById(id = id)
-        call?.enqueue(object : Callback<BoardDetailResponse> {
-            override fun onFailure(call: Call<BoardDetailResponse>, t: Throwable) {
-                result.value = Result.Error("Connection error", null)
-            }
-
-            override fun onResponse(
-                call: Call<BoardDetailResponse>,
-                response: Response<BoardDetailResponse>
-            ) {
-                when {
-                    response.isSuccessful -> result.value = Result.Success(response.body())
-                    response.code() == 404 -> result.value =
-                        Result.Error(response.message() ?: "Board not found")
-                    response.code() == 401 -> result.value =
-                        Result.Error(response.message() ?: "Unauthorized")
-                }
-            }
-        })
-        return result
+    fun getBoardByIdFromLocalDataSource(id: Int): LiveData<BoardDetailEntity> {
+        return localDataSource.getBoardById(id)
     }
 
     fun updateBoardTitle(id: Int, title: String): MutableLiveData<Result<UpdateBoardResponse?>> {
@@ -353,7 +348,10 @@ class BoardRepository {
                 response: Response<UpdateBoardResponse>
             ) {
                 when {
-                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    response.isSuccessful -> {
+                        localDataSource.updateBoardTitle(id, title)
+                        result.value = Result.Success(response.body())
+                    }
                     response.code() == 400 -> result.value =
                         Result.Error(response.message() ?: "Body is not valid")
                     response.code() == 404 -> result.value =
@@ -379,7 +377,10 @@ class BoardRepository {
                 response: Response<DeleteBoardResponse>
             ) {
                 when {
-                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    response.isSuccessful -> {
+                        localDataSource.deleteBoardById(id)
+                        result.value = Result.Success(response.body())
+                    }
                     response.code() == 404 -> result.value =
                         Result.Error(response.message() ?: "Board not found")
                 }
@@ -388,20 +389,25 @@ class BoardRepository {
         return result
     }
 
-    fun getCurrentTodos(): MutableLiveData<Result<List<TodoSpecification>?>> {
-        val result = MutableLiveData<Result<List<TodoSpecification>?>>()
-        val call: Call<List<TodoSpecification>>? = boardServices?.getCurrentTodos()
-        call?.enqueue(object : Callback<List<TodoSpecification>> {
-            override fun onFailure(call: Call<List<TodoSpecification>>, t: Throwable) {
+    fun getCurrentTodos(): MutableLiveData<Result<String?>> {
+        val result = MutableLiveData<Result<String?>>()
+        val call: Call<List<TodoListDto>>? = boardServices?.getCurrentTodos()
+        call?.enqueue(object : Callback<List<TodoListDto>> {
+            override fun onFailure(call: Call<List<TodoListDto>>, t: Throwable) {
                 result.value = Result.Error("ConnectionError", null)
             }
 
             override fun onResponse(
-                call: Call<List<TodoSpecification>>,
-                response: Response<List<TodoSpecification>>
+                call: Call<List<TodoListDto>>,
+                entity: Response<List<TodoListDto>>
             ) {
                 when {
-                    response.isSuccessful -> result.value = Result.Success(response.body())
+                    entity.isSuccessful -> {
+                        entity.body()?.let {
+                            localDataSource.insertTodoLists(it)
+                            result.value = Result.Success("Success")
+                        }
+                    }
                     else -> result.value = Result.Error("Invalid request")
                 }
             }

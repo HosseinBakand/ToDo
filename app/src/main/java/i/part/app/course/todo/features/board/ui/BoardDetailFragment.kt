@@ -153,22 +153,22 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
 
     private fun observeGetBoard() {
         boardViewModel?.getBoardByIdLiveData?.observe(this, Observer {
-            when (it) {
-                is Result.Success -> {
-                    mt_board.title = it.data?.result?.get(0)?.title
-                    boardOwner = it.data?.result?.get(0)?.owner_name ?: ""
-                }
-                is Result.Error -> {
-                    showSnackBar(
-                        inflatedView,
-                        it.message,
-                        Snackbar.LENGTH_LONG,
-                        "ERROR"
-                    )
-                }
-                is Result.Loading -> {
-                }
-            }
+            //            when (it) {
+//                is Result.Success -> {
+            mt_board.title = it.title
+            boardOwner = it.owner_name
+//                }
+//                is Result.Error -> {
+//                    showSnackBar(
+//                        inflatedView,
+//                        it.message,
+//                        Snackbar.LENGTH_LONG,
+//                        "ERROR"
+//                    )
+//                }
+//                is Result.Loading -> {
+//                }
+//            }
         })
     }
 
@@ -373,7 +373,7 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
     private fun showSnackBar(view: View, message: String, duration: Int) {
         val snackbar = Snackbar.make(view, message, duration)
         snackbar.setActionTextColor(Color.RED)
-        snackbar.setAction("Try againg") {
+        snackbar.setAction("Try again") {
             //try to reconnect
             sr_todo_list.performClick()
             observeTodoList()

@@ -7,9 +7,6 @@ import i.part.app.course.todo.core.api.Result
 import i.part.app.course.todo.features.board.data.*
 
 class DashBoardViewModel : ViewModel() {
-    private var _boardList: MutableLiveData<Result<List<BoardResponse>?>>? = null
-    val boardList: LiveData<Result<List<BoardResponse>?>>?
-        get() = _boardList
     private var _removeBoardLiveData: MutableLiveData<Result<DeleteBoardResponse?>>? = null
     val removeBoardLiveData: LiveData<Result<DeleteBoardResponse?>>?
         get() = _removeBoardLiveData
@@ -19,17 +16,23 @@ class DashBoardViewModel : ViewModel() {
     private var _updateBoardTitleLiveData: MutableLiveData<Result<UpdateBoardResponse?>>? = null
     val updateBoardTitleLivaData: LiveData<Result<UpdateBoardResponse?>>?
         get() = _updateBoardTitleLiveData
-    private var _getBoardByIdLiveData: MutableLiveData<Result<BoardDetailResponse?>>? = null
-    val getBoardByIdLiveData: LiveData<Result<BoardDetailResponse?>>?
+    private lateinit var _getBoardByIdLiveData: LiveData<BoardDetailEntity>
+    val getBoardByIdLiveData: LiveData<BoardDetailEntity>
         get() = _getBoardByIdLiveData
     private var _isBoardUpdated = MutableLiveData<Boolean>()
     val isBoardUpdated: LiveData<Boolean>
         get() = _isBoardUpdated
-    private var _getCurrentTodosLiveData: MutableLiveData<Result<List<TodoSpecification>?>>? = null
-    val getCurrentTodosLiveData: LiveData<Result<List<TodoSpecification>?>>?
+    var getBoardsFromRemoteLiveData: MutableLiveData<Result<String>>? = null
+    private val boardRepository = BoardRepository()
+    private val _boardList: LiveData<List<BoardEntity>> = boardRepository.boards
+    val boardList: LiveData<List<BoardEntity>>
+        get() = _boardList
+
+    private var _getCurrentTodosLiveData: LiveData<List<TodoListDto>>? =
+        boardRepository.currentTodos
+    val getCurrentTodosLiveData: LiveData<List<TodoListDto>>?
         get() = _getCurrentTodosLiveData
 
-    private val boardRepository = BoardRepository()
     fun addBoard(boardView: BoardView) {
         _addBoardLiveData =
             boardRepository.createBoard(NewBoardParam(boardView.title, boardView.owner_name))
@@ -44,15 +47,11 @@ class DashBoardViewModel : ViewModel() {
     }
 
     fun getBoards() {
-        _boardList = loadBoards()
-    }
-
-    private fun loadBoards(): MutableLiveData<Result<List<BoardResponse>?>>? {
-        return boardRepository.getBoards()
+        getBoardsFromRemoteLiveData = boardRepository.getBoardsFromRemoteDataSource()
     }
 
     fun getBoardById(id: Int) {
-        _getBoardByIdLiveData = boardRepository.getBoardById(id)
+        _getBoardByIdLiveData = boardRepository.getBoardByIdFromLocalDataSource(id)
     }
 
     fun updateBoardStatus() {
@@ -60,6 +59,6 @@ class DashBoardViewModel : ViewModel() {
     }
 
     fun getCurrentTodos() {
-        _getCurrentTodosLiveData = boardRepository.getCurrentTodos()
+        boardRepository.getCurrentTodos()
     }
 }
