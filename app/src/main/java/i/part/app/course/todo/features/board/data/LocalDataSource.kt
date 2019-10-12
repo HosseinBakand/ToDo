@@ -13,7 +13,7 @@ class LocalDataSource {
     }
 
     fun insertTodoLists(list: ThisBoardTodoListResponse) {
-        list.result.forEach { db?.getBoardDao()?.insertTodoList(it) }
+        Thread { list.result.forEach { db?.getBoardDao()?.insertTodoList(it) } }.start()
     }
 
     fun getTodoLists(boardId: Int): LiveData<List<TodoListDto>>? {
@@ -42,7 +42,7 @@ class LocalDataSource {
     }
 
     fun insertBoards(boardEntities: List<BoardEntity>) {
-        db?.getBoardDao()?.insertBoards(boardEntities)
+        Thread { db?.getBoardDao()?.insertBoards(boardEntities) }.start()
     }
 
     fun updateBoardTitle(boardId: Int, boardTitle: String) {

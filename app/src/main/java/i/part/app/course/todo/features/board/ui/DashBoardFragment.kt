@@ -81,36 +81,33 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
         observeList()
         boardViewModel?.getCurrentTodos()
         boardViewModel?.getCurrentTodosLiveData?.observe(this, Observer {
-            var todoListMap: MutableMap<Int, Triple<Int, Int, Int>>
-            var viewList = mutableListOf<BoardView>()
+            val viewList = mutableListOf<BoardView>()
             it?.let { responseData ->
-                viewList = mutableListOf()
-                todoListMap =
-                    extractBoardDetails(responseData)
-                boardList?.let { be ->
-                    for (boardResponse in be) {
+                val todoListMap = extractBoardDetails(responseData)
+                boardList?.let { boardEntityList ->
+                    for (boardEntity in boardEntityList) {
                         viewList.add(
                             BoardView(
-                                id = boardResponse.id ?: -1,
-                                title = boardResponse.title ?: "",
-                                owner_name = boardResponse.owner_name ?: "",
+                                id = boardEntity.id ?: -1,
+                                title = boardEntity.title ?: "",
+                                owner_name = boardEntity.owner_name ?: "",
                                 todo =
-                                if (todoListMap[boardResponse.id ?: -1]?.first != null)
-                                    todoListMap[boardResponse.id ?: -1]?.first.toString()
+                                if (todoListMap[boardEntity.id ?: -1]?.first != null)
+                                    todoListMap[boardEntity.id ?: -1]?.first.toString()
                                 else "0",
                                 totalTasks =
-                                if (todoListMap[boardResponse.id ?: -1]?.second != null)
-                                    todoListMap[boardResponse.id ?: -1]?.second.toString()
+                                if (todoListMap[boardEntity.id ?: -1]?.second != null)
+                                    todoListMap[boardEntity.id ?: -1]?.second.toString()
                                 else "0",
                                 remainingTasks =
-                                if (todoListMap[boardResponse.id ?: -1]?.third != null)
-                                    todoListMap[boardResponse.id ?: -1]?.third.toString()
+                                if (todoListMap[boardEntity.id ?: -1]?.third != null)
+                                    todoListMap[boardEntity.id ?: -1]?.third.toString()
                                 else "0",
                                 status =
                                 when {
-                                    todoListMap[boardResponse.id
+                                    todoListMap[boardEntity.id
                                         ?: -1]?.third == null -> BoardStatusEnum.Done
-                                    todoListMap[boardResponse.id
+                                    todoListMap[boardEntity.id
                                         ?: -1]?.third != 0 -> BoardStatusEnum.ToDo
                                     else -> BoardStatusEnum.Done
                                 }

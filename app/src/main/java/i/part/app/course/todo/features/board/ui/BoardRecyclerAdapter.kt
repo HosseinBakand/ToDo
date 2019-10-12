@@ -30,10 +30,11 @@ private object Callback : DiffUtil.ItemCallback<BoardView>() {
                 oldItem.owner_name == oldItem.owner_name &&
                 oldItem.status == newItem.status &&
                 oldItem.remainingTasks == newItem.remainingTasks &&
-                oldItem.todo == newItem.todo)
+                oldItem.todo == newItem.todo &&
+                oldItem.totalTasks == newItem.totalTasks
+                )
     }
 }
-
 
 class BoardRecyclerAdapter(
     picasso: Picasso,

@@ -115,6 +115,7 @@ class EditBoardDialogFragment : DialogFragment() {
                                         fadeOutMills = 100
                                         fadeInMills = 100
                                     }
+                                    btn_edit_board_confirm.setBackgroundResource(R.drawable.dialog_button_round_down_green)
 
                                     val ha = Handler()
                                     ha.postDelayed({
@@ -128,16 +129,23 @@ class EditBoardDialogFragment : DialogFragment() {
                                     }, 400)
                                 }
                                 is Result.Error -> {
-                                    val myBundle = Bundle()
-                                    myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
-                                    this.findNavController()
-                                        .navigate(R.id.action_edit_board_to_board, myBundle)
-                                    showSnackBar(
-                                        myView,
-                                        it.message,
-                                        Snackbar.LENGTH_LONG,
-                                        "ERROR"
-                                    )
+
+                                    btn.showProgress {
+                                        progressColor = Color.TRANSPARENT
+                                    }
+                                    btn_edit_board_confirm.setBackgroundResource(R.drawable.dialog_button_round_down_green)
+                                    btn_edit_board_confirm.text =
+                                        getString(R.string.InternetConnectionError)
+//                                    val myBundle = Bundle()
+//                                    myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
+//                                    this.findNavController()
+//                                        .navigate(R.id.action_edit_board_to_board, myBundle)
+//                                    showSnackBar(
+//                                        myView,
+//                                        it.message,
+//                                        Snackbar.LENGTH_LONG,
+//                                        "ERROR"
+//                                    )
                                 }
                                 is Result.Loading -> {
                                 }

@@ -69,6 +69,7 @@
     <string name="tiet_default_password">Aa123456</string>
     <string name="tv_item_board_done_text">Done</string>
     <string name="assignee_error">your task should have assignee</string>
+    <string name="InternetConnectionError">No Internet</string>
 
 
 </resources>
