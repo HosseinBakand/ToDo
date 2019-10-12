@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -91,7 +90,7 @@ class AddBoardDialogFragment : DialogFragment() {
                 boardViewModel?.addBoard(board)
                 observeAddBoard()
             } else {
-                Toast.makeText(context, "Board should have name", Toast.LENGTH_SHORT).show()
+                et_add_board_name?.error = "your board should have name"
             }
         }
         //recycle
@@ -140,6 +139,8 @@ class AddBoardDialogFragment : DialogFragment() {
     }
 
     private fun observeAddBoard() {
+        val btn = myView.findViewById<MaterialButton>(R.id.btn_add_board_confirm)
+
         boardViewModel?.addBoardLiveData?.observe(this, Observer {
             //TODO: addMemberViewModel?.selectedMembers?.value
             when (it) {
@@ -155,7 +156,6 @@ class AddBoardDialogFragment : DialogFragment() {
                         }
                     }
 
-                    val btn = myView.findViewById<MaterialButton>(R.id.btn_add_board_confirm)
                     bindProgressButton(btn)
                     btn.showProgress {
                         progressColor = Color.BLACK
@@ -178,6 +178,8 @@ class AddBoardDialogFragment : DialogFragment() {
                             fadeOutMills = 100
                             fadeInMills = 100
                         }
+                        btn_add_board_confirm.setBackgroundResource(R.drawable.dialog_button_round_down_green)
+
                         val h = Handler()
                         h.postDelayed({
                             this.dismiss()
@@ -186,13 +188,11 @@ class AddBoardDialogFragment : DialogFragment() {
                     }, 1000)
                 }
                 is Result.Error -> {
-                    this.dismiss()
-                    showSnackBar(
-                        myView,
-                        it.message,
-                        Snackbar.LENGTH_LONG,
-                        "ERROR"
-                    )
+                    btn.showProgress {
+                        progressColor = Color.TRANSPARENT
+                    }
+                    btn_add_board_confirm.setBackgroundResource(R.drawable.dialog_button_round_down_red)
+                    btn_add_board_confirm.text = getString(R.string.InternetConnectionError)
                 }
                 is Result.Loading -> {
                 }
