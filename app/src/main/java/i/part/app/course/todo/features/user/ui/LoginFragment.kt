@@ -160,8 +160,8 @@ class LoginFragment : Fragment() {
 
     fun showSnackbar(view: View, message: String, duration: Int) {
         val snackbar = Snackbar.make(view, message, duration)
-        snackbar.setActionTextColor(Color.RED)
-        snackbar.setAction("Try againg") {
+        snackbar.setActionTextColor(resources.getColor(R.color.colorPrimary))
+        snackbar.setAction("Try again") {
             //try to recconect
         }
         snackbar.show()

@@ -80,7 +80,7 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
         boardViewModel?.getBoards()
         observeList()
         boardViewModel?.getCurrentTodos()
-        boardViewModel?.getCurrentTodosLiveData?.observe(this, Observer {
+        boardViewModel?.getCurrentTodosLiveData?.observe(viewLifecycleOwner, Observer {
             val viewList = mutableListOf<BoardView>()
             it?.let { responseData ->
                 val todoListMap = extractBoardDetails(responseData)
@@ -117,6 +117,7 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
                 }
             }
             mAdapter.submitList(viewList)
+
         })
 
         iv_dash_board_custom_menu_button.setOnClickListener {
@@ -159,14 +160,14 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
     }
 
     private fun observeUpdated() {
-        boardViewModel?.isBoardUpdated?.observe(this, Observer {
+        boardViewModel?.isBoardUpdated?.observe(viewLifecycleOwner, Observer {
             boardViewModel?.getBoards()
         })
     }
 
     private fun observeRemoteResponse() {
         sr_dashboard.isRefreshing = true
-        boardViewModel?.getBoardsFromRemoteLiveData?.observe(this, Observer {
+        boardViewModel?.getBoardsFromRemoteLiveData?.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Result.Success -> {
                     sr_dashboard.isRefreshing = false
@@ -184,15 +185,17 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
     }
 
     private fun observeList() {
-        boardViewModel?.boardList?.observe(this, Observer { bl ->
+        boardViewModel?.boardList?.observe(viewLifecycleOwner, Observer { bl ->
             val lastNum: Int = mAdapter.itemCount
-            boardList = bl
-            boardViewModel?.getCurrentTodos()
+            if (bl.isNotEmpty()) {
+                boardList = bl
+                boardViewModel?.getCurrentTodos()
+            }
             val listNum = boardList?.size
             if (listNum == 0) ll_dash_board_empty_state.visibility = View.VISIBLE
             else ll_dash_board_empty_state.visibility = View.GONE
             if (listNum == lastNum + 1) {
-                rv_boards.smoothScrollToPosition(lastNum)
+                rv_boards.smoothScrollToPosition(lastNum + 1)
             }
         })
     }
@@ -209,7 +212,7 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
         val okButton = dialog.findViewById<TextView>(R.id.tv_ok_button)
         okButton.setOnClickListener {
             boardViewModel?.removeBoard(item)
-            boardViewModel?.removeBoardLiveData?.observe(this, Observer {
+            boardViewModel?.removeBoardLiveData?.observe(viewLifecycleOwner, Observer {
                 when (it) {
                     is Result.Success -> {
                         boardViewModel?.updateBoardStatus()
@@ -237,7 +240,7 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
 
     private fun showSnackBar(view: View, message: String, duration: Int) {
         val snackBar = Snackbar.make(view, message, duration)
-        snackBar.setActionTextColor(Color.RED)
+        snackBar.setActionTextColor(resources.getColor(R.color.colorPrimary))
         snackBar.setAction("Try again") {
             boardViewModel?.getBoards()
         }
@@ -265,7 +268,10 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
         return todoListMap
     }
 
-    private fun boardListToBoardViewList(list: List<BoardEntity>?) {
-
+    override fun onDetach() {
+        boardViewModel?.getBoardsFromRemoteLiveData?.removeObservers(viewLifecycleOwner)
+        boardViewModel?.addBoardLiveData?.removeObservers(viewLifecycleOwner)
+        boardViewModel?.boardList?.removeObservers(viewLifecycleOwner)
+        super.onDetach()
     }
 }

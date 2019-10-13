@@ -172,8 +172,8 @@ class RegisterFragment : Fragment() {
     fun showSnackbar(view: View, message: String, duration: Int, type: String) {
         if (type == "Connection") {
             val snackbar = Snackbar.make(view, message, duration)
-            snackbar.setActionTextColor(Color.RED)
-            snackbar.setAction("Try againg") {
+            snackbar.setActionTextColor(resources.getColor(R.color.colorPrimary))
+            snackbar.setAction("Try again") {
                 //try to recconect
                 btn_register_confirm.performClick()
             }

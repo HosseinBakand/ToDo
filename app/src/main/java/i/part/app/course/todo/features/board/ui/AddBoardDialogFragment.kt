@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -25,7 +26,6 @@ import com.github.razir.progressbutton.attachTextChangeAnimator
 import com.github.razir.progressbutton.bindProgressButton
 import com.github.razir.progressbutton.showDrawable
 import com.github.razir.progressbutton.showProgress
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.MyApplication
@@ -72,7 +72,7 @@ class AddBoardDialogFragment : DialogFragment() {
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.setCanceledOnTouchOutside(false)
-        observAddMember()
+        observeAddMember()
         ib_add_board_close.setOnClickListener {
             this.dismiss()
         }
@@ -119,7 +119,7 @@ class AddBoardDialogFragment : DialogFragment() {
         super.onActivityCreated(savedInstanceState)
     }
 
-    private fun observAddMember() {
+    private fun observeAddMember() {
         addMemberViewModel?.selectedMembers?.observe(viewLifecycleOwner, Observer {
             assigneeList = it
             val fakeLink =
@@ -139,22 +139,23 @@ class AddBoardDialogFragment : DialogFragment() {
     }
 
     private fun observeAddBoard() {
-        val btn = myView.findViewById<MaterialButton>(R.id.btn_add_board_confirm)
+        val btn = myView.findViewById<AppCompatButton>(R.id.btn_add_board_confirm)
 
-        boardViewModel?.addBoardLiveData?.observe(this, Observer {
+        boardViewModel?.addBoardLiveData?.observe(viewLifecycleOwner, Observer {
             //TODO: addMemberViewModel?.selectedMembers?.value
             when (it) {
                 is Result.Success -> {
                     it.data?.let {
                         it.data.let {
                             try {
-                                var tempParam = AddUserParam(assigneeList)
+                                val tempParam = AddUserParam(assigneeList)
                                 addMemberViewModel?.addUsersToBoard(it.boardId, tempParam)
                             } catch (ex: Exception) {
                                 Log.e("", "")
                             }
                         }
                     }
+
 
                     bindProgressButton(btn)
                     btn.showProgress {
@@ -193,6 +194,7 @@ class AddBoardDialogFragment : DialogFragment() {
                     }
                     btn_add_board_confirm.setBackgroundResource(R.drawable.dialog_button_round_down_red)
                     btn_add_board_confirm.text = getString(R.string.InternetConnectionError)
+                    btn_add_board_confirm.setTextColor(resources.getColor(R.color.white))
                 }
                 is Result.Loading -> {
                 }

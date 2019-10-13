@@ -196,6 +196,7 @@ class AddTaskFragment : DialogFragment() {
                     }
                     btn_add_task_confirm.setBackgroundResource(R.drawable.dialog_button_round_down_red)
                     btn_add_task_confirm.text = getString(R.string.InternetConnectionError)
+                    btn_add_task_confirm.setTextColor(resources.getColor(R.color.white))
 //                    Toast.makeText(context, "problem occurred", Toast.LENGTH_SHORT).show()
                 }
                 is Result.Loading -> {

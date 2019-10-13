@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -23,7 +24,6 @@ import com.github.razir.progressbutton.attachTextChangeAnimator
 import com.github.razir.progressbutton.bindProgressButton
 import com.github.razir.progressbutton.showDrawable
 import com.github.razir.progressbutton.showProgress
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import i.part.app.course.todo.R
@@ -82,7 +82,7 @@ class EditBoardDialogFragment : DialogFragment() {
         }
 
         btn_edit_board_confirm.setOnClickListener {
-            val btn = myView.findViewById<MaterialButton>(R.id.btn_edit_board_confirm)
+            val btn = myView.findViewById<AppCompatButton>(R.id.btn_edit_board_confirm)
             bindProgressButton(btn)
             btn.showProgress {
                 progressColor = Color.BLACK
@@ -96,7 +96,7 @@ class EditBoardDialogFragment : DialogFragment() {
                                 title = et_edit_board_name.text.toString()
                             )
                         )
-                        boardViewModel?.updateBoardTitleLivaData?.observe(this, Observer {
+                        boardViewModel?.updateBoardTitleLivaData?.observe(viewLifecycleOwner, Observer {
                             when (it) {
                                 is Result.Success -> {
                                     context?.let {
@@ -133,19 +133,10 @@ class EditBoardDialogFragment : DialogFragment() {
                                     btn.showProgress {
                                         progressColor = Color.TRANSPARENT
                                     }
-                                    btn_edit_board_confirm.setBackgroundResource(R.drawable.dialog_button_round_down_green)
+                                    btn_edit_board_confirm.setBackgroundResource(R.drawable.dialog_button_round_down_red)
                                     btn_edit_board_confirm.text =
                                         getString(R.string.InternetConnectionError)
-//                                    val myBundle = Bundle()
-//                                    myBundle.putInt("boardID", arguments?.getInt("boardID") ?: -1)
-//                                    this.findNavController()
-//                                        .navigate(R.id.action_edit_board_to_board, myBundle)
-//                                    showSnackBar(
-//                                        myView,
-//                                        it.message,
-//                                        Snackbar.LENGTH_LONG,
-//                                        "ERROR"
-//                                    )
+                                    btn_edit_board_confirm.setTextColor(resources.getColor(R.color.white))
                                 }
                                 is Result.Loading -> {
                                 }
@@ -186,5 +177,10 @@ class EditBoardDialogFragment : DialogFragment() {
             boardViewModel?.getBoards()
         }
         snackBar.show()
+    }
+
+    override fun onStop() {
+        boardViewModel?.updateBoardTitleLivaData?.removeObservers(viewLifecycleOwner)
+        super.onStop()
     }
 }

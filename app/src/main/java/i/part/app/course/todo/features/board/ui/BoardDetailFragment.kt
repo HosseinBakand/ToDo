@@ -322,7 +322,8 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
                         progressColor = Color.TRANSPARENT
                     }
                     btn.setBackgroundResource(R.drawable.dialog_button_round_down_red)
-                    btn.text = "No Internet"
+                    btn.text = getString(R.string.InternetConnectionError)
+                    btn.setTextColor(resources.getColor(R.color.white))
                 }
             }
         })
@@ -360,7 +361,8 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
                         progressColor = Color.TRANSPARENT
                     }
                     btn.setBackgroundResource(R.drawable.dialog_button_round_down_red)
-                    btn.text = "No Internet"
+                    btn.text = getString(R.string.InternetConnectionError)
+                    btn.setTextColor(resources.getColor(R.color.white))
                 }
             }
         })
@@ -369,7 +371,7 @@ class BoardDetailFragment : Fragment(), TodoListRecyclerAdapter.MyTodoListCallba
 
     private fun showSnackBar(view: View, message: String, duration: Int) {
         val snackbar = Snackbar.make(view, message, duration)
-        snackbar.setActionTextColor(Color.RED)
+        snackbar.setActionTextColor(resources.getColor(R.color.colorPrimary))
         snackbar.setAction("Try again") {
             //try to reconnect
             sr_todo_list.performClick()
