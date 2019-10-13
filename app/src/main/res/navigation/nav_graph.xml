@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/splashScreenFragment">
     <fragment
         android:id="@+id/loginFragment"
         android:name="i.part.app.course.todo.features.user.ui.LoginFragment"
@@ -192,4 +192,19 @@
             app:popUpTo="@+id/addTaskFragment"
             app:popUpToInclusive="true" />
     </dialog>
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="i.part.app.course.todo.core.util.ui.SplashScreenFragment"
+        android:label="SplashScreenFragment">
+        <action
+            android:id="@+id/action_splashScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

@@ -1,6 +1,7 @@
 package i.part.app.course.todo.features.board.ui
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -129,6 +130,11 @@ class DashBoardFragment : Fragment(), BoardRecyclerAdapter.MyCallback {
                     myView.findNavController()
                         .navigate(R.id.action_dashBoardFragment_to_profile)
                 } else if (item.title == "Log out") {
+                    val editor =
+                        context?.getSharedPreferences("myPref", Context.MODE_PRIVATE)?.edit()
+                    editor?.putBoolean("shouldLogin", true)
+                    editor?.apply()
+                    addMemberViewModel?.cleanAllDB()
                     myView.findNavController()
                         .navigate(R.id.action_dashBoardFragment_to_loginFragment)
                 }

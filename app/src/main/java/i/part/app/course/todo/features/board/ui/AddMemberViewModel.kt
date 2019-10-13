@@ -110,6 +110,10 @@ class AddMemberViewModel:ViewModel() {
         return repository.getBoardMembersDB(boardID)
     }
 
+    fun cleanAllDB() {
+        repository.cleanAllDB()
+    }
+
     fun changeContactState(selectMemberView: SelectMemberView) {
         val list = mutableListOf<SelectMemberView>()
         _contactList.value?.let {

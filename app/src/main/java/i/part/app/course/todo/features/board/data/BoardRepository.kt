@@ -50,6 +50,10 @@ class BoardRepository {
         return localDataSource.getTodoLists(boardID)
     }
 
+    fun cleanAllDB() {
+        localDataSource.cleanAllDB()
+    }
+
     fun loadTodoLists(boardID: Int): MutableLiveData<Result<String?>> {
         var result = MutableLiveData<Result<String?>>()
 //        result.value = Result.Loading()

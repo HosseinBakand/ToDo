@@ -31,4 +31,5 @@
     <dimen name="standard_icon_size">48dp</dimen>
     <dimen name="standard_padding_for_touch_target">12dp</dimen>
     <dimen name="iv_background_size">59dp</dimen>
+    <dimen name="ultra_big_font_size">40sp</dimen>
 </resources>

@@ -29,7 +29,7 @@ class RetrofitFactory {
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             if (retrofit == null) {
                 retrofit = Builder()
-                    .baseUrl("http://cadet.todo.partdp.ir/api/")
+                    .baseUrl("http://185.14.187.125:2000/api/")
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
