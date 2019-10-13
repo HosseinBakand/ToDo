@@ -7,7 +7,7 @@
     <string name="addBoardAssignTo">Assign to : </string>
     <string name="fake_board_name">Board1</string>
     <string name="addBoardOwner">Owner : </string>
-    <string name="are_you_sure">Are you sure you want to  Delete </string>
+    <string name="are_you_sure">Are you sure you want to delete </string>
     <string name="AddBoardBoardName">Board name</string>
     <string name="addBoardTitle">Add board</string>
     <string name="profile_toolbar_title">Profile</string>
@@ -63,7 +63,7 @@
     <string name="add_todolist_title">Add To Do List</string>
     <string name="add_todo_list_hint">Todo list name</string>
     <string name="default_owner_add_to_do_list">none</string>
-    <string name="msg_please_wait">Please wait...</string>
+    <string name="msg_please_wait">Please wait…</string>
     <string name="msg_loging_in">Logging in</string>
     <string name="tiet_defualt_username">pie@test.com</string>
     <string name="tiet_default_password">Aa123456</string>

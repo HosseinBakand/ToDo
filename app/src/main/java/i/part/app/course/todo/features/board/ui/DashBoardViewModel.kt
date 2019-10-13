@@ -24,14 +24,10 @@ class DashBoardViewModel : ViewModel() {
         get() = _isBoardUpdated
     var getBoardsFromRemoteLiveData: MutableLiveData<Result<String>>? = null
     private val boardRepository = BoardRepository()
-    private val _boardList: LiveData<List<BoardEntity>> = boardRepository.boards
-    val boardList: LiveData<List<BoardEntity>>
-        get() = _boardList
+    val boardList: LiveData<List<BoardEntity>> = boardRepository.boards
 
-    private var _getCurrentTodosLiveData: LiveData<List<TodoListDto>>? =
+    val getCurrentTodosLiveData: LiveData<List<TodoListDto>>? =
         boardRepository.currentTodos
-    val getCurrentTodosLiveData: LiveData<List<TodoListDto>>?
-        get() = _getCurrentTodosLiveData
 
     fun addBoard(boardView: BoardView) {
         _addBoardLiveData =
