@@ -76,48 +76,45 @@ class LoginFragment : Fragment() {
                 loginViewModel.loginResult.observe(this, Observer {
 
 
-                    //TODO:remove this section for final version
-                    //start
+                //TODO:remove this section for final version
+                //start
 //                progressLoginDialog.dismiss()
 //                myView.findNavController()
 //                    .navigate(R.id.action_loginFragment_to_dashBoardFragment)
-                    //end
+                //end
 
 
-                    //TODO:Uncomment this section for final version
-                    //start
-                    when (it) {
-                        is Result.Success -> {
+                //TODO:Uncomment this section for final version
+                //start
+                when (it) {
+                    is Result.Success -> {
+                        progressLoginDialog.dismiss()
+                        myView.findNavController()
+                            .navigate(R.id.action_loginFragment_to_dashBoardFragment)
+                        it.data?.let { itdata ->
+                            itdata.token.let { itdatatoken ->
+                                saveToken(itdatatoken)
+                            }
+                        }
+
+                    }
+                    is Result.Error -> {
+                        if (it.message == "Password Not Verified") {
                             progressLoginDialog.dismiss()
-                            myView.findNavController()
-                                .navigate(R.id.action_loginFragment_to_dashBoardFragment)
-                            it.data?.let { itdata ->
-                                itdata.token.let { itdatatoken ->
-                                    saveToken(itdatatoken)
-                                }
-                                itdata.username.let { username ->
-                                    saveOwner(username)
-                                }
-                            }
-
+                            showSnackbar(
+                                myView,
+                                "Check your password",
+                                Snackbar.LENGTH_LONG
+                            )
+                        } else if (it.message == "Not Found") {
+                            progressLoginDialog.dismiss()
+                            showSnackbar(myView, "User not found!", Snackbar.LENGTH_LONG)
+                        } else if (it.message == "ConnectionError") {
+                            progressLoginDialog.dismiss()
+                            showSnackbar(myView, "Check your network", Snackbar.LENGTH_LONG)
                         }
-                        is Result.Error -> {
-                            if (it.message == "Password Not Verified") {
-                                progressLoginDialog.dismiss()
-                                showSnackbar(
-                                    myView,
-                                    "Check your password",
-                                    Snackbar.LENGTH_LONG
-                                )
-                            } else if (it.message == "Not Found") {
-                                progressLoginDialog.dismiss()
-                                showSnackbar(myView, "User not found!", Snackbar.LENGTH_LONG)
-                            } else if (it.message == "ConnectionError") {
-                                progressLoginDialog.dismiss()
-                                showSnackbar(myView, "Check your network", Snackbar.LENGTH_LONG)
-                            }
-                        }
-                        is Result.Loading -> {
+                    }
+                    is Result.Loading -> {
 
                         }
                     }

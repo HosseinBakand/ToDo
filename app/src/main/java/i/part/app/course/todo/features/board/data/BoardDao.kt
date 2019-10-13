@@ -60,6 +60,18 @@ abstract class BoardDao {
     @Query("DELETE from MemberOfBoardEntity where boardID=:boardID")
     abstract fun cleanAllUsers(boardID: Int)
 
+    @Query("DELETE from BoardMemberEntity")
+    abstract fun cleanAllBoardMemberEntity()
+
+    @Query("DELETE from MemberOfBoardEntity")
+    abstract fun cleanAllMemberOfBoardEntity()
+
+    @Query("DELETE from TaskEntity")
+    abstract fun cleanAllTaskEntity()
+
+    @Query("DELETE from TodoEntity")
+    abstract fun cleanAllTodoEntity()
+
     @Query("SELECT * from MemberOfBoardEntity where boardID=:boardID")
     abstract fun getBoardUsers(boardID: Int): LiveData<List<MemberOfBoardEntity>>
 

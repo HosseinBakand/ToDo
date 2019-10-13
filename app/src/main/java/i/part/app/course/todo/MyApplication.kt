@@ -22,7 +22,7 @@ class MyApplication : Application() {
         val prefs = getSharedPreferences("myPref", Context.MODE_PRIVATE)
         TOKEN = prefs.getString(
             "myToken",
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBpZUB0ZXN0LmNvbSIsImlhdCI6MTU2OTMxNjQ3OH0.CFZ10UXOIhujcMVDm82xg3axdCAu6y1bAsk0IcDZbSI"
+            ""
         )//"No name defined" is the default value.
     }
 

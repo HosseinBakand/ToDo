@@ -16,6 +16,13 @@ class LocalDataSource {
         Thread { list.result.forEach { db?.getBoardDao()?.insertTodoList(it) } }.start()
     }
 
+    fun cleanAllDB() {
+        db?.getBoardDao()?.cleanAllBoardMemberEntity()
+        db?.getBoardDao()?.cleanAllMemberOfBoardEntity()
+        db?.getBoardDao()?.cleanAllTaskEntity()
+        db?.getBoardDao()?.cleanAllTodoEntity()
+    }
+
     fun getTodoLists(boardId: Int): LiveData<List<TodoListDto>>? {
         return db?.getBoardDao()?.getAllTodos(boardId)
     }

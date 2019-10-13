@@ -70,6 +70,7 @@
     <string name="tv_item_board_done_text">Done</string>
     <string name="assignee_error">your task should have assignee</string>
     <string name="InternetConnectionError">No Internet</string>
+    <string name="msg_splash_screen_wating_text">Please wait for a second...</string>
 
 
 </resources>
